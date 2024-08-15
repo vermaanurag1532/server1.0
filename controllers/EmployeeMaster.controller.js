@@ -102,7 +102,7 @@ const EmployeeMasterControllers = {
             connection.query(query, params, (err, results) => {
                 if (err) {
                     console.error('Error inserting data:', err.stack);
-                    res.status(500).send('Database error');
+                    res.status(500).json({ error: 'Database error', details: err.message });
                     return;
                 }
                 res.send('Employee added successfully');
