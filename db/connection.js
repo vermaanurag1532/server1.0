@@ -1,6 +1,8 @@
+import mysql from 'mysql2';
+
 function handleDisconnect() {
     const connection = mysql.createConnection({
-        host: 'localhost',
+        host: '13.239.113.142',
         user: 'root',
         password: 'Anurag@1532',
         database: 'mydatabase'
@@ -28,3 +30,4 @@ function handleDisconnect() {
 
 const connection = handleDisconnect();
 export default connection;
+
