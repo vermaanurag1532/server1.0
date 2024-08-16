@@ -1,6 +1,6 @@
+import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import multer from 'multer';
 import connection from '../db/connection.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -89,7 +89,7 @@ const EmployeeMasterControllers = {
                 weighterName || '',
                 passwordExpired || 0,
                 isLocked || 0,
-                noOfFailedAttempts || '',
+                noOfFailedAttempts ? parseInt(noOfFailedAttempts, 10) : null, // Convert to integer or null
                 passwordExpiresOn || null,
                 allowAccessFromMainURL || 0,
                 emergencyContactName || '',
