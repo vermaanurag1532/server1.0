@@ -2,7 +2,7 @@ import mysql from 'mysql2';
 
 function handleDisconnect() {
     const connection = mysql.createConnection({
-        host: '127.0.0.1',
+        host: 'localhost',
         user: 'root',
         password: 'Anurag@1532',
         database: 'mydatabase'
@@ -11,7 +11,7 @@ function handleDisconnect() {
     connection.connect(err => {
         if (err) {
             console.error('Error connecting to MySQL:', err.stack);
-            setTimeout(handleDisconnect, 2000); // Retry after 2 seconds
+            setTimeout(handleDisconnect, 2000); 
         } else {
             console.log('Connected to MySQL as id', connection.threadId);
         }
@@ -19,7 +19,7 @@ function handleDisconnect() {
 
     connection.on('error', err => {
         if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            handleDisconnect(); // Reconnect on lost connection
+            handleDisconnect();
         } else {
             throw err;
         }
