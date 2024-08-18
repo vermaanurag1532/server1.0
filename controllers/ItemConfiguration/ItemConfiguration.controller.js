@@ -4,7 +4,7 @@ import { generateAndDownloadExcel } from '../../utils/excelUtils.js';
 const ItemConfigurationController = {
     getItemConfiguration: async (req, res) => {
         try {
-            const data = await ItemConfigurationService.getAllItemConfigurations();
+            const data = await ItemConfigurationService.getAllItemConfigurations;
             res.json(data);
         } catch (err) {
             console.error('Error retrieving data:', err.stack);
@@ -24,7 +24,7 @@ const ItemConfigurationController = {
 
     downloadItemConfigurationExcel: async (req, res) => {
         try {
-            const data = await ItemConfigurationService.generateItemConfigurationExcel();
+            const data = await ItemConfigurationService.generateItemConfigurationExcel;
 
             const columns = [
                 { header: 'ItemType', key: 'ItemType', width: 20 },
