@@ -1,10 +1,10 @@
-import ItemConfigurationItemTypeService from '../../Service/ItemConfigration/ItemConfigurationItemType.service.js';
+import ItemConfigurationItemNatureService from '../../Service/ItemConfigration/ItemConfigurationItemNature.service.js';
 import { generateAndDownloadExcel } from '../../utils/excelUtils.js';
 
-const ItemConfigurationItemTypeControllers = {
+const ItemConfigurationItemNatureControllers = {
     getItemConfigurationItemType: async (req, res) => {
         try {
-            const results = await ItemConfigurationItemTypeService.getAllItemConfigurations();
+            const results = await ItemConfigurationItemNatureService.getAllItemConfigurations();
             res.json(results);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -13,7 +13,7 @@ const ItemConfigurationItemTypeControllers = {
 
     postItemConfigurationItemType: async (req, res) => {
         try {
-            const result = await ItemConfigurationItemTypeService.createItemConfiguration(req.body);
+            const result = await ItemConfigurationItemNatureService.createItemConfiguration(req.body);
             res.status(201).json({ message: 'Data added successfully', result });
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -22,7 +22,7 @@ const ItemConfigurationItemTypeControllers = {
 
     downloadItemConfigurationItemTypeExcel: async (req, res) => {
         try {
-            const results = await ItemConfigurationItemTypeService.getAllItemConfigurations();
+            const results = await ItemConfigurationItemNatureService.getAllItemConfigurations();
 
             const columns = [
                 { header: 'ConfigID', key: 'ConfigID', width: 15 },
@@ -38,11 +38,11 @@ const ItemConfigurationItemTypeControllers = {
                 { header: 'RowStatus', key: 'RowStatus', width: 15 }
             ];
 
-            await generateAndDownloadExcel(res, 'ItemConfigurationItemType', columns, results, 'ItemConfigurationItemType.xlsx');
+            await generateAndDownloadExcel(res, 'ItemConfigurationItemNature', columns, results, 'ItemConfigurationItemNature.xlsx');
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     }
 };
 
-export default ItemConfigurationItemTypeControllers;
+export default ItemConfigurationItemNatureControllers;

@@ -1,9 +1,9 @@
-import ItemConfigurationItemTypeRepository from "../../Repository/ItemConfiguration/ItemConfigurationItemTypeRepository.js";
+import ItemConfigurationDependentCriteriaRepository from '../../Repository/ItemConfiguration/ItemConfigurationDependentCriteria.repository.js'
 
-const ItemConfigurationItemTypeService = {
+const ItemConfigurationDependentCriteriaService = {
     getAllItemConfigurations: async () => {
         try {
-            const data = await ItemConfigurationItemTypeRepository.getAll();
+            const data = await ItemConfigurationDependentCriteriaRepository.getAll();
             return data;
         } catch (error) {
             throw new Error(error);
@@ -40,7 +40,7 @@ const ItemConfigurationItemTypeService = {
         ];
 
         try {
-            const result = await ItemConfigurationItemTypeRepository.insert(params);
+            const result = await ItemConfigurationDependentCriteriaRepository.insert(params);
             return result;
         } catch (error) {
             throw new Error(error);
@@ -48,4 +48,4 @@ const ItemConfigurationItemTypeService = {
     }
 };
 
-export default ItemConfigurationItemTypeService;
+export default ItemConfigurationDependentCriteriaService;
