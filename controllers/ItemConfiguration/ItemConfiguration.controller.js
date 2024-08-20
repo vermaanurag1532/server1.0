@@ -24,7 +24,7 @@ const ItemConfigurationController = {
 
     downloadItemConfigurationExcel: async (req, res) => {
         try {
-            const data = await ItemConfigurationDependentCriteriaService.getAllItemConfigurations();
+            const data = await ItemConfigurationService.getAllItemConfigurations();
 
             const columns = [
                 { header: 'ItemType', key: 'ItemType', width: 20 },
