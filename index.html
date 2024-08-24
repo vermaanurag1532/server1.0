@@ -3,102 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
+    <title>Jewelease - Jewelry Manufacturing & Retailing Software</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            overflow-x: hidden;
         }
-        form {
+        header {
+            background-color: #ffbb33;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 2.5rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .container {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .container h2 {
+            font-size: 2rem;
             margin-bottom: 20px;
+            color: #ffbb33;
+            animation: slideIn 1.5s ease-in-out;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 3s ease-in-out;
         }
-        table, th, td {
-            border: 1px solid black;
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background-color: #ffbb33;
+            color: #ffffff;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
         }
-        th, td {
+        .cta-button:hover {
+            background-color: #ff8800;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
             padding: 10px;
-            text-align: left;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <h1>User Management</h1>
+    <header>
+        <h1>Jewelease</h1>
+    </header>
+    
+    <div class="container">
+        <h2>The Ultimate Software for Jewelry Manufacturing & Retailing</h2>
+        <p>
+            Jewelease is a comprehensive software solution designed specifically for jewelers. 
+            Whether you're in the business of manufacturing or retailing, Jewelease streamlines 
+            your operations, from inventory management to point of sale. 
+            Our software is crafted to meet the unique demands of the jewelry industry, ensuring 
+            precision, efficiency, and ease of use.
+        </p>
+        <a href="#" class="cta-button">Learn More</a>
+    </div>
 
-    <!-- Form to add a new user -->
-    <form id="addUserForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br><br>
-        <button type="submit">Add User</button>
-    </form>
-
-    <!-- Table to display users -->
-    <h2>Users List</h2>
-    <table id="usersTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Users will be dynamically inserted here -->
-        </tbody>
-    </table>
-
-    <script>
-        // Function to fetch and display users
-        function fetchUsers() {
-            fetch('http://192.168.89.229:3000/users')
-                .then(response => response.json())
-                .then(data => {
-                    const usersTableBody = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
-                    usersTableBody.innerHTML = ''; // Clear existing data
-                    data.forEach(user => {
-                        const row = usersTableBody.insertRow();
-                        const cellId = row.insertCell(0);
-                        const cellName = row.insertCell(1);
-                        const cellEmail = row.insertCell(2);
-                        cellId.textContent = user.id;
-                        cellName.textContent = user.name;
-                        cellEmail.textContent = user.email;
-                    });
-                })
-                .catch(error => console.error('Error fetching users:', error));
-        }
-
-        // Fetch users when the page loads
-        window.onload = fetchUsers;
-
-        // Handle form submission
-        document.getElementById('addUserForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-
-            fetch('http://192.168.89.229:3000/add-user', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, email }),
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                fetchUsers(); // Refresh the users list
-            })
-            .catch(error => console.error('Error adding user:', error));
-        });
-    </script>
+    <footer>
+        <p>&copy; 2024 Jewelease. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>

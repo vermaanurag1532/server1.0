@@ -22,6 +22,28 @@ const ItemConfigurationController = {
         }
     },
 
+    updateItemConfiguration: async (req, res) => {
+        try {
+            const { id } = req.params;
+            await ItemConfigurationService.updateItemConfiguration(id, req.body);
+            res.send('Data updated successfully');
+        } catch (err) {
+            console.error('Error updating data:', err.stack);
+            res.status(500).send('Database error');
+        }
+    },
+
+    deleteItemConfiguration: async (req, res) => {
+        try {
+            const { id } = req.params;
+            await ItemConfigurationService.deleteItemConfiguration(id);
+            res.send('Data deleted successfully');
+        } catch (err) {
+            console.error('Error deleting data:', err.stack);
+            res.status(500).send('Database error');
+        }
+    },
+
     downloadItemConfigurationExcel: async (req, res) => {
         try {
             const data = await ItemConfigurationService.getAllItemConfigurations();

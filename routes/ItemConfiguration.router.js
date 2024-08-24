@@ -10,6 +10,8 @@ const ItemConfigurationRouter = express.Router();
 
 ItemConfigurationRouter.get('/', ItemConfigurationControllers.getItemConfiguration);
 ItemConfigurationRouter.post('/', ItemConfigurationControllers.postItemConfiguration);
+ItemConfigurationRouter.put('/:id', ItemConfigurationControllers.updateItemConfiguration);
+ItemConfigurationRouter.delete('/:id', ItemConfigurationControllers.deleteItemConfiguration);
 ItemConfigurationRouter.get('/download', ItemConfigurationControllers.downloadItemConfigurationExcel);
 
 ItemConfigurationRouter.get('/ItemType', ItemConfigurationItemTypeControllers.getItemConfigurationItemType);
