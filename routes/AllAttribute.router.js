@@ -4,12 +4,12 @@ import AllAttributeParentFormAttributeTypeController from '../controllers/AllAtt
 
 const AllAttributeRouter = express.Router();
 
-AllAttributeRouter.get('/ParentForm' , AllAttributeParentFormController.getAllAttributeParentForm);
-AllAttributeRouter.post('/ParentForm' , AllAttributeParentFormController.postAllAttributeParentForm);
-AllAttributeRouter.get('/ParentForm/download' , AllAttributeParentFormController.downloadAllAttributeParentFormExcel);
+AllAttributeRouter.get('' , AllAttributeParentFormController.getAllAttributeParentForm);
+AllAttributeRouter.post('' , AllAttributeParentFormController.postAllAttributeParentForm);
+AllAttributeRouter.get('/download' , AllAttributeParentFormController.downloadAllAttributeParentFormExcel);
 
-AllAttributeRouter.get('/ParentForm/AttributeType' , AllAttributeParentFormAttributeTypeController.getAllAttributeParentFormAttributeType);
-AllAttributeRouter.post('/ParentForm/AttributeType' , AllAttributeParentFormAttributeTypeController.postAllAttributeParentFormAttributeType);
-AllAttributeRouter.get('/ParentForm/AttributeTypedownload' , AllAttributeParentFormAttributeTypeController.downloadAllAttributeParentFormAttributeTypeExcel);
+AllAttributeRouter.get('/AttributeType' , AllAttributeParentFormAttributeTypeController.getAllAttributeParentFormAttributeType);
+AllAttributeRouter.post('/AttributeType' , AllAttributeParentFormAttributeTypeController.postAllAttributeParentFormAttributeType);
+AllAttributeRouter.get('/AttributeTypedownload' , AllAttributeParentFormAttributeTypeController.downloadAllAttributeParentFormAttributeTypeExcel);
 
 export default AllAttributeRouter;
