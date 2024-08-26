@@ -10,6 +10,6 @@ AllAttributeRouter.get('/download' , AllAttributeParentFormController.downloadAl
 
 AllAttributeRouter.get('/AttributeType' , AllAttributeParentFormAttributeTypeController.getAllAttributeParentFormAttributeType);
 AllAttributeRouter.post('/AttributeType' , AllAttributeParentFormAttributeTypeController.postAllAttributeParentFormAttributeType);
-AllAttributeRouter.get('/AttributeTypedownload' , AllAttributeParentFormAttributeTypeController.downloadAllAttributeParentFormAttributeTypeExcel);
+AllAttributeRouter.get('/AttributeType/download' , AllAttributeParentFormAttributeTypeController.downloadAllAttributeParentFormAttributeTypeExcel);
 
 export default AllAttributeRouter;
