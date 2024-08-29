@@ -12,14 +12,14 @@ const ItemService = {
 
     createItem: async (itemData) => {
         const {
-            MetalCode,
-            ExclusiveIndicator,
-            Description,
-            RowStatus,
-            CreatedDate,
-            UpdateDate
+            'Metal code': MetalCode,
+            'Exclusive Indicator': ExclusiveIndicator,
+            'Description': Description,
+            'Row status': RowStatus,
+            'Created Date': CreatedDate,
+            'Update Date': UpdateDate
         } = itemData;
-
+    
         const params = [
             MetalCode,
             ExclusiveIndicator,
@@ -28,7 +28,7 @@ const ItemService = {
             CreatedDate,
             UpdateDate
         ];
-
+    
         try {
             const result = await ItemRepository.insert(params);
             return result;
@@ -36,6 +36,7 @@ const ItemService = {
             throw new Error(`Error creating item: ${error.message}`);
         }
     }
+    
 };
 
 export default ItemService;
