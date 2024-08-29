@@ -6,6 +6,7 @@ import RoleMasterRouter from './routes/RoleMaster.router.js';
 import ItemConfigurationRouter from './routes/ItemConfiguration.router.js';
 import AllAttributeRouter from './routes/AllAttribute.router.js';
 import ItemCodeGenerationRouter from './routes/ItemCodeGeneration.router.js';
+import ItemMasterAndVariantsRouter from './routes/ItemMasterAndVariants.router.js'
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,7 @@ app.use('/RoleMaster', RoleMasterRouter);
 app.use('/ItemConfiguration', ItemConfigurationRouter);
 app.use('/AllAttribute', AllAttributeRouter);
 app.use('/ItemCodeGeneration', ItemCodeGenerationRouter);
+app.use('/ItemMasterAndVariants', ItemMasterAndVariantsRouter);
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server running at http://hp.localhost:${port}/`);
