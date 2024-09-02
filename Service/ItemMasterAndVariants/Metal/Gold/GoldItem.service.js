@@ -17,7 +17,9 @@ const ItemService = {
             'Description': Description,
             'Row status': RowStatus,
             'Created Date': CreatedDate,
-            'Update Date': UpdateDate
+            'Update Date': UpdateDate,
+            'Attribute Type': AttributeType,
+            'Attribute Value': AttributeValue
         } = itemData;
     
         const params = [
@@ -26,7 +28,9 @@ const ItemService = {
             Description,
             RowStatus,
             CreatedDate,
-            UpdateDate
+            UpdateDate,
+            AttributeType,
+            AttributeValue
         ];
     
         try {
@@ -36,7 +40,6 @@ const ItemService = {
             throw new Error(`Error creating item: ${error.message}`);
         }
     }
-    
 };
 
 export default ItemService;

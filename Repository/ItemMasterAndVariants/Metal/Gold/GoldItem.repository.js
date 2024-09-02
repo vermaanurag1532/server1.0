@@ -23,8 +23,10 @@ const ItemRepository = {
                     \`Description\`,
                     \`Row status\`,
                     \`Created Date\`,
-                    \`Update Date\`
-                ) VALUES (?, ?, ?, ?, ?, ?)
+                    \`Update Date\`,
+                    \`Attribute Type\`,
+                    \`Attribute Value\`
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             `;
             connection.query(query, params, (err, results) => {
                 if (err) {
