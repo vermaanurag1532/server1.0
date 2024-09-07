@@ -1,0 +1,49 @@
+import SilverItemService from '../../../../Service/ItemMasterAndVariants/Metal/Silver/SilverItem.service.js';
+import { generateAndDownloadExcel } from '../../../../utils/excelUtils.js'; 
+
+const SilverItemController = {
+    getAllItems: async (req, res) => {
+        try {
+            const data = await SilverItemService.getItems();
+            res.json(data);
+        } catch (err) {
+            console.error('Error retrieving data:', err.stack);
+            res.status(500).send('Database error');
+        }
+    },
+
+    postItem: async (req, res) => {
+        try {
+            await SilverItemService.createItem(req.body);
+            res.status(201).send('Item added successfully');
+        } catch (err) {
+            console.error('Error inserting data:', err.stack);
+            res.status(500).send('Database error');
+        }
+    },
+
+    downloadItemsExcel: async (req, res) => {
+        try {
+            const data = await SilverItemService.getItems();
+
+            const columns = [
+                { header: 'Metal Code', key: 'Metal code', width: 20 },
+                { header: 'Exclusive Indicator', key: 'Exclusive Indicator', width: 20 },
+                { header: 'Description', key: 'Description', width: 30 },
+                { header: 'Row Status', key: 'Row status', width: 15 },
+                { header: 'Created Date', key: 'Created Date', width: 15 },
+                { header: 'Update Date', key: 'Update Date', width: 15 },
+                { header: 'Attribute Type', key: 'Attribute Type', width: 20 },
+                { header: 'Attribute Value', key: 'Attribute Value', width: 20 }
+            ];
+
+            // Use the utility function to generate and send the Excel file
+            await generateAndDownloadExcel(res, 'SilverItems', columns, data, 'SilverItems.xlsx');
+        } catch (err) {
+            console.error('Error generating Excel file:', err.stack);
+            res.status(500).send('File generation error');
+        }
+    }
+};
+
+export default SilverItemController;
