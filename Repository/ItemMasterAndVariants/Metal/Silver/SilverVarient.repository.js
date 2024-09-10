@@ -29,8 +29,8 @@ const SilverVariantRepository = {
                     \`Row status\`,
                     \`Created Date\`,
                     \`Update Date\`,
-                    \`Attribute Type\`,
-                    \`Attribute Value\`
+                    \`Metal Color\`,
+                    \`Karat\`
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,? ,? ,?)
             `;
             connection.query(query, params, (err, results) => {

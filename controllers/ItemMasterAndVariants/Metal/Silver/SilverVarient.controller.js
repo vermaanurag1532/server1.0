@@ -38,8 +38,8 @@ const SilverVariantController = {
                 { header: 'Row Status', key: 'Row status', width: 15 },
                 { header: 'Created Date', key: 'Created Date', width: 15 },
                 { header: 'Update Date', key: 'Update Date', width: 15 },
-                { header: 'Attribute Type', key: 'Attribute Type', width: 20 },
-                { header: 'Attribute Value', key: 'Attribute Value', width: 20 }
+                { header: 'Metal Color', key: 'Attribute Type', width: 15 },
+                { header: 'Karat', key: 'Attribute Value', width: 15 }
             ];
 
             // Use the utility function to generate and send the Excel file

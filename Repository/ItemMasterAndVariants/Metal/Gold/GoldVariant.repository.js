@@ -29,8 +29,8 @@ const MetalGoldVariantsRepository = {
                     \`Row status\`,
                     \`Created Date\`,
                     \`Update Date\`,
-                    \`Attribute Type\`,
-                    \`Attribute Value\`
+                    \`Metal Color\`,
+                    \`Karat\`
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)
             `;
 

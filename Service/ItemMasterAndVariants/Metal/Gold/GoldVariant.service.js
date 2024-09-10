@@ -23,8 +23,8 @@ const MetalGoldVariantsService = {
             'Row status': RowStatus,
             'Created Date': CreatedDate,
             'Update Date': UpdateDate,
-            'Attribute Type': AttributeType,
-            'Attribute Value': AttributeValue
+            'Metal Color': MetalColor,
+            'Karat': Karat
         } = variantData;
 
         const params = [
@@ -39,8 +39,8 @@ const MetalGoldVariantsService = {
             RowStatus,
             CreatedDate,
             UpdateDate,
-            AttributeType,
-            AttributeValue
+            MetalColor,
+            Karat
         ];
 
         try {
