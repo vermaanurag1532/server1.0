@@ -20,7 +20,9 @@ const MetalGoldVariantsService = {
             'Reorder Qty': ReorderQty,
             'Used in BOM': UsedInBOM,
             'Can Return in Melting': CanReturnInMelting,
-            'Row status': RowStatus
+            'Row status': RowStatus,
+            'Attribute Type': AttributeType,
+            'Attribute Value': AttributeValue
         } = variantData;
 
         const params = [
@@ -32,7 +34,9 @@ const MetalGoldVariantsService = {
             ReorderQty,
             UsedInBOM,
             CanReturnInMelting,
-            RowStatus
+            RowStatus,
+            AttributeType,
+            AttributeValue
         ];
 
         try {

@@ -35,7 +35,9 @@ const GoldVariantsController = {
                 { header: 'Reorder Qty', key: 'Reorder Qty', width: 15 },
                 { header: 'Used in BOM', key: 'Used in BOM', width: 15 },
                 { header: 'Can Return in Melting', key: 'Can Return in Melting', width: 25 },
-                { header: 'Row Status', key: 'Row status', width: 15 }
+                { header: 'Row Status', key: 'Row status', width: 15 },
+                { header: 'Attribute Type', key: 'Attribute Type', width: 15 },
+                { header: 'Attribute Value', key: 'Attribute Value', width: 15 }
             ];
 
             await generateAndDownloadExcel(res, 'MetalGoldVariants', columns, data, 'MetalGoldVariants.xlsx');
