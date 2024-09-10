@@ -27,9 +27,11 @@ const MetalGoldVariantsRepository = {
                     \`Used in BOM\`,
                     \`Can Return in Melting\`,
                     \`Row status\`,
+                    \`Created Date\`,
+                    \`Update Date\`,
                     \`Attribute Type\`,
                     \`Attribute Value\`
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)
             `;
 
             connection.query(query, params, (err, results) => {

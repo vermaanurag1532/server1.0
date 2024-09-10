@@ -21,6 +21,8 @@ const MetalGoldVariantsService = {
             'Used in BOM': UsedInBOM,
             'Can Return in Melting': CanReturnInMelting,
             'Row status': RowStatus,
+            'Created Date': CreatedDate,
+            'Update Date': UpdateDate,
             'Attribute Type': AttributeType,
             'Attribute Value': AttributeValue
         } = variantData;
@@ -35,6 +37,8 @@ const MetalGoldVariantsService = {
             UsedInBOM,
             CanReturnInMelting,
             RowStatus,
+            CreatedDate,
+            UpdateDate,
             AttributeType,
             AttributeValue
         ];
