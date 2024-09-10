@@ -35,7 +35,11 @@ const SilverVariantController = {
                 { header: 'Reorder Qty', key: 'Reorder Qty', width: 15 },
                 { header: 'Used in BOM', key: 'Used in BOM', width: 15 },
                 { header: 'Can Return in Melting', key: 'Can Return in Melting', width: 20 },
-                { header: 'Row Status', key: 'Row status', width: 15 }
+                { header: 'Row Status', key: 'Row status', width: 15 },
+                { header: 'Created Date', key: 'Created Date', width: 15 },
+                { header: 'Update Date', key: 'Update Date', width: 15 },
+                { header: 'Attribute Type', key: 'Attribute Type', width: 20 },
+                { header: 'Attribute Value', key: 'Attribute Value', width: 20 }
             ];
 
             // Use the utility function to generate and send the Excel file
