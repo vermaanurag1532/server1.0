@@ -1,9 +1,9 @@
 import connection from '../../../../db/connection.js';
 
-const ItemRepository = {
+const MetalGoldVariantsRepository = {
     getAll: () => {
         return new Promise((resolve, reject) => {
-            const query = 'SELECT * FROM `Item master and variant Metal Platinum Item`';
+            const query = 'SELECT * FROM `Item master and variant Metal Platinum Variants`';
             connection.query(query, (err, results) => {
                 if (err) {
                     reject(err);
@@ -17,17 +17,23 @@ const ItemRepository = {
     insert: (params) => {
         return new Promise((resolve, reject) => {
             const query = `
-                INSERT INTO \`Item master and variant Metal Platinum Item\` (
-                    \`Metal code\`,
-                    \`Exclusive Indicator\`,
-                    \`Description\`,
+                INSERT INTO \`Item master and variant Metal Platinum Variants\` (
+                    \`Metal name\`,
+                    \`Variant type\`,
+                    \`Base metal Variant\`,
+                    \`Std. selling rate\`,
+                    \`Std. buying rate\`,
+                    \`Reorder Qty\`,
+                    \`Used in BOM\`,
+                    \`Can Return in Melting\`,
                     \`Row status\`,
                     \`Created Date\`,
                     \`Update Date\`,
-                    \`Attribute Type\`,
-                    \`Attribute Value\`
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    \`Metal Color\`,
+                    \`Karat\`
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)
             `;
+
             connection.query(query, params, (err, results) => {
                 if (err) {
                     reject(err);
@@ -39,4 +45,4 @@ const ItemRepository = {
     }
 };
 
-export default ItemRepository;
+export default MetalGoldVariantsRepository;

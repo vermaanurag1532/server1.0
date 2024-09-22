@@ -3,7 +3,7 @@ import connection from '../../../../db/connection.js';
 const ItemRepository = {
     getAll: () => {
         return new Promise((resolve, reject) => {
-            const query = 'SELECT * FROM `Item master and variant Metal Platinum Item`';
+            const query = 'SELECT * FROM `Item master and variant Metal Bronze Item`';
             connection.query(query, (err, results) => {
                 if (err) {
                     reject(err);
@@ -17,7 +17,7 @@ const ItemRepository = {
     insert: (params) => {
         return new Promise((resolve, reject) => {
             const query = `
-                INSERT INTO \`Item master and variant Metal Platinum Item\` (
+                INSERT INTO \`Item master and variant Metal Bronze Item\` (
                     \`Metal code\`,
                     \`Exclusive Indicator\`,
                     \`Description\`,
