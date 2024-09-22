@@ -47,13 +47,13 @@ ItemMasterAndVariantsRouter.get('/Stone/Pearl/Item' , PearlItemController.getAll
 ItemMasterAndVariantsRouter.post('/Stone/Pearl/Item' , PearlItemController.postItem);
 ItemMasterAndVariantsRouter.get('/Stone/Pearl/Item/download' , PearlItemController.downloadItemsExcel);
 
-ItemMasterAndVariantsRouter.get('/Stone/PreciousStones/Item' , PreciousStonesItemController.getAllItems);
-ItemMasterAndVariantsRouter.post('/Stone/PreciousStones/Item' , PreciousStonesItemController.postItem);
-ItemMasterAndVariantsRouter.get('/Stone/PreciousStones/Item/download' , PreciousStonesItemController.downloadItemsExcel);
+ItemMasterAndVariantsRouter.get('/Stone/PreciousStone/Item' , PreciousStonesItemController.getAllItems);
+ItemMasterAndVariantsRouter.post('/Stone/PreciousStone/Item' , PreciousStonesItemController.postItem);
+ItemMasterAndVariantsRouter.get('/Stone/PreciousStone/Item/download' , PreciousStonesItemController.downloadItemsExcel);
 
-ItemMasterAndVariantsRouter.get('/Stone/SemiPreciousStones/Item' , SemiPreciousStonesItemController.getAllItems);
-ItemMasterAndVariantsRouter.post('/Stone/SemiPreciousStones/Item' , SemiPreciousStonesItemController.postItem);
-ItemMasterAndVariantsRouter.get('/Stone/SemiPreciousStones/Item/download' , SemiPreciousStonesItemController.downloadItemsExcel);
+ItemMasterAndVariantsRouter.get('/Stone/SemiPreciousStone/Item' , SemiPreciousStonesItemController.getAllItems);
+ItemMasterAndVariantsRouter.post('/Stone/SemiPreciousStone/Item' , SemiPreciousStonesItemController.postItem);
+ItemMasterAndVariantsRouter.get('/Stone/SemiPreciousStone/Item/download' , SemiPreciousStonesItemController.downloadItemsExcel);
 
 ItemMasterAndVariantsRouter.get('/Stone/Zircon/Item' , ZirconItemController.getAllItems);
 ItemMasterAndVariantsRouter.post('/Stone/Zircon/Item' , ZirconItemController.postItem);
