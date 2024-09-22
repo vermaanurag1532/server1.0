@@ -12,7 +12,7 @@ const ItemService = {
 
     createItem: async (itemData) => {
         const {
-            'Metal code': MetalCode,
+            'Stone code': StoneCode,
             'Description': Description,
             'Row status': RowStatus,
             'Created Date': CreatedDate,
@@ -22,7 +22,7 @@ const ItemService = {
         } = itemData;
     
         const params = [
-            MetalCode,
+            StoneCode,
             Description,
             RowStatus,
             CreatedDate,

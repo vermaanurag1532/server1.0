@@ -18,7 +18,7 @@ const ItemRepository = {
         return new Promise((resolve, reject) => {
             const query = `
                 INSERT INTO \`Item master and variant Stone Semi Precious Stones Item\` (
-                    \`Metal code\`,
+                    \`Stone code\`,
                     \`Description\`,
                     \`Row status\`,
                     \`Created Date\`,

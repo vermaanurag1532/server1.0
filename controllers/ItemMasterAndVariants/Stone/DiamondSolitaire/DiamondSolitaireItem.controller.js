@@ -27,7 +27,7 @@ const DiamondSolitaireItemController = {
             const data = await ItemService.getItems();
 
             const columns = [
-                { header: 'Metal Code', key: 'Metal code', width: 20 },
+                { header: 'Stone Code', key: 'Stone code', width: 20 },
                 { header: 'Description', key: 'Description', width: 30 },
                 { header: 'Row Status', key: 'Row status', width: 15 },
                 { header: 'Created Date', key: 'Created Date', width: 15 },
