@@ -12,6 +12,11 @@ import SemiPreciousStonesItemController from '../controllers/ItemMasterAndVarian
 import ZirconItemController from '../controllers/ItemMasterAndVariants/Stone/Zircon/ZirconItem.controller.js'
 import PolkiItemController from '../controllers/ItemMasterAndVariants/Stone/Polki/PolkiItem.controller.js'
 import DiamondSolitaireItemController from '../controllers/ItemMasterAndVariants/Stone/DiamondSolitaire/DiamondSolitaireItem.controller.js'
+import ConsumableWTItemController from '../controllers/ItemMasterAndVariants/Consumable/ConsumableWT/ConsumableWTItem.controller.js'
+import SetItemController from '../controllers/ItemMasterAndVariants/Set/SetItem.controller.js'
+import StyleCertificateItemController from '../controllers/ItemMasterAndVariants/Certificate/StyleCertificate/StyleCertificateItem.controller.js'
+import StoneCertificateItemController from '../controllers/ItemMasterAndVariants/Certificate/StoneCertificate/StoneCertificate.controller.js'
+import PackingMaterialsItemController from '../controllers/ItemMasterAndVariants/PackingMaterial/PackingMaterials/PackingMaterialsItem.controller.js'
 
 const ItemMasterAndVariantsRouter = express.Router();
 
@@ -66,5 +71,25 @@ ItemMasterAndVariantsRouter.get('/Stone/Polki/Item/download' , PolkiItemControll
 ItemMasterAndVariantsRouter.get('/Stone/DiamondSolitaire/Item' , DiamondSolitaireItemController.getAllItems);
 ItemMasterAndVariantsRouter.post('/Stone/DiamondSolitaire/Item' , DiamondSolitaireItemController.postItem);
 ItemMasterAndVariantsRouter.get('/Stone/DiamondSolitaire/Item/download' , DiamondSolitaireItemController.downloadItemsExcel);
+
+ItemMasterAndVariantsRouter.get('/Consumable/ConsumableWT/Item' , ConsumableWTItemController.getAllItems);
+ItemMasterAndVariantsRouter.post('/Consumable/ConsumableWT/Item' , ConsumableWTItemController.postItem);
+ItemMasterAndVariantsRouter.get('/Consumable/ConsumableWT/Item/download' , ConsumableWTItemController.downloadItemsExcel);
+
+ItemMasterAndVariantsRouter.get('/Set/Item' , SetItemController.getAllItems);
+ItemMasterAndVariantsRouter.post('/Set/Item' , SetItemController.postItem);
+ItemMasterAndVariantsRouter.get('/Set/Item/download' , SetItemController.downloadItemsExcel);
+
+ItemMasterAndVariantsRouter.get('/Certificate/StyleCertificate/Item' , StyleCertificateItemController.getAllItems);
+ItemMasterAndVariantsRouter.post('/Certificate/StyleCertificate/Item' , StyleCertificateItemController.postItem);
+ItemMasterAndVariantsRouter.get('/Certificate/StyleCertificate/Item/download' , StyleCertificateItemController.downloadItemsExcel);
+
+ItemMasterAndVariantsRouter.get('/Certificate/StoneCertificate/Item' , StoneCertificateItemController.getAllItems);
+ItemMasterAndVariantsRouter.post('/Certificate/StoneCertificate/Item' , StoneCertificateItemController.postItem);
+ItemMasterAndVariantsRouter.get('/Certificate/StoneCertificate/Item/download' , StoneCertificateItemController.downloadItemsExcel);
+
+ItemMasterAndVariantsRouter.get('/PackingMaterial/PackingMaterials/Item' , PackingMaterialsItemController.getAllItems);
+ItemMasterAndVariantsRouter.post('/PackingMaterial/PackingMaterials/Item' , PackingMaterialsItemController.postItem);
+ItemMasterAndVariantsRouter.get('/PackingMaterial/PackingMaterials/Item/download' , PackingMaterialsItemController.downloadItemsExcel);
 
 export default ItemMasterAndVariantsRouter;
