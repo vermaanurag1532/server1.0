@@ -1,5 +1,5 @@
 import ItemService from '../../../Service/ItemMasterAndVariants/Set/SetItem.service.js';
-import { generateAndDownloadExcel } from '../../../../utils/excelUtils.js';
+import { generateAndDownloadExcel } from '../../../utils/excelUtils.js';
 
 const SetItemController = {
     getAllItems: async (req, res) => {
