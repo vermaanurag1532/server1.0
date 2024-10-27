@@ -1,4 +1,4 @@
-import DepdFieldService from '../../../Service/FormulaProcedures/RateStructure/RateStructureNumberDepdField.service.js';
+import DepdFieldService from '../../../../Service/FormulaProcedures/RateStructure/FormulaRangeHierarchydetails/RateStructureNumberDepdField.service.js';
 
 const NumberDepdFieldController = {
     getDepdField: async (req, res) => {

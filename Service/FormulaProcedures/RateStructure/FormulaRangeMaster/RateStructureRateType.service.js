@@ -1,23 +1,22 @@
-import DataTypeRepository from '../../../Repository/FormulaProcedures/RateStructure/RateStructureDataType.repository.js';
+import RateTypeRepository from '../../../../Repository/FormulaProcedures/RateStructure/FormulaRangeMaster/RateStructureRateType.repository.js';
 
-const DataTypeService = {
-    getAllDataTypes: async () => {
+const RateTypeService = {
+    getAllRateTypes: async () => {
         try {
-            const data = await DataTypeRepository.getAll();
+            const data = await RateTypeRepository.getAll();
             return data;
         } catch (error) {
             throw new Error(`Error retrieving rate types: ${error.message}`);
         }
     },
 
-    createDataType: async (rateTypeData) => {
+    createRateType: async (rateTypeData) => {
         const {
             configId,
             configCode,
             configValue,
-            configRemark1,
-            configRemark2,
-            configRemark3
+            configRemark3,
+            configRemark2
         } = rateTypeData; // No quotes and exact field names as in the request body
 
         // Construct the params array to pass to the repository
@@ -25,13 +24,12 @@ const DataTypeService = {
             configId,
             configCode,
             configValue,
-            configRemark1,
-            configRemark2,
-            configRemark3
+            configRemark3,
+            configRemark2
         ];
 
         try {
-            const result = await DataTypeRepository.insert(params);
+            const result = await RateTypeRepository.insert(params);
             return result;
         } catch (error) {
             throw new Error(`Error creating rate type: ${error.message}`);
@@ -39,4 +37,4 @@ const DataTypeService = {
     }
 };
 
-export default DataTypeService;
+export default RateTypeService;

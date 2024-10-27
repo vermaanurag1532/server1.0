@@ -1,4 +1,4 @@
-import DataTypeService from '../../../Service/FormulaProcedures/RateStructure/RateStructureDataType.service.js';
+import DataTypeService from '../../../../Service/FormulaProcedures/RateStructure/FormulaRangeHierarchydetails/RateStructureDataType.service.js';
 
 const DataTypeController = {
     getDataTypes: async (req, res) => {

@@ -1,4 +1,4 @@
-import DepdFieldRepository from '../../../Repository/FormulaProcedures/RateStructure/RateStructureAttributeDepdField.repository.js';
+import DepdFieldRepository from '../../../../Repository/FormulaProcedures/RateStructure/FormulaRangeHierarchydetails/RateStructureNumberDepdField.repository.js';
 
 const DepdFieldService = {
     getAllDepdField: async () => {

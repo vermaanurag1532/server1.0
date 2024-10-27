@@ -1,9 +1,9 @@
-import connection from '../../../db/connection.js';
+import connection from '../../../../db/connection.js';
 
-const DepdFieldRepository = {
+const RateTypeRepository = {
     getAll: () => {
         return new Promise((resolve, reject) => {
-            const query = 'SELECT * FROM `Formula Procedures Rate Structure Depd Field Attribute`';
+            const query = 'SELECT * FROM `Formula Procedures Rate Structure Rate Type`';
             connection.query(query, (err, results) => {
                 if (err) {
                     reject(err);
@@ -17,12 +17,12 @@ const DepdFieldRepository = {
     insert: (params) => {
         return new Promise((resolve, reject) => {
             const query = `
-                INSERT INTO \`Formula Procedures Rate Structure Depd Field Attribute\` (
+                INSERT INTO \`Formula Procedures Rate Structure Rate Type\` (
                     \`Config Id\`,
-                    \`Config type\`,
                     \`Config code\`,
                     \`Config value\`,
-                    \`Config remark3\`
+                    \`Config remark3\`,
+                    \`Config remark2\`
                 ) VALUES (?, ?, ?, ?, ?)
             `;
             connection.query(query, params, (err, results) => {
@@ -36,5 +36,5 @@ const DepdFieldRepository = {
     }
 };
 
-export default DepdFieldRepository;
+export default RateTypeRepository;
 

@@ -1,35 +1,35 @@
-import RateTypeRepository from '../../../Repository/FormulaProcedures/RateStructure/RateStructureRateType.repository.js';
+import DepdFieldRepository from '../../../../Repository/FormulaProcedures/RateStructure/FormulaRangeHierarchydetails/RateStructureAttributeDepdField.repository.js';
 
-const RateTypeService = {
-    getAllRateTypes: async () => {
+const DepdFieldService = {
+    getAllDepdField: async () => {
         try {
-            const data = await RateTypeRepository.getAll();
+            const data = await DepdFieldRepository.getAll();
             return data;
         } catch (error) {
             throw new Error(`Error retrieving rate types: ${error.message}`);
         }
     },
 
-    createRateType: async (rateTypeData) => {
+    createDepdField: async (rateTypeData) => {
         const {
             configId,
+            configType,
             configCode,
             configValue,
-            configRemark3,
-            configRemark2
+            configRemark3
         } = rateTypeData; // No quotes and exact field names as in the request body
 
         // Construct the params array to pass to the repository
         const params = [
             configId,
+            configType,
             configCode,
             configValue,
-            configRemark3,
-            configRemark2
+            configRemark3
         ];
 
         try {
-            const result = await RateTypeRepository.insert(params);
+            const result = await DepdFieldRepository.insert(params);
             return result;
         } catch (error) {
             throw new Error(`Error creating rate type: ${error.message}`);
@@ -37,4 +37,4 @@ const RateTypeService = {
     }
 };
 
-export default RateTypeService;
+export default DepdFieldService;

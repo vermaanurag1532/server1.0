@@ -1,4 +1,4 @@
-import RateTypeService from '../../../Service/FormulaProcedures/RateStructure/RateStructureRateType.service.js';
+import RateTypeService from '../../../../Service/FormulaProcedures/RateStructure/FormulaRangeMaster/RateStructureRateType.service.js';
 
 const RateTypeController = {
     getRateTypes: async (req, res) => {
