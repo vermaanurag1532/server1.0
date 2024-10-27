@@ -6,8 +6,8 @@ import AttributeDepdFieldController from '../controllers/FormulaProcedures/RateS
 
 const FormulaProceduresRouter = express.Router();
 
-FormulaProceduresRouter.post('/RateStructure/RateType', RateTypeController.createRateType);
-FormulaProceduresRouter.get('/RateStructure/RateType', RateTypeController.getRateTypes);
+FormulaProceduresRouter.post('/RateStructure/RangeType', RateTypeController.createRateType);
+FormulaProceduresRouter.get('/RateStructure/RangeType', RateTypeController.getRateTypes);
 
 FormulaProceduresRouter.post('/RateStructure/DataType', DataTypeController.createDataType);
 FormulaProceduresRouter.get('/RateStructure/DataType', DataTypeController.getDataTypes);
