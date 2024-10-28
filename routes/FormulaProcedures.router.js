@@ -5,8 +5,11 @@ import NumberDepdFieldController from '../controllers/FormulaProcedures/RateStru
 import AttributeDepdFieldController from '../controllers/FormulaProcedures/RateStructure/FormulaRangeHierarchydetails/RateStructureAttributeDepdField.controller.js';
 import FormulaRangeMasterController from '../controllers/FormulaProcedures/RateStructure/FormulaRangeMaster/FormulaRangeMaster.controller.js'
 import RangeHierarchyController from '../controllers/FormulaProcedures/RateStructure/FormulaRangeHierarchydetails/FormulaRangeHierarchy.controller.js'
+import RateStructureController from '../controllers/FormulaProcedures/RateStructure/RateStructure.controller.js'
 
 const FormulaProceduresRouter = express.Router();
+
+FormulaProceduresRouter.post('/RateStructure', RateStructureController.createFormulaRange);
 
 FormulaProceduresRouter.post('/RateStructure/RangeType', RateTypeController.createRateType);
 FormulaProceduresRouter.get('/RateStructure/RangeType', RateTypeController.getRateTypes);
