@@ -6,10 +6,15 @@ import AttributeDepdFieldController from '../controllers/FormulaProcedures/RateS
 import FormulaRangeMasterController from '../controllers/FormulaProcedures/RateStructure/FormulaRangeMaster/FormulaRangeMaster.controller.js'
 import RangeHierarchyController from '../controllers/FormulaProcedures/RateStructure/FormulaRangeHierarchydetails/FormulaRangeHierarchy.controller.js'
 import RateStructureController from '../controllers/FormulaProcedures/RateStructure/RateStructure.controller.js'
+import RateStructureExcelController from '../controllers/FormulaProcedures/RateStructure/RateStructureExcel.controller.js'
 
 const FormulaProceduresRouter = express.Router();
 
 FormulaProceduresRouter.post('/RateStructure', RateStructureController.createFormulaRange);
+
+FormulaProceduresRouter.post('/RateStructure/Excel', RateStructureExcelController.createRangeHierarchyDetails);
+FormulaProceduresRouter.get('/RateStructure/Excel', RateStructureExcelController.getAllDetails);
+FormulaProceduresRouter.get('/RateStructure/Excel/:name', RateStructureExcelController.getDetailsByRangeHierarchyName);
 
 FormulaProceduresRouter.post('/RateStructure/RangeType', RateTypeController.createRateType);
 FormulaProceduresRouter.get('/RateStructure/RangeType', RateTypeController.getRateTypes);
