@@ -33,5 +33,6 @@ FormulaProceduresRouter.get('/RateStructure/FormulaRangeMaster', FormulaRangeMas
 
 FormulaProceduresRouter.post('/RateStructure/FormulaRangeHierarchy', RangeHierarchyController.createRangeHierarchyDetail);
 FormulaProceduresRouter.get('/RateStructure/FormulaRangeHierarchy', RangeHierarchyController.getAllRangeHierarchyDetails);
+FormulaProceduresRouter.get('/RateStructure/FormulaRangeHierarchy/:name', RangeHierarchyController.getRangeHierarchyByName);
 
 export default FormulaProceduresRouter;

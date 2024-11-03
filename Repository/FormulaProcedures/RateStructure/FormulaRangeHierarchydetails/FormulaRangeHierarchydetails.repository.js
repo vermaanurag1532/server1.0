@@ -29,6 +29,20 @@ const RangeHierarchyRepository = {
                 else resolve(results);
             });
         });
+    },
+
+    getRangeHierarchyByName: (rangeHierarchyName) => {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT \`Data Type\`, \`Depd Field\`, \`Range Hierarchy Name\`
+                FROM \`Formula Range Hierarchy details\`
+                WHERE \`Range Hierarchy Name\` = ?
+            `;
+            connection.query(query, [rangeHierarchyName], (err, results) => {
+                if (err) reject(err);
+                else resolve(results);
+            });
+        });
     }
 };
 

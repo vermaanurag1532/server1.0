@@ -22,6 +22,14 @@ const RangeHierarchyService = {
         } catch (error) {
             throw new Error(`Error fetching range hierarchy details: ${error.message}`);
         }
+    },
+
+    getRangeHierarchyByName: async (rangeHierarchyName) => {
+        try {
+            return await RangeHierarchyRepository.getRangeHierarchyByName(rangeHierarchyName);
+        } catch (error) {
+            throw new Error(`Error fetching range hierarchy detail: ${error.message}`);
+        }
     }
 };
 
