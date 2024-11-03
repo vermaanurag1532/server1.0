@@ -1,4 +1,6 @@
 import express from 'express';
+import multer from 'multer';
+import S3ImageController from '../controllers/ItemMasterAndVariants/images.controller.js';
 import GoldItemController from '../controllers/ItemMasterAndVariants/Metal/Gold/GoldItem.controller.js';
 import GoldVariantsController from '../controllers/ItemMasterAndVariants/Metal/Gold/GoldVariant.controller.js'
 import SilverItemController from '../controllers/ItemMasterAndVariants/Metal/Silver/SilverItem.controller.js'
@@ -19,6 +21,12 @@ import StoneCertificateItemController from '../controllers/ItemMasterAndVariants
 import PackingMaterialsItemController from '../controllers/ItemMasterAndVariants/PackingMaterial/PackingMaterials/PackingMaterialsItem.controller.js'
 
 const ItemMasterAndVariantsRouter = express.Router();
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+ItemMasterAndVariantsRouter.post('/upload', upload.single('image'), S3ImageController.uploadImage)
+ItemMasterAndVariantsRouter.get('/image-url/:fileName', S3ImageController.getImageUrl);
+ItemMasterAndVariantsRouter.get('/upload', S3ImageController.getAllImages);
 
 ItemMasterAndVariantsRouter.get('/Metal/Gold/Item' , GoldItemController.getAllItems);
 ItemMasterAndVariantsRouter.post('/Metal/Gold/Item' , GoldItemController.postItem);
