@@ -19,6 +19,7 @@ import SetItemController from '../controllers/ItemMasterAndVariants/Set/SetItem.
 import StyleCertificateItemController from '../controllers/ItemMasterAndVariants/Certificate/StyleCertificate/StyleCertificateItem.controller.js'
 import StoneCertificateItemController from '../controllers/ItemMasterAndVariants/Certificate/StoneCertificate/StoneCertificate.controller.js'
 import PackingMaterialsItemController from '../controllers/ItemMasterAndVariants/PackingMaterial/PackingMaterials/PackingMaterialsItem.controller.js'
+import ItemStyleController from '../controllers/ItemMasterAndVariants/Style/Style/StyleItem.controller.js';
 
 const ItemMasterAndVariantsRouter = express.Router();
 const storage = multer.memoryStorage();
@@ -99,5 +100,9 @@ ItemMasterAndVariantsRouter.get('/Certificate/StoneCertificate/Item/download' , 
 ItemMasterAndVariantsRouter.get('/PackingMaterial/PackingMaterials/Item' , PackingMaterialsItemController.getAllItems);
 ItemMasterAndVariantsRouter.post('/PackingMaterial/PackingMaterials/Item' , PackingMaterialsItemController.postItem);
 ItemMasterAndVariantsRouter.get('/PackingMaterial/PackingMaterials/Item/download' , PackingMaterialsItemController.downloadItemsExcel);
+
+ItemMasterAndVariantsRouter.get('/Style/Style/Item' , ItemStyleController.getAllStyleItems);
+ItemMasterAndVariantsRouter.post('/Style/Style/Item' , ItemStyleController.createStyleItem);
+ItemMasterAndVariantsRouter.get('/Style/Style/Item/:name' , ItemStyleController.getStyleItemByName);
 
 export default ItemMasterAndVariantsRouter;
