@@ -1,10 +1,9 @@
-const config = {
+// config.js
+export default {
     s3: {
-        region: process.env.AWS_REGION,
-        bucketName: process.env.AWS_BUCKET_NAME,
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+        bucketName: 'jwel',
+        region: 'ap-south-1',
+        accessKeyId: 'AKIAS252V4C4OF7NQ5HA',
+        secretAccessKey: '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'
     }
 };
-
-export default config;
