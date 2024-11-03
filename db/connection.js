@@ -4,7 +4,7 @@ function handleDisconnect() {
     const connection = mysql.createConnection({
         host: 'localhost',
         // host: 'localhost',
-        user: 'root',
+        user: 'Anurag',
         password: 'Anurag@1532',
         database: 'mydatabase'
     });
