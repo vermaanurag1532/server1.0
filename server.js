@@ -8,6 +8,7 @@ import AllAttributeRouter from './routes/AllAttribute.router.js';
 import ItemCodeGenerationRouter from './routes/ItemCodeGeneration.router.js';
 import ItemMasterAndVariantsRouter from './routes/ItemMasterAndVariants.router.js';
 import FormulaProceduresRouter from './routes/FormulaProcedures.router.js';
+import MasterRouter from './routes/Master.router.js'
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,7 @@ app.use('/AllAttribute', AllAttributeRouter);
 app.use('/ItemCodeGeneration', ItemCodeGenerationRouter);
 app.use('/ItemMasterAndVariants', ItemMasterAndVariantsRouter);
 app.use('/FormulaProcedures', FormulaProceduresRouter);
+app.use('/Master', MasterRouter);
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server running at http://hp.localhost:${port}/`);
