@@ -11,7 +11,7 @@ const s3Client = new S3Client({
 });
 
 const S3ImageRepository = {
-    // Upload Image to S3
+    // Upload Image to S3 and return its URL
     uploadImage: async (fileBuffer, fileName, fileType) => {
         const params = {
             Bucket: config.s3.bucketName,
@@ -19,16 +19,20 @@ const S3ImageRepository = {
             Body: fileBuffer,
             ContentType: fileType
         };
-
+    
         try {
             const command = new PutObjectCommand(params);
-            const result = await s3Client.send(command);
-            return result;
+            await s3Client.send(command);
+    
+            // Get signed URL after upload
+            const getUrlCommand = new GetObjectCommand({ Bucket: config.s3.bucketName, Key: fileName });
+            const url = await getSignedUrl(s3Client, getUrlCommand, { expiresIn: 3600 });
+            return { url };  // Return an object containing the signed URL
         } catch (error) {
             console.error("Error uploading image:", error);
             throw error;
         }
-    },
+    },  
 
     // Get Signed URL for Image
     getImageUrl: async (fileName) => {
@@ -57,10 +61,7 @@ const S3ImageRepository = {
             const command = new ListObjectsV2Command(params);
             const data = await s3Client.send(command);
             const urls = await Promise.all(data.Contents.map(async (item) => {
-                const command = new GetObjectCommand({
-                    Bucket: config.s3.bucketName,
-                    Key: item.Key
-                });
+                const command = new GetObjectCommand({ Bucket: config.s3.bucketName, Key: item.Key });
                 return await getSignedUrl(s3Client, command, { expiresIn: 3600 });
             }));
             return urls;

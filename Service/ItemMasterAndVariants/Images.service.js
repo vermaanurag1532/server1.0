@@ -4,7 +4,7 @@ const S3ImageService = {
     uploadImage: async (fileBuffer, fileName, fileType) => {
         try {
             const result = await S3ImageRepository.uploadImage(fileBuffer, fileName, fileType);
-            return result;
+            return result;  // This will include the signed URL
         } catch (error) {
             throw new Error(`Failed to upload image: ${error.message}`);
         }

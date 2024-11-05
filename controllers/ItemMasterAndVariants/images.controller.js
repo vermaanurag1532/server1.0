@@ -5,11 +5,12 @@ const S3ImageController = {
         const { originalname, mimetype, buffer } = req.file;
         try {
             const result = await S3ImageService.uploadImage(buffer, originalname, mimetype);
-            res.status(201).json({ message: 'Image uploaded successfully', url: result.Location });
+            res.status(201).json({ message: 'Image uploaded successfully', url: result.url });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     },
+    
 
     getImageUrl: async (req, res) => {
         const { fileName } = req.params;
