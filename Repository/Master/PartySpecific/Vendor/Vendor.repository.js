@@ -3,13 +3,13 @@ import db from '../../../../db/connection.js';
 const VendorRepository = {
     // Get all vendors
     getAllVendors: async () => {
-        const [rows] = await db.query('SELECT * FROM `Vendor Master`');
+        const [rows] = await db.promise().query('SELECT * FROM `Vendor Master`');
         return rows;
     },
 
     // Get a vendor by name
     getVendorByName: async (vendorName) => {
-        const [rows] = await db.query('SELECT * FROM `Vendor Master` WHERE `Vendor Name` = ?', [vendorName]);
+        const [rows] = await db.promise().query('SELECT * FROM `Vendor Master` WHERE `Vendor Name` = ?', [vendorName]);
         return rows[0];
     },
 
@@ -35,7 +35,7 @@ const VendorRepository = {
             vendorData.ExchangePercent, vendorData.ReturnsTerm, vendorData.UdyogAdharNo, vendorData.ExchangeTerms,
             vendorData.TDS194Q
         ];
-        const [result] = await db.query(query, values);
+        const [result] = await db.promise().query(query, values);
         return result.insertId;
     }
 };
