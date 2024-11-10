@@ -1,0 +1,542 @@
+connect with ec2 : ssh -i C:\Users\verma\Downloads\j.pem ubuntu@54.242.44.158
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Anurag@1532';
+FLUSH PRIVILEGES;
+
+cname.vercel-dns.com
+
+db - 127.0.0.1
+
+CREATE TABLE RoleMasterParentform (
+    RoleCode VARCHAR(255) PRIMARY KEY,
+    RoleName VARCHAR(255) NOT NULL,
+    RoleStatus VARCHAR(255) NOT NULL,
+    SessionIdleTimeout INT NOT NULL,
+    AllowChangeLoadItemSettingInTrans BOOLEAN NOT NULL,
+    ShowStockValueColumnInMfgr BOOLEAN NOT NULL,
+    ShowSellValueColumnInMfgr BOOLEAN NOT NULL,
+    AllowReportConfig BOOLEAN NOT NULL,
+    OTPEnabled VARCHAR(255) NOT NULL,
+    PlannerInd VARCHAR(255) NOT NULL,
+    GeneratePlannerQTO BOOLEAN NOT NULL,
+    LossNotAllowedCon VARCHAR(255) NOT NULL,
+    LockDate DATE,
+    AllowFormulaRangeApproval BOOLEAN NOT NULL,
+    CanBookLossInOnAccountReturn BOOLEAN NOT NULL,
+    CanPerformDayClose BOOLEAN NOT NULL
+);
+
+
+CREATE TABLE ItemConfiguration (
+    ItemType VARCHAR(255) NOT NULL,
+    ItemGroup VARCHAR(255) NOT NULL,
+    ItemNature VARCHAR(255) NOT NULL,
+    StockUOM VARCHAR(255) NOT NULL,
+    DependentCriteria VARCHAR(255),
+    BOMIndicator BOOLEAN NOT NULL,
+    LotManagementIndicator BOOLEAN NOT NULL,
+    OtherLossIndicator VARCHAR(255),
+    CustomStockReqdInd BOOLEAN NOT NULL,
+    WastagePercentage DECIMAL(5,2),
+    InwardRateToleranceUp DECIMAL(10,2),
+    InwardRateToleranceDown DECIMAL(10,2),
+    OperationReqdInd BOOLEAN NOT NULL,
+    RowCreationInd BOOLEAN NOT NULL,
+    MetalToleranceDown DECIMAL(10,2),
+    AlloyToleranceDown DECIMAL(10,2),
+    MetalToleranceUp DECIMAL(10,2),
+    AlloyToleranceUp DECIMAL(10,2)
+);
+
+
+
+
+CREATE TABLE ItemConfigurationItemType (
+    ConfigID VARCHAR(255) PRIMARY KEY,
+    ConfigType VARCHAR(255) NOT NULL,
+    ConfigCode VARCHAR(255) NOT NULL,
+    ConfigValue VARCHAR(255) NOT NULL,
+    ConfigRemark1 TEXT,
+    ConfigRemark2 TEXT,
+    DepdConfigCode VARCHAR(255),
+    DepdConfigID VARCHAR(255),
+    DepdConfigValue VARCHAR(255),
+    Keywords TEXT,
+    RowStatus VARCHAR(50)
+);
+
+
+
+CREATE TABLE ItemConfigurationItemGroup (
+    ConfigID VARCHAR(255) PRIMARY KEY,
+    ConfigType VARCHAR(255) NOT NULL,
+    ConfigCode VARCHAR(255) NOT NULL,
+    ConfigValue VARCHAR(255) NOT NULL,
+    ConfigRemark1 TEXT,
+    ConfigRemark2 TEXT,
+    DepdConfigCode VARCHAR(255),
+    DepdConfigID VARCHAR(255),
+    DepdConfigValue VARCHAR(255),
+    Keywords TEXT,
+    RowStatus VARCHAR(50)
+);
+
+
+
+
+CREATE TABLE ItemConfigurationItemNature (
+    ConfigID VARCHAR(255) PRIMARY KEY,
+    ConfigType VARCHAR(255) NOT NULL,
+    ConfigCode VARCHAR(255) NOT NULL,
+    ConfigValue VARCHAR(255) NOT NULL,
+    ConfigRemark1 TEXT,
+    ConfigRemark2 TEXT,
+    DepdConfigCode VARCHAR(255),
+    DepdConfigID VARCHAR(255),
+    DepdConfigValue VARCHAR(255),
+    Keywords TEXT,
+    RowStatus VARCHAR(50)
+);
+
+
+CREATE TABLE ItemConfigurationStockUOM (
+    ConfigID VARCHAR(255) PRIMARY KEY,
+    ConfigType VARCHAR(255) NOT NULL,
+    ConfigCode VARCHAR(255) NOT NULL,
+    ConfigValue VARCHAR(255) NOT NULL,
+    ConfigRemark1 TEXT,
+    ConfigRemark2 TEXT,
+    DepdConfigCode VARCHAR(255),
+    DepdConfigID VARCHAR(255),
+    DepdConfigValue VARCHAR(255),
+    Keywords TEXT,
+    RowStatus VARCHAR(50)
+);
+
+
+
+
+
+CREATE TABLE ItemConfigurationDependentCriteria (
+    ConfigID VARCHAR(255) PRIMARY KEY,
+    ConfigType VARCHAR(255) NOT NULL,
+    ConfigCode VARCHAR(255) NOT NULL,
+    ConfigValue VARCHAR(255) NOT NULL,
+    ConfigRemark1 TEXT,
+    ConfigRemark2 TEXT,
+    DepdConfigCode VARCHAR(255),
+    DepdConfigID VARCHAR(255),
+    DepdConfigValue VARCHAR(255),
+    Keywords TEXT,
+    RowStatus VARCHAR(50)
+);
+
+
+
+
+
+CREATE TABLE AllAttributeParentForm (
+    AttributeType VARCHAR(255),
+    AttributeCode VARCHAR(255) UNIQUE,
+    AttributeDescription VARCHAR(255),
+    DefaultIndicator BOOLEAN,
+    RowStatus VARCHAR(255)
+);
+
+
+
+
+CREATE TABLE AllAttributeParentFormAttributeType (
+    ConfigValue VARCHAR(255),
+    ConfigCode VARCHAR(255),
+    ConfigId VARCHAR(255) UNIQUE
+);
+
+
+    {
+        "ConfigValue": "KARAT",
+        "ConfigCode": "KT",
+        "ConfigId": "11,006"
+    },
+    {
+        "ConfigValue": "METAL COLOR",
+        "ConfigCode": "CLR",
+        "ConfigId": "11,005"
+    }
+
+
+
+
+CREATE TABLE `Item Code Generation` (
+    `Item Group` VARCHAR(255),
+    `Code Gen Format` VARCHAR(255),
+    `Start with` INT,
+    `Incr By` INT,
+    `SrNo Separator` VARCHAR(255),
+    `Master Variant Ind` BOOLEAN
+);
+
+CREATE TABLE `Item master and variant Metal Gold Item` (
+    `Metal code` VARCHAR(255),
+    `Exclusive Indicator` BOOLEAN,
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+CREATE TABLE `Item master and variant Metal Gold Variants` (
+    `Metal name` VARCHAR(255),
+    `Variant type` VARCHAR(255),
+    `Base metal Variant` VARCHAR(255),
+    `Std. selling rate` DECIMAL(10, 2),
+    `Std. buying rate` DECIMAL(10, 2),
+    `Reorder Qty` INT, 
+    `Used in BOM` VARCHAR(255),
+    `Can Return in Melting` BOOLEAN,
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Metal Color` VARCHAR(255),
+    `Karat` VARCHAR(255)
+);
+
+CREATE TABLE `Item master and variant Metal Silver Item` (
+    `Metal code` VARCHAR(255),
+    `Exclusive Indicator` BOOLEAN,
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+CREATE TABLE `Item master and variant Metal Silver Variants` (
+    `Metal name` VARCHAR(255),
+    `Variant type` VARCHAR(255),
+    `Base metal Variant` VARCHAR(255),
+    `Std. selling rate` DECIMAL(10, 2),
+    `Std. buying rate` DECIMAL(10, 2),
+    `Reorder Qty` INT,
+    `Used in BOM` VARCHAR(255),
+    `Can Return in Melting` BOOLEAN,
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Metal Color` VARCHAR(255),
+    `Karat` VARCHAR(255)
+);
+
+
+CREATE TABLE `Item master and variant Metal Platinum Item` (
+    `Metal code` VARCHAR(255),
+    `Exclusive Indicator` BOOLEAN,
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+CREATE TABLE `Item master and variant Metal Bronze Item` (
+    `Metal code` VARCHAR(255),
+    `Exclusive Indicator` BOOLEAN,
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+
+CREATE TABLE `Item master and variant Stone Diamond Item` (
+    `Stone code` VARCHAR(255),
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+
+CREATE TABLE `Item master and variant Stone Pearl Item` (
+    `Stone code` VARCHAR(255),
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+
+
+CREATE TABLE `Item master and variant Stone Precious Stones Item` (
+    `Stone code` VARCHAR(255),
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+
+
+CREATE TABLE `Item master and variant Stone Semi Precious Stones Item` (
+    `Stone code` VARCHAR(255),
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+
+
+CREATE TABLE `Item master and variant Stone Zircon Item` (
+    `Stone code` VARCHAR(255),
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+
+CREATE TABLE `Item master and variant Stone Polki Item` (
+    `Stone code` VARCHAR(255),
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+CREATE TABLE `Item master and variant Stone Diamond Solitaire Item` (
+    `Stone code` VARCHAR(255),
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+ALTER TABLE `Item master and variant Stone Diamond Item`
+CHANGE `Metal code` `Stone code` VARCHAR(255);
+
+CREATE TABLE `Item master and variant Consumables ConsumablesWT Item` (
+    `Consumable code` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE
+);
+
+CREATE TABLE `Item master and variant SET Item` (
+    `Consumable code` VARCHAR(255),
+    `Description` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE
+);
+
+CREATE TABLE `Item master and variant Certificate Style Certificate Item` (
+    `Certificate Item Name` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE
+);
+
+CREATE TABLE `Item master and variant Certificate Stone Certificate Item` (
+    `Certificate Item Name` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE
+);
+
+CREATE TABLE `Item master and variant Packing Material Packing Materials Item` (
+    `Code` VARCHAR(255),
+    `Name` VARCHAR(255),
+    `Remark` VARCHAR(255),
+    `Row status` VARCHAR(255),
+    `Created Date` DATE,
+    `Update Date` DATE,
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255)
+);
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Anurag@1532';
+FLUSH PRIVILEGES;
+
+
+CREATE TABLE `Formula Procedures Rate Structure Rate Type` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255),
+    `Config remark3` TEXT,
+    `Config remark2` TEXT
+);
+
+
+CREATE TABLE `Formula Procedures Rate Structure Data Type` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255),
+    `Config remark1` TEXT,
+    `Config remark2` TEXT,
+    `Config remark3` TEXT
+);
+
+CREATE TABLE `Formula Procedures Rate Structure Depd Field Number` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config type` VARCHAR(255),
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255),
+    `Config remark3` TEXT
+);
+
+CREATE TABLE `Formula Procedures Rate Structure Depd Field Attribute` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config type` VARCHAR(255),
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255),
+    `Config remark3` TEXT
+);
+
+CREATE TABLE `Formula Procedures Rate Structure Formula Range Master` (
+    `Range Hierarchy Name` VARCHAR(255) UNIQUE,
+    `Range Type` VARCHAR(255)
+);
+
+CREATE TABLE `Formula Range Hierarchy details` (
+    `Data Type` VARCHAR(255),
+    `Depd Field` VARCHAR(255),
+    `Range Hierarchy Name` VARCHAR(255),
+    FOREIGN KEY (`Range Hierarchy Name`) REFERENCES `Formula Procedures Rate Structure Formula Range Master`(`Range Hierarchy Name`)
+);
+
+
+CREATE TABLE `Rate Structure Excel` (
+    `Range Hierarchy Name` VARCHAR(255),
+    `Details` JSON,
+    FOREIGN KEY (`Range Hierarchy Name`) REFERENCES `Formula Procedures Rate Structure Formula Range Master`(`Range Hierarchy Name`)
+);
+
+AKIAS252V4C4OF7NQ5HA
+ZaFsOn47ew8oDVClNv0sdNjsq1irIbQ9JUla8fK5
+
+
+
+CREATE TABLE `Item master and variant Style Style Item` (
+    `Style Name` VARCHAR(255),
+    `Exclusive Indicator` BOOLEAN,
+    `Hold Indicator` BOOLEAN,
+    `Rework Indicator` BOOLEAN,
+    `Reject Indicator` BOOLEAN,
+    `Proto Required Indicator` BOOLEAN,
+    `Auto Varient Code Gen Indicator` BOOLEAN,
+    `Remark` VARCHAR(255),
+    `Row Status` VARCHAR(255),
+    `Image Details` JSON
+);
+
+CREATE TABLE `Formula Procedure Master Details` (
+	`Procedure Type` VARCHAR(255),
+	`Formula Procedure Name` VARCHAR(255),
+	`Calculate On` VARCHAR(255),
+	`Minimum Value Based On` VARCHAR(255),
+	`Min RANGE Type` VARCHAR(255),
+	`Maximum Value Based On` VARCHAR(255),
+	`Max RANGE Type` VARCHAR(255),
+	`Excel Detail` JSON
+);
+
+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
+
+CREATE TABLE `Vendor Master` (
+	`Gst Registraton Type` VARCHAR(255),
+	`Initials` VARCHAR(255),
+	`Vendor Code` VARCHAR(255),
+	`Vendor Name` VARCHAR(255),
+	`Default Currency` VARCHAR(255),
+	`Agent Name` VARCHAR(255),
+	`Default Terms` VARCHAR(255),
+	`Row Status` VARCHAR(255),
+	`Logo File Name` VARCHAR(255),
+	`Local Sales TAX No` VARCHAR(255),
+	`Sales TAX No` VARCHAR(255),
+	`PAN No` VARCHAR(255),
+	`Aadhar No` VARCHAR(255),
+	`MSME Certificate No` VARCHAR(255),
+	`Vendor Type` VARCHAR(255),
+	`TAN No` VARCHAR(255),
+	`VAN No` VARCHAR(255),
+	`GST No` VARCHAR(255),
+	`MSME Registered` VARCHAR(255),
+	`Allow Wastage` VARCHAR(255),
+	`Allow Labour` VARCHAR(255),
+	`Corresponding Location` VARCHAR(255),
+	`Nominated Agency` BOOLEAN,
+	`Exchange %` VARCHAR(255),
+	`Returns Term` VARCHAR(255),
+	`Udyog Adhar No` VARCHAR(255),
+	`Exchange Terms` VARCHAR(255),
+	`TDS194Q` VARCHAR(255)
+);
+
+
+CREATE TABLE Operation (
+    OPERATION_ID INT PRIMARY KEY,
+    OPERATION_NAME VARCHAR(255),
+    BASE_ITEM_TYPE_ID INT,
+    OPERATION_TYPE_ID INT,
+    OPERATION_TYPE VARCHAR(255),
+    SERVICE_CALC_METHOD_ID INT,
+    SERVICE_CALC_METHOD_CODE VARCHAR(255),
+    SERVICE_CALC_METHOD VARCHAR(255),
+    SERVICE_CALC_METHOD_VAL_ID INT,
+    SERVICE_CALC_METHOD_VAL VARCHAR(255),
+    SERVICE_DEPD_METHOD_ID INT,
+    SERVICE_DEPD_METHOD_CODE VARCHAR(255),
+    SERVICE_DEPD_METHOD VARCHAR(255),
+    SERVICE_DEPD_METHOD_VAL_ID INT,
+    SERVICE_DEPD_METHOD_VAL VARCHAR(255)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
