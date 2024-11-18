@@ -514,6 +514,30 @@ CREATE TABLE Operation (
 
 
 
+CREATE TABLE Type (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255)
+);
+
+
+CREATE TABLE `Calc Method` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255)
+);
+
+
+CREATE TABLE `Calc Method Value` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config value` VARCHAR(255)
+);
+
+CREATE TABLE `Depd Method` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255)
+);
 
 
 
