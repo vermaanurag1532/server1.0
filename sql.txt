@@ -542,6 +542,7 @@ CREATE TABLE `Depd Method` (
 );
 
 
+
 CREATE TABLE `Item Master and Variant Style Style Varient` (
     `Style` VARCHAR(255),   
     `Varient Name` VARCHAR(255),
@@ -573,9 +574,6 @@ CREATE TABLE `Item Master and Variant Style Style Varient` (
     `BOM` JSON,
     `Operation` JSON
 );
-
-
-
 
 
 

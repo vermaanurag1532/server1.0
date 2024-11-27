@@ -3,8 +3,7 @@ import ItemMasterVariantRepository from "../../../../Repository/ItemMasterAndVar
 const ItemMasterVariantService = {
   createItemVariant: async (data) => {
     try {
-      const result = await ItemMasterVariantRepository.insert(data);
-      return { result };
+      return await ItemMasterVariantRepository.insert(data);
     } catch (error) {
       throw new Error(`Error creating item variant: ${error.message}`);
     }
@@ -12,8 +11,7 @@ const ItemMasterVariantService = {
 
   getAllItemVariants: async () => {
     try {
-      const results = await ItemMasterVariantRepository.findAll();
-      return { success: true, data: results };
+      return await ItemMasterVariantRepository.findAll();
     } catch (error) {
       throw new Error(`Error fetching item variants: ${error.message}`);
     }
