@@ -16,6 +16,7 @@ app.use(cors());
 const port = 3000;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/', RootRouter);
 app.use('/EmployeeMaster', EmployeeMasterRouter);

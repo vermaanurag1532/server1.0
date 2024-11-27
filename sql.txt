@@ -413,6 +413,7 @@ CREATE TABLE `Formula Procedures Rate Structure Depd Field Attribute` (
 );
 
 CREATE TABLE `Formula Procedures Rate Structure Formula Range Master` (
+    `Config Id` INT AUTO_INCREMENT PRIMARY KEY,
     `Range Hierarchy Name` VARCHAR(255) UNIQUE,
     `Range Type` VARCHAR(255)
 );
@@ -461,6 +462,7 @@ CREATE TABLE `Formula Procedure Master Details` (
 );
 
 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
+git pull https://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@github.com/vermaanurag1532/server1.0.git 
 
 CREATE TABLE `Vendor Master` (
 	`Gst Registraton Type` VARCHAR(255),
@@ -538,8 +540,6 @@ CREATE TABLE `Depd Method` (
     `Config code` VARCHAR(255),
     `Config value` VARCHAR(255)
 );
-
-
 
 
 

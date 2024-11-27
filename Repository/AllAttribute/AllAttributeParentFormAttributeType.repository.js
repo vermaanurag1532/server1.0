@@ -15,6 +15,7 @@ const AllAttributeParentFormAttributeTypeRepository = {
     },
 
     insert: (params) => {
+        console.log('Insert params:', params); // Add this line
         return new Promise((resolve, reject) => {
             const query = `
                 INSERT INTO AllAttributeParentFormAttributeType (
@@ -23,7 +24,7 @@ const AllAttributeParentFormAttributeTypeRepository = {
                     ConfigId
                 ) VALUES (?, ?, ?)
             `;
-
+    
             connection.query(query, params, (err, results) => {
                 if (err) {
                     reject(err);
@@ -33,6 +34,7 @@ const AllAttributeParentFormAttributeTypeRepository = {
             });
         });
     }
+    
 };
 
 export default AllAttributeParentFormAttributeTypeRepository;
