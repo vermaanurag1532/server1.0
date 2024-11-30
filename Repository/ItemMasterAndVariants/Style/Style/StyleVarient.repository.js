@@ -10,8 +10,8 @@ const ItemMasterVariantRepository = {
         \`Remark\`, \`Stone Min Wt\`, \`Karat Color\`, \`Delivery Days\`,
         \`For Web\`, \`Row Status\`, \`Verified Status\`, \`Length\`,
         \`Codegen Sr No\`, \`Category\`, \`Sub-Category\`, \`Style Karat\`,
-        \`Varient\`, \`HSN-SAC Code\`, \`Line of Business\`, \`BOM\`, \`Operation\`
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        \`Varient\`, \`HSN-SAC Code\`, \`Line of Business\`, \`BOM\`, \`Operation\` , \`Image Details\`
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     const values = [
       data.style, data.variantName, data.oldVariant, data.customerVariant,
@@ -20,7 +20,7 @@ const ItemMasterVariantRepository = {
       data.remark, data.stoneMinWt, data.karatColor, data.deliveryDays,
       data.forWeb, data.rowStatus, data.verifiedStatus, data.length,
       data.codegenSrNo, data.category, data.subCategory, data.styleKarat,
-      data.variant, data.hsnSacCode, data.lineOfBusiness, JSON.stringify(data.bom), JSON.stringify(data.operation)
+      data.variant, data.hsnSacCode, data.lineOfBusiness, JSON.stringify(data.bom), JSON.stringify(data.operation), JSON.stringify(data.imageDetails)
     ];
     return new Promise((resolve, reject) => {
       connection.query(query, values, (err, results) => {

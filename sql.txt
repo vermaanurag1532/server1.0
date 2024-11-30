@@ -572,7 +572,8 @@ CREATE TABLE `Item Master and Variant Style Style Varient` (
     `HSN-SAC Code` VARCHAR(255),
     `Line of Business` VARCHAR(255),
     `BOM` JSON,
-    `Operation` JSON
+    `Operation` JSON,
+    `Image Details` JSON
 );
 
 
