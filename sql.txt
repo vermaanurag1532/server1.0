@@ -199,7 +199,8 @@ CREATE TABLE `Item master and variant Metal Gold Variants` (
     `Created Date` DATE,
     `Update Date` DATE,
     `Metal Color` VARCHAR(255),
-    `Karat` VARCHAR(255)
+    `Karat` VARCHAR(255),
+    `Metal Item Name` VARCHAR(200)
 );
 
 CREATE TABLE `Item master and variant Metal Silver Item` (

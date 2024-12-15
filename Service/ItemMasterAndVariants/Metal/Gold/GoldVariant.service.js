@@ -24,7 +24,8 @@ const MetalGoldVariantsService = {
             'Created Date': CreatedDate,
             'Update Date': UpdateDate,
             'Metal Color': MetalColor,
-            'Karat': Karat
+            'Karat': Karat,
+            'Metal Item Name': MetalItemName
         } = variantData;
 
         const params = [
@@ -40,7 +41,8 @@ const MetalGoldVariantsService = {
             CreatedDate,
             UpdateDate,
             MetalColor,
-            Karat
+            Karat,
+            MetalItemName
         ];
 
         try {
