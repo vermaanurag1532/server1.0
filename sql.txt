@@ -462,8 +462,8 @@ CREATE TABLE `Formula Procedure Master Details` (
 	`Excel Detail` JSON
 );
 
-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
-git pull https://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@github.com/vermaanurag1532/server1.0.git 
+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
+git pull https://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@github.com/vermaanurag1532/server1.0.git 
 
 CREATE TABLE `Vendor Master` (
 	`Gst Registraton Type` VARCHAR(255),
@@ -566,12 +566,12 @@ CREATE TABLE `Item Master and Variant Style Style Varient` (
     `Verified Status` VARCHAR(255),
     `Length` INT,
     `Codegen Sr No` VARCHAR(255),
-    `Category` VARCHAR(255),
+    `CATEGORY` VARCHAR(255),
     `Sub-Category` VARCHAR(255),
-    `Style Karat` VARCHAR(255),
+    `STYLE KARAT` VARCHAR(255),
     `Varient` VARCHAR(255),
-    `HSN-SAC Code` VARCHAR(255),
-    `Line of Business` VARCHAR(255),
+    `HSN - SAC CODE` VARCHAR(255),
+    `LINE OF BUSINESS` VARCHAR(255),
     `BOM` JSON,
     `Operation` JSON,
     `Image Details` JSON

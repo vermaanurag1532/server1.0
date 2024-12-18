@@ -9,8 +9,8 @@ const ItemMasterVariantRepository = {
         \`Remark 2\`, \`Created By\`, \`Std Buying Rate\`, \`Stone Max Wt\`,
         \`Remark\`, \`Stone Min Wt\`, \`Karat Color\`, \`Delivery Days\`,
         \`For Web\`, \`Row Status\`, \`Verified Status\`, \`Length\`,
-        \`Codegen Sr No\`, \`Category\`, \`Sub-Category\`, \`Style Karat\`,
-        \`Varient\`, \`HSN-SAC Code\`, \`Line of Business\`, \`BOM\`, \`Operation\` , \`Image Details\`
+        \`Codegen Sr No\`, \`CATEGORY\`, \`Sub-Category\`, \`STYLE KARAT\`,
+        \`Varient\`, \`HSN - SAC CODE\`, \`LINE OF BUSINESS\`, \`BOM\`, \`Operation\` , \`Image Details\`
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     const values = [
