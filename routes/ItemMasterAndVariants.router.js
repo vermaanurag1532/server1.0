@@ -21,6 +21,7 @@ import StoneCertificateItemController from '../controllers/ItemMasterAndVariants
 import PackingMaterialsItemController from '../controllers/ItemMasterAndVariants/PackingMaterial/PackingMaterials/PackingMaterialsItem.controller.js'
 import ItemStyleController from '../controllers/ItemMasterAndVariants/Style/Style/StyleItem.controller.js';
 import StyleVariantController from '../controllers/ItemMasterAndVariants/Style/Style/StyleVarient.controller.js'
+import DiamondVariantController from '../controllers/ItemMasterAndVariants/Stone/Diamond/DiamondVariant.controller.js'
 
 const ItemMasterAndVariantsRouter = express.Router();
 const storage = multer.memoryStorage();
@@ -108,5 +109,11 @@ ItemMasterAndVariantsRouter.get('/Style/Style/Item/:name' , ItemStyleController.
 
 ItemMasterAndVariantsRouter.get('/Style/Style/Varient' , StyleVariantController.getAllItemVariants);
 ItemMasterAndVariantsRouter.post('/Style/Style/Varient' , StyleVariantController.createItemVariant);
+
+ItemMasterAndVariantsRouter.post("/Stone/Diamond/Varient", DiamondVariantController.create);
+ItemMasterAndVariantsRouter.get("/Stone/Diamond/Varient", DiamondVariantController.getAll);
+ItemMasterAndVariantsRouter.get("/Stone/Diamond/Varient:id", DiamondVariantController.getById);
+ItemMasterAndVariantsRouter.put("/Stone/Diamond/Varient:id", DiamondVariantController.update);
+ItemMasterAndVariantsRouter.delete("/Stone/Diamond/Varient:id", DiamondVariantController.delete);
 
 export default ItemMasterAndVariantsRouter;
