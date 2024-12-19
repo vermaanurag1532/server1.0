@@ -32,6 +32,36 @@ const FormulaProcedureMasterDetailsRepository = {
                 else resolve(results);
             });
         });
+    },
+
+    findByName: (formulaProcedureName) => {
+        const query = `
+          SELECT * 
+          FROM \`Formula Procedure Master Details\` 
+          WHERE \`Formula Procedure Name\` = ?
+        `;
+        return new Promise((resolve, reject) => {
+            connection.query(query, [formulaProcedureName], (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(results[0] || null); // Return a single result or null
+                }
+            });
+        });
+    },
+
+    findAllForTableRoute: () => {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT \`Procedure Type\`, \`Formula Procedure Name\`
+                FROM \`Formula Procedure Master Details\`
+            `;
+            connection.query(query, (err, results) => {
+                if (err) reject(err);
+                else resolve(results);
+            });
+        });
     }
 };
 
