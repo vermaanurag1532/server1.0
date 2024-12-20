@@ -1,7 +1,27 @@
 import connection from "../../../../db/connection.js";
 
 const DiamondVariantRepository = {
-  insert: (data) => {
+
+  generateStoneVariantName: () => {
+    const query = `
+      SELECT COUNT(*) AS count 
+      FROM \`Item Master and Variant Stone Diamond Variant\`
+    `;
+    return new Promise((resolve, reject) => {
+      connection.query(query, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          const count = results[0]?.count || 0;
+          resolve(`New DIAMOND-${count + 1}`);
+        }
+      });
+    });
+  },
+
+  insert: async (data) => {
+    const stoneVariantName = await DiamondVariantRepository.generateStoneVariantName();
+
     const query = `
       INSERT INTO \`Item Master and Variant Stone Diamond Variant\` (
         \`Stone Variant Name\`, \`Stone Name\`, \`Manual Code Gen\`, 
@@ -13,7 +33,7 @@ const DiamondVariantRepository = {
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     const values = [
-      data.stoneVariantName, data.stoneName, data.manualCodeGen,
+      stoneVariantName, data.stoneName, data.manualCodeGen,
       data.variantTypeName, data.oldVariant, data.customerVariantName,
       data.vendorName, data.tagRemark, data.stdSellingRate,
       data.stdBuyingRate, data.averageWeight, data.usedAsBom,
@@ -25,7 +45,7 @@ const DiamondVariantRepository = {
         if (err) {
           reject(err);
         } else {
-          resolve(results);
+          resolve({ id: results.insertId, stoneVariantName });
         }
       });
     });
