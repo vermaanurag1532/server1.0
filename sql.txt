@@ -603,7 +603,40 @@ CREATE TABLE `Item Master and Variant Stone Diamond Variant` (
 );
 
 
-
+CREATE TABLE `Procurement Good Receipt Note` (
+    `Stock ID` VARCHAR(255),
+    `Style` VARCHAR(255),   
+    `Varient Name` VARCHAR(255),
+    `Old Varient` VARCHAR(255),
+    `Customer Varient` VARCHAR(255),
+    `Base Varient` VARCHAR(255),
+    `Vendor` VARCHAR(255),
+    `Remark 1` VARCHAR(255),
+    `Vendor Varient` VARCHAR(255),
+    `Remark 2` VARCHAR(255),
+    `Created By` VARCHAR(255),
+    `Std Buying Rate` VARCHAR(255),
+    `Stone Max Wt` VARCHAR(255),
+    `Remark` VARCHAR(255),
+    `Stone Min Wt` VARCHAR(255),
+    `Karat Color` VARCHAR(255),
+    `Delivery Days` INT,
+    `For Web` VARCHAR(255),
+    `Row Status` VARCHAR(255),
+    `Verified Status` VARCHAR(255),
+    `Length` INT,
+    `Codegen Sr No` VARCHAR(255),
+    `CATEGORY` VARCHAR(255),
+    `Sub-Category` VARCHAR(255),
+    `STYLE KARAT` VARCHAR(255),
+    `Varient` VARCHAR(255),
+    `HSN - SAC CODE` VARCHAR(255),
+    `LINE OF BUSINESS` VARCHAR(255),
+    `BOM` JSON,
+    `Operation` JSON,
+    `Image Details` JSON,
+    `Formula Details` JSON
+);
 
 
 
