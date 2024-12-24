@@ -462,6 +462,14 @@ CREATE TABLE `Formula Procedure Master Details` (
 	`Excel Detail` JSON
 );
 
+CREATE TABLE `Formula Procedure Formula Mapping Procedure Type` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255),
+    `Config remark3` VARCHAR(255),
+    `Config remark2` VARCHAR(255)
+);
+
 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
 git pull https://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@github.com/vermaanurag1532/server1.0.git 
 

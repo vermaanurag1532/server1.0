@@ -8,6 +8,7 @@ import RangeHierarchyController from '../controllers/FormulaProcedures/RateStruc
 import RateStructureController from '../controllers/FormulaProcedures/RateStructure/RateStructure.controller.js'
 import RateStructureExcelController from '../controllers/FormulaProcedures/RateStructure/RateStructureExcel.controller.js'
 import FormulaProcedureMasterDetailsController from '../controllers/FormulaProcedures/FormulaProcedure/FormulaProcedure.controller.js'
+import FormulaController from '../controllers/FormulaProcedures/FormulaMapping/ProcedureType.controller.js'
 
 const FormulaProceduresRouter = express.Router();
 
@@ -40,5 +41,9 @@ FormulaProceduresRouter.post('/FormulaProcedureMasterDetails', FormulaProcedureM
 FormulaProceduresRouter.get('/FormulaProcedureMasterDetails', FormulaProcedureMasterDetailsController.getAllFormulaProcedureMasterDetails);
 FormulaProceduresRouter.get('/FormulaProcedureMasterDetails/:formulaProcedureName', FormulaProcedureMasterDetailsController.getDetailByName);
 FormulaProceduresRouter.get('/table', FormulaProcedureMasterDetailsController.getTableDetails);
+
+FormulaProceduresRouter.get("/FormulaMapping/ProcedureType", FormulaController.getAll);
+FormulaProceduresRouter.get("/FormulaMapping/ProcedureType/:id", FormulaController.getById);
+FormulaProceduresRouter.post("/FormulaMapping/ProcedureType", FormulaController.create);
 
 export default FormulaProceduresRouter;
