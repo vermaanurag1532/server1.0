@@ -12,6 +12,7 @@ import FormulaController from '../controllers/FormulaProcedures/FormulaMapping/P
 import FormulaTransactionController from '../controllers/FormulaProcedures/FormulaMapping/TransactionType.controller.js'
 import FormulaDocumentController from '../controllers/FormulaProcedures/FormulaMapping/DocumentType.controller.js'
 import FormulaTransCategoryController from '../controllers/FormulaProcedures/FormulaMapping/TransCategory.controller.js'
+import FormulaMappingController from '../controllers/FormulaProcedures/FormulaMapping/FormulaMapping.controller.js'
 
 const FormulaProceduresRouter = express.Router();
 
@@ -44,6 +45,10 @@ FormulaProceduresRouter.post('/FormulaProcedureMasterDetails', FormulaProcedureM
 FormulaProceduresRouter.get('/FormulaProcedureMasterDetails', FormulaProcedureMasterDetailsController.getAllFormulaProcedureMasterDetails);
 FormulaProceduresRouter.get('/FormulaProcedureMasterDetails/:formulaProcedureName', FormulaProcedureMasterDetailsController.getDetailByName);
 FormulaProceduresRouter.get('/table', FormulaProcedureMasterDetailsController.getTableDetails);
+
+FormulaProceduresRouter.get("/FormulaMapping", FormulaMappingController.getAll);
+FormulaProceduresRouter.get("/FormulaMapping/:id", FormulaMappingController.getById);
+FormulaProceduresRouter.post("/FormulaMapping", FormulaMappingController.create);
 
 FormulaProceduresRouter.get("/FormulaMapping/ProcedureType", FormulaController.getAll);
 FormulaProceduresRouter.get("/FormulaMapping/ProcedureType/:id", FormulaController.getById);

@@ -462,6 +462,23 @@ CREATE TABLE `Formula Procedure Master Details` (
 	`Excel Detail` JSON
 );
 
+CREATE TABLE `Formula Procedure Formula Mapping` (
+    `Procedure Type` VARCHAR(255),
+    `Transaction Type` VARCHAR(255),
+    `Document Type` VARCHAR(255),
+    `Transaction Category` VARCHAR(255),
+    `Party Name` VARCHAR(255),
+    `Variant Name` VARCHAR(255),
+    `Item Group` VARCHAR(255),
+    `Attribute Type` VARCHAR(255),
+    `Attribute Value` VARCHAR(255),
+    `Operation` VARCHAR(255),
+    `Operation Type` VARCHAR(255),
+    `Procedure Name` VARCHAR(255),
+    `Trans Type` VARCHAR(255)
+);
+
+
 CREATE TABLE `Formula Procedure Formula Mapping Procedure Type` (
     `Config Id` VARCHAR(255) UNIQUE,
     `Config code` VARCHAR(255),
@@ -501,43 +518,6 @@ CREATE TABLE `Formula Procedure Formula Mapping Trans Category` (
     `Config remark3` VARCHAR(255),
     `Depd Config_ID` VARCHAR(255)
 );
-
-
-CREATE TABLE `Setting` (
-    `Query ID` INT PRIMARY KEY AUTO_INCREMENT,
-    `PARTY_NAME` VARCHAR(255),
-    `ADDRESS_DTL` VARCHAR(255),
-    `CITY` VARCHAR(255),
-    `CLIENT_NAME` VARCHAR(255),
-    `EMAIL_ID` VARCHAR(255),
-    `KEYWORDS` VARCHAR(255),
-    `MENU_ID` INT,
-    `MOBILE_NO` VARCHAR(20),
-    `PAN_NO` VARCHAR(20),
-    `PARTY_ADDRESS` VARCHAR(255),
-    `PARTY_CODE` VARCHAR(50),
-    `PARTY_GROUP` VARCHAR(255),
-    `PARTY_ID` INT,
-    `PARTY_TYPE` VARCHAR(50),
-    `PARTY_TYPE_ID` INT,
-    `PK_ID` INT,
-    `TEL_NO` VARCHAR(20),
-    `ADDRESS` VARCHAR(255),
-    `CITY_CODE` VARCHAR(50),
-    `CITY_ID` INT,
-    `COUNTRY` VARCHAR(255),
-    `COUNTRY_CODE` VARCHAR(50),
-    `COUNTRY_ID` INT,
-    `MOBILE_NO_SEARCH` VARCHAR(50),
-    `PARTY_CODE_SEARCH` VARCHAR(50),
-    `PARTY_GROUP_ID` INT,
-    `PARTY_NAME_KEYWORD` VARCHAR(255),
-    `PARTY_NAME_SEARCH` VARCHAR(255),
-    `ROW_ID` INT,
-    `ROW_STATUS` VARCHAR(50),
-    `STATE` VARCHAR(255),
-    `STATE_CODE` VARCHAR(50),
-    `
 
 
 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
