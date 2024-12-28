@@ -9,6 +9,9 @@ import RateStructureController from '../controllers/FormulaProcedures/RateStruct
 import RateStructureExcelController from '../controllers/FormulaProcedures/RateStructure/RateStructureExcel.controller.js'
 import FormulaProcedureMasterDetailsController from '../controllers/FormulaProcedures/FormulaProcedure/FormulaProcedure.controller.js'
 import FormulaController from '../controllers/FormulaProcedures/FormulaMapping/ProcedureType.controller.js'
+import FormulaTransactionController from '../controllers/FormulaProcedures/FormulaMapping/TransactionType.controller.js'
+import FormulaDocumentController from '../controllers/FormulaProcedures/FormulaMapping/DocumentType.controller.js'
+import FormulaTransCategoryController from '../controllers/FormulaProcedures/FormulaMapping/TransCategory.controller.js'
 
 const FormulaProceduresRouter = express.Router();
 
@@ -45,5 +48,17 @@ FormulaProceduresRouter.get('/table', FormulaProcedureMasterDetailsController.ge
 FormulaProceduresRouter.get("/FormulaMapping/ProcedureType", FormulaController.getAll);
 FormulaProceduresRouter.get("/FormulaMapping/ProcedureType/:id", FormulaController.getById);
 FormulaProceduresRouter.post("/FormulaMapping/ProcedureType", FormulaController.create);
+
+FormulaProceduresRouter.get("/FormulaMapping/TransactionType", FormulaTransactionController.getAll);
+FormulaProceduresRouter.get("/FormulaMapping/TransactionType/:id", FormulaTransactionController.getById);
+FormulaProceduresRouter.post("/FormulaMapping/TransactionType", FormulaTransactionController.create);
+
+FormulaProceduresRouter.get("/FormulaMapping/DocumentType", FormulaDocumentController.getAll);
+FormulaProceduresRouter.get("/FormulaMapping/DocumentType/:id", FormulaDocumentController.getById);
+FormulaProceduresRouter.post("/FormulaMapping/DocumentType", FormulaDocumentController.create);
+
+FormulaProceduresRouter.get("/FormulaMapping/TransCategory", FormulaTransCategoryController.getAll);
+FormulaProceduresRouter.get("/FormulaMapping/TransCategory/:id", FormulaTransCategoryController.getById);
+FormulaProceduresRouter.post("/FormulaMapping/TransCategory", FormulaTransCategoryController.create);
 
 export default FormulaProceduresRouter;

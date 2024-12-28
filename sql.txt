@@ -470,6 +470,76 @@ CREATE TABLE `Formula Procedure Formula Mapping Procedure Type` (
     `Config remark2` VARCHAR(255)
 );
 
+CREATE TABLE `Formula Procedure Formula Mapping Transaction Type` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255),
+    `Config remark1` VARCHAR(255),
+    `Config remark2` VARCHAR(255),
+    `Config remark3` VARCHAR(255),
+    `Depd Config_ID` VARCHAR(255)
+);
+
+
+CREATE TABLE `Formula Procedure Formula Mapping Document Type` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255),
+    `Config remark1` VARCHAR(255),
+    `Config remark2` VARCHAR(255),
+    `Config remark3` VARCHAR(255),
+    `Depd Config_ID` VARCHAR(255)
+);
+
+
+CREATE TABLE `Formula Procedure Formula Mapping Trans Category` (
+    `Config Id` VARCHAR(255) UNIQUE,
+    `Config code` VARCHAR(255),
+    `Config value` VARCHAR(255),
+    `Config remark1` VARCHAR(255),
+    `Config remark2` VARCHAR(255),
+    `Config remark3` VARCHAR(255),
+    `Depd Config_ID` VARCHAR(255)
+);
+
+
+CREATE TABLE `Setting` (
+    `Query ID` INT PRIMARY KEY AUTO_INCREMENT,
+    `PARTY_NAME` VARCHAR(255),
+    `ADDRESS_DTL` VARCHAR(255),
+    `CITY` VARCHAR(255),
+    `CLIENT_NAME` VARCHAR(255),
+    `EMAIL_ID` VARCHAR(255),
+    `KEYWORDS` VARCHAR(255),
+    `MENU_ID` INT,
+    `MOBILE_NO` VARCHAR(20),
+    `PAN_NO` VARCHAR(20),
+    `PARTY_ADDRESS` VARCHAR(255),
+    `PARTY_CODE` VARCHAR(50),
+    `PARTY_GROUP` VARCHAR(255),
+    `PARTY_ID` INT,
+    `PARTY_TYPE` VARCHAR(50),
+    `PARTY_TYPE_ID` INT,
+    `PK_ID` INT,
+    `TEL_NO` VARCHAR(20),
+    `ADDRESS` VARCHAR(255),
+    `CITY_CODE` VARCHAR(50),
+    `CITY_ID` INT,
+    `COUNTRY` VARCHAR(255),
+    `COUNTRY_CODE` VARCHAR(50),
+    `COUNTRY_ID` INT,
+    `MOBILE_NO_SEARCH` VARCHAR(50),
+    `PARTY_CODE_SEARCH` VARCHAR(50),
+    `PARTY_GROUP_ID` INT,
+    `PARTY_NAME_KEYWORD` VARCHAR(255),
+    `PARTY_NAME_SEARCH` VARCHAR(255),
+    `ROW_ID` INT,
+    `ROW_STATUS` VARCHAR(50),
+    `STATE` VARCHAR(255),
+    `STATE_CODE` VARCHAR(50),
+    `
+
+
 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
 git pull https://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@github.com/vermaanurag1532/server1.0.git 
 
