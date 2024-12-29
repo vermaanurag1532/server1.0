@@ -25,20 +25,20 @@ const ProcurementGoodReceiptRepository = {
         const query = `
       INSERT INTO \`Procurement Good Receipt Note\` (
         \`Stock ID\`, \`Style\`, \`Varient Name\`, \`Old Varient\`, 
-        \`Customer Varient\`, \`Base Varient\`, \`Vendor\`, 
-        \`Remark 1\`, \`Vendor Varient\`, \`Remark 2\`, \`Created By\`, 
+        \`Customer Varient\`, \`Base Varient\`,\`Vendor Code\`,  \`Vendor\`, 
+        \`Location\`, \`Department\`, \`Remark 1\`, \`Vendor Varient\`, \`Remark 2\`, \`Created By\`, 
         \`Std Buying Rate\`, \`Stone Max Wt\`, \`Remark\`, \`Stone Min Wt\`, 
         \`Karat Color\`, \`Delivery Days\`, \`For Web\`, \`Row Status\`, 
         \`Verified Status\`, \`Length\`, \`Codegen Sr No\`, \`CATEGORY\`, 
         \`Sub-Category\`, \`STYLE KARAT\`, \`Varient\`, \`HSN - SAC CODE\`, 
         \`LINE OF BUSINESS\`, \`BOM\`, \`Operation\`, \`Image Details\`, 
         \`Formula Details\`
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
         const values = [
             stockId, data.style, data.varientName, data.oldVarient,
-            data.customerVarient, data.baseVarient, data.vendor,
-            data.remark1, data.vendorVarient, data.remark2, data.createdBy,
+            data.customerVarient, data.baseVarient, data.vendorCode, data.vendor,
+            data.location, data.department, data.remark1, data.vendorVarient, data.remark2, data.createdBy,
             data.stdBuyingRate, data.stoneMaxWt, data.remark, data.stoneMinWt,
             data.karatColor, data.deliveryDays, data.forWeb, data.rowStatus,
             data.verifiedStatus, data.length, data.codegenSrNo, data.category,
