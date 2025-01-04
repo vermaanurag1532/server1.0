@@ -696,7 +696,16 @@ CREATE TABLE `Procurement Good Receipt Note` (
     `BOM` JSON,
     `Operation` JSON,
     `Image Details` JSON,
-    `Formula Details` JSON
+    `Formula Details` JSON,
+    `Pieces` INT,
+    `Weight` DECIMAL(10, 2),
+    `Net Weight` DECIMAL(10, 2),
+    `Dia Weight` DECIMAL(10, 2),
+    `Dia Pieces` INT,
+    `Location Code` VARCHAR(255),
+    `Item Group` VARCHAR(255),
+    `Metal Color` VARCHAR(255),
+    `Style Metal Color` VARCHAR(255)
 );
 
 
