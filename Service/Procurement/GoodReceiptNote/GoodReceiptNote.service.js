@@ -14,7 +14,22 @@ const ProcurementGoodReceiptService = {
 
   getById: async (id) => {
     return await ProcurementGoodReceiptRepository.findById(id);
-  }
+  },
+  update: async (id, data) => {
+    const existingRecord = await ProcurementGoodReceiptRepository.findById(id);
+    if (!existingRecord) {
+      throw new Error("Record not found");
+    }
+    return await ProcurementGoodReceiptRepository.update(id, data);
+  },
+
+  delete: async (id) => {
+    const existingRecord = await ProcurementGoodReceiptRepository.findById(id);
+    if (!existingRecord) {
+      throw new Error("Record not found");
+    }
+    return await ProcurementGoodReceiptRepository.delete(id);
+  },
 };
 
 export default ProcurementGoodReceiptService;

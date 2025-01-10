@@ -32,7 +32,27 @@ const ProcurementGoodReceiptController = {
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
-  }
+  },
+  update: async (req, res) => {
+    try {
+      const id = req.params.id;
+      const data = req.body;
+      await ProcurementGoodReceiptService.update(id, data);
+      res.status(200).json({ message: "Record updated successfully" });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  delete: async (req, res) => {
+    try {
+      const id = req.params.id;
+      await ProcurementGoodReceiptService.delete(id);
+      res.status(200).json({ message: "Record deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 export default ProcurementGoodReceiptController;
