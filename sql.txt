@@ -709,6 +709,13 @@ CREATE TABLE `Procurement Good Receipt Note` (
 );
 
 
+CREATE TABLE `Location` (
+    `Location Code` VARCHAR(255) UNIQUE,
+    `Location Name` VARCHAR(255),
+    `Location Discription` VARCHAR(255)
+);
+
+
 
 
 
