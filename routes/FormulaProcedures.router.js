@@ -50,20 +50,20 @@ FormulaProceduresRouter.get("/FormulaMapping", FormulaMappingController.getAll);
 FormulaProceduresRouter.get("/FormulaMapping/:id", FormulaMappingController.getById);
 FormulaProceduresRouter.post("/FormulaMapping", FormulaMappingController.create);
 
-FormulaProceduresRouter.get("/FormulaMapping/ProcedureType", FormulaController.getAll);
-FormulaProceduresRouter.get("/FormulaMapping/ProcedureType/:id", FormulaController.getById);
-FormulaProceduresRouter.post("/FormulaMapping/ProcedureType", FormulaController.create);
+FormulaProceduresRouter.get("/ProcedureType/FormulaMapping", FormulaController.getAll);
+FormulaProceduresRouter.get("/ProcedureType/FormulaMappinge/:id", FormulaController.getById);
+FormulaProceduresRouter.post("/ProcedureType/FormulaMapping", FormulaController.create);
 
-FormulaProceduresRouter.get("/FormulaMapping/TransactionType", FormulaTransactionController.getAll);
-FormulaProceduresRouter.get("/FormulaMapping/TransactionType/:id", FormulaTransactionController.getById);
-FormulaProceduresRouter.post("/FormulaMapping/TransactionType", FormulaTransactionController.create);
+FormulaProceduresRouter.get("/TransactionType/FormulaMapping", FormulaTransactionController.getAll);
+FormulaProceduresRouter.get("/TransactionType/FormulaMapping/:id", FormulaTransactionController.getById);
+FormulaProceduresRouter.post("/TransactionType/FormulaMapping", FormulaTransactionController.create);
 
-FormulaProceduresRouter.get("/FormulaMapping/DocumentType", FormulaDocumentController.getAll);
-FormulaProceduresRouter.get("/FormulaMapping/DocumentType/:id", FormulaDocumentController.getById);
-FormulaProceduresRouter.post("/FormulaMapping/DocumentType", FormulaDocumentController.create);
+FormulaProceduresRouter.get("/DocumentType/FormulaMapping", FormulaDocumentController.getAll);
+FormulaProceduresRouter.get("/DocumentType/FormulaMapping/:id", FormulaDocumentController.getById);
+FormulaProceduresRouter.post("/DocumentType/FormulaMapping", FormulaDocumentController.create);
 
-FormulaProceduresRouter.get("/FormulaMapping/TransCategory", FormulaTransCategoryController.getAll);
-FormulaProceduresRouter.get("/FormulaMapping/TransCategory/:id", FormulaTransCategoryController.getById);
-FormulaProceduresRouter.post("/FormulaMapping/TransCategory", FormulaTransCategoryController.create);
+FormulaProceduresRouter.get("/TransCategory/FormulaMapping", FormulaTransCategoryController.getAll);
+FormulaProceduresRouter.get("/TransCategory/FormulaMapping/:id", FormulaTransCategoryController.getById);
+FormulaProceduresRouter.post("/TransCategory/FormulaMapping", FormulaTransCategoryController.create);
 
 export default FormulaProceduresRouter;

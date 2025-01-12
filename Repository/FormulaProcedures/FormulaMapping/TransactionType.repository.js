@@ -1,18 +1,21 @@
 import connection from "../../../db/connection.js";
 
 class FormulaTransactionRepository {
+  // Fetch all records
   async getAll() {
     const query = "SELECT * FROM `Formula Procedure Formula Mapping Transaction Type`";
     const [rows] = await connection.promise().query(query);
     return rows;
   }
 
+  // Fetch a record by ID
   async getById(configId) {
     const query = "SELECT * FROM `Formula Procedure Formula Mapping Transaction Type` WHERE `Config Id` = ?";
     const [rows] = await connection.promise().query(query, [configId]);
     return rows[0];
   }
 
+  // Insert a new record
   async create(data) {
     const query = `
       INSERT INTO \`Formula Procedure Formula Mapping Transaction Type\` (
