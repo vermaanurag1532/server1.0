@@ -25,8 +25,11 @@ GlobalRouter.post('/CalcMethodValue', CalcMethodValueController.addCalcMethodVal
 GlobalRouter.get('/DepdMethod', DepdMethodController.getAllDepdMethods);
 GlobalRouter.post('/DepdMethod', DepdMethodController.addDepdMethod);
 
-GlobalRouter.get('/Location', LocationController.getAll);
-GlobalRouter.get('/Location/:code', LocationController.getByCode);
-GlobalRouter.post('/Location', LocationController.create);
+GlobalRouter.get('/Location', LocationController.getAllLocations);
+GlobalRouter.get('/Location/:code', LocationController.getLocationByCode);
+GlobalRouter.post('/Location', LocationController.addLocation);
+GlobalRouter.put("/Location/:code", LocationController.updateLocation);
+GlobalRouter.delete("/Location/:code", LocationController.deleteLocation);
+GlobalRouter.post("/Location/:code/department", LocationController.addDepartment);
 
 export default GlobalRouter;
