@@ -716,6 +716,12 @@ CREATE TABLE `Location` (
     `Departments` JSON
 );
 
+CREATE TABLE `Tranfer Department` (
+    `Stock ID` VARCHAR(255),
+    `Source Department` VARCHAR(255),
+    `Destination Department` VARCHAR(255)
+);
+
 
 
 

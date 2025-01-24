@@ -11,6 +11,7 @@ import FormulaProceduresRouter from './routes/FormulaProcedures.router.js';
 import MasterRouter from './routes/Master.router.js'
 import GlobalRouter from './routes/global.router.js'
 import ProcurementRouter from './routes/Procurement.router.js'
+import TransferRouter from './routes/Transfer.router.js';
 
 const app = express();
 app.use(cors());
@@ -30,6 +31,7 @@ app.use('/FormulaProcedures', FormulaProceduresRouter);
 app.use('/Master', MasterRouter);
 app.use('/Global', GlobalRouter);
 app.use('/Procurement', ProcurementRouter);
+app.use('/Transfer', TransferRouter);
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server running at http://hp.localhost:${port}/`);
