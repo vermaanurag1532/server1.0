@@ -712,14 +712,28 @@ CREATE TABLE `Procurement Good Receipt Note` (
 CREATE TABLE `Location` (
     `Location Code` VARCHAR(255) UNIQUE,
     `Location Name` VARCHAR(255),
-    `Location Discription` VARCHAR(255),
-    `Departments` JSON
+    `Location Discription` VARCHAR(255)
 );
+
+CREATE TABLE `Department` (
+    `Department Code` VARCHAR(255) UNIQUE,
+    `Department Name` VARCHAR(255),
+    `Department Discription` VARCHAR(255),
+    `Location Code` VARCHAR(255),
+    FOREIGN KEY (`Location Code`) REFERENCES `Location`(`Location Code`)
+);
+
 
 CREATE TABLE `Tranfer Department` (
     `Stock ID` VARCHAR(255),
     `Source Department` VARCHAR(255),
     `Destination Department` VARCHAR(255)
+);
+
+CREATE TABLE `Tranfer Location` (
+    `Stock ID` VARCHAR(255),
+    `Source Location` VARCHAR(255),
+    `Destination Location` VARCHAR(255)
 );
 
 
