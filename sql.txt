@@ -662,7 +662,7 @@ CREATE TABLE `Item Master and Variant Stone Diamond Variant` (
 
 
 CREATE TABLE `Procurement Good Receipt Note` (
-    `Stock ID` VARCHAR(255),
+    `Stock ID` VARCHAR(255) UNIQUE,
     `Style` VARCHAR(255),   
     `Varient Name` VARCHAR(255),
     `Old Varient` VARCHAR(255),
@@ -736,8 +736,40 @@ CREATE TABLE `Tranfer Location` (
     `Destination Location` VARCHAR(255)
 );
 
+CREATE TABLE `Barcode History` (
+    `Stock ID` VARCHAR(255),
+    `Attribute` VARCHAR(255),
+    `Varient` VARCHAR(255),
+    `Transaction Number` INT,
+    `Date` DATE,
+    `BOM` JSON,
+    `Operation` JSON,
+    `Formula` JSON,
+    FOREIGN KEY (`Stock ID`) REFERENCES `Procurement Good Receipt Note`(`Stock ID`)
+);
 
 
+CREATE TABLE `Barcode detail` (
+    `Stock ID` VARCHAR(255),
+    `Date` DATE,
+    `Trans No` INT,
+    `Trans Type` VARCHAR(255),
+    `Source` VARCHAR(255),
+    `Destination` VARCHAR(255),
+    `Customer` VARCHAR(255),
+    `Vendor` VARCHAR(255),
+    `Source Dept` VARCHAR(255),
+    `Destination Dept` VARCHAR(255),
+    `Exchange rate` DECIMAL(5,2),
+    `Currency` VARCHAR(255),
+    `Sales Person` VARCHAR(255),
+    `Term` VARCHAR(255),
+    `Remark` VARCHAR(255),
+    `Created By` VARCHAR(255),
+    `Varient` VARCHAR(255),
+    `Posting Date` DATE,
+    FOREIGN KEY (`Stock ID`) REFERENCES `Procurement Good Receipt Note`(`Stock ID`)
+);
 
 
 

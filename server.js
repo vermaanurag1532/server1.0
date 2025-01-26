@@ -12,6 +12,7 @@ import MasterRouter from './routes/Master.router.js'
 import GlobalRouter from './routes/global.router.js'
 import ProcurementRouter from './routes/Procurement.router.js'
 import TransferRouter from './routes/Transfer.router.js';
+import BarcodeRouter from './routes/Barcode.router.js'
 
 const app = express();
 app.use(cors());
@@ -32,6 +33,7 @@ app.use('/Master', MasterRouter);
 app.use('/Global', GlobalRouter);
 app.use('/Procurement', ProcurementRouter);
 app.use('/Transfer', TransferRouter);
+app.use('/Barcode', BarcodeRouter);
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server running at http://hp.localhost:${port}/`);
