@@ -773,6 +773,13 @@ CREATE TABLE `Barcode detail` (
 
 
 
+CREATE TABLE `Sub Contracting Issue Work` (
+    `stockId` VARCHAR(255),
+    `vendor` VARCHAR(255),
+    `issueDate` DATE,
+    `operation` VARCHAR(255),
+    FOREIGN KEY (`stockId`) REFERENCES `Procurement Good Receipt Note`(`Stock ID`)
+);
 
 
 

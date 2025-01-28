@@ -3,7 +3,6 @@ import mysql from 'mysql2';
 function handleDisconnect() {
     const connection = mysql.createConnection({
         host: 'localhost',
-        // host: 'localhost',
         user: 'root',
         password: 'Anurag@1532',
         database: 'mydatabase'
