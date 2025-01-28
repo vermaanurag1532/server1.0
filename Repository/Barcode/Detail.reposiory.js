@@ -19,7 +19,7 @@ const BarcodeDetailRepository = {
       const query = 'SELECT * FROM `Barcode detail` WHERE `Stock ID` = ?';
       connection.query(query, [stockId], (error, results) => {
         if (error) return reject(error);
-        resolve(results[0]);
+        resolve(results);
       });
     });
   },
