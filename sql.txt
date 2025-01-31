@@ -783,7 +783,27 @@ CREATE TABLE `Sub Contracting Issue Work` (
 
 
 
-
+CREATE TABLE `Transaction History` (
+    `transId` VARCHAR(255) UNIQUE,
+    `transType` VARCHAR(255),
+    `subType` VARCHAR(255),
+    `transCategory` VARCHAR(255),
+    `docNo` VARCHAR(255),
+    `transDate` DATE,
+    `source` VARCHAR(255),
+    `destination` VARCHAR(255),
+    `customer` VARCHAR(255),
+    `sourceDept` VARCHAR(255),
+    `destinationDept` VARCHAR(255),
+    `exchangeRate` VARCHAR(255),
+    `currency` VARCHAR(255),
+    `salesPerson` VARCHAR(255),
+    `term` VARCHAR(255),
+    `remark` VARCHAR(255),
+    `createdBy` VARCHAR(255),
+    `postingDate` DATE,
+    `varients` JSON
+);
 
 
 
