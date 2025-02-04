@@ -754,7 +754,7 @@ ALTER TABLE `Barcode History`
 MODIFY COLUMN `Transaction Number` VARCHAR(255);
 
 ALTER TABLE `Barcode detail` 
-MODIFY COLUMN `Transaction Number` VARCHAR(255);
+MODIFY COLUMN `Trans No` VARCHAR(255);
 
 CREATE TABLE `Barcode detail` (
     `Stock ID` VARCHAR(255),
