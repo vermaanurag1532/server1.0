@@ -705,7 +705,9 @@ CREATE TABLE `Procurement Good Receipt Note` (
     `Location Code` VARCHAR(255),
     `Item Group` VARCHAR(255),
     `Metal Color` VARCHAR(255),
-    `Style Metal Color` VARCHAR(255)
+    `Style Metal Color` VARCHAR(255),
+    `Inward Doc` VARCHAR(255),
+    `Last Trans` VARCHAR(255)  
 );
 
 
@@ -740,7 +742,7 @@ CREATE TABLE `Barcode History` (
     `Stock ID` VARCHAR(255),
     `Attribute` VARCHAR(255),
     `Varient` VARCHAR(255),
-    `Transaction Number` INT,
+    `Transaction Number` VARCHAR(255),
     `Date` DATE,
     `BOM` JSON,
     `Operation` JSON,
@@ -748,11 +750,16 @@ CREATE TABLE `Barcode History` (
     FOREIGN KEY (`Stock ID`) REFERENCES `Procurement Good Receipt Note`(`Stock ID`)
 );
 
+ALTER TABLE `Barcode History` 
+MODIFY COLUMN `Transaction Number` VARCHAR(255);
+
+ALTER TABLE `Barcode detail` 
+MODIFY COLUMN `Transaction Number` VARCHAR(255);
 
 CREATE TABLE `Barcode detail` (
     `Stock ID` VARCHAR(255),
     `Date` DATE,
-    `Trans No` INT,
+    `Trans No` VARCHAR(255),
     `Trans Type` VARCHAR(255),
     `Source` VARCHAR(255),
     `Destination` VARCHAR(255),

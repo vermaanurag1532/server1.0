@@ -1,23 +1,34 @@
 import connection from "../../../db/connection.js";
 
 const ProcurementGoodReceiptRepository = {
-    generateStockId: () => {
+  generateStockId: () => {
+    return new Promise((resolve, reject) => {
         const query = `
-      SELECT COUNT(*) AS count 
-      FROM \`Procurement Good Receipt Note\`
-    `;
-        return new Promise((resolve, reject) => {
-            connection.query(query, (err, results) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    const count = results[0].count || 0;
-                    const stockId = `STC-${count + 1}`;
-                    resolve(stockId);
-                }
-            });
+            SELECT \`Stock ID\` 
+            FROM \`Procurement Good Receipt Note\` 
+            WHERE \`Stock ID\` LIKE 'STC-%' 
+            ORDER BY CAST(SUBSTRING(\`Stock ID\`, 5) AS UNSIGNED) DESC 
+            LIMIT 1
+        `;
+
+        connection.query(query, (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+
+            let nextNumber = 1;
+            if (results.length > 0) {
+                const lastStockId = results[0]["Stock ID"];
+                const lastNumber = parseInt(lastStockId.split("-")[1], 10);
+                nextNumber = lastNumber + 1;
+            }
+
+            const stockId = `STC-${nextNumber}`;
+            resolve(stockId);
         });
-    },
+    });
+},
+
 
     insert: async (data) => {
         const stockId = await ProcurementGoodReceiptRepository.generateStockId();
@@ -34,8 +45,8 @@ const ProcurementGoodReceiptRepository = {
           \`HSN - SAC CODE\`, \`LINE OF BUSINESS\`, \`BOM\`, \`Operation\`, 
           \`Image Details\`, \`Formula Details\`, \`Pieces\`, \`Weight\`, 
           \`Net Weight\`, \`Dia Weight\`, \`Dia Pieces\`, \`Location Code\`, 
-          \`Item Group\`, \`Metal Color\`, \`Style Metal Color\`
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          \`Item Group\`, \`Metal Color\`, \`Style Metal Color\`, \`Inward Doc\`, \`Last Trans\`
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `;
       
       const values = [
@@ -49,7 +60,7 @@ const ProcurementGoodReceiptRepository = {
         JSON.stringify(data.operation), JSON.stringify(data.imageDetails),
         JSON.stringify(data.formulaDetails), data.pieces, data.weight, data.netWeight,
         data.diaWeight, data.diaPieces, data.locationCode, data.itemGroup, data.metalColor,
-        data.styleMetalColor
+        data.styleMetalColor ,data.inwardDoc , data.lastTrans
       ];
       
         return new Promise((resolve, reject) => {
