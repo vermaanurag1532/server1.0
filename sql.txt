@@ -813,6 +813,34 @@ CREATE TABLE `Transaction History` (
 );
 
 
+CREATE TABLE `Employee Master` (
+    `Employee Code` VARCHAR(50) PRIMARY KEY,
+    `Employee Name` VARCHAR(100) NOT NULL,
+    `Employee Type` VARCHAR(100) NOT NULL,   
+    `Default Location` VARCHAR(255),
+    `Default Department` VARCHAR(255),
+    `Location` JSON, 
+    `Can Change Global Setting` BOOLEAN DEFAULT FALSE,
+    `Upload Photo` VARCHAR(255),
+    `Login Name` VARCHAR(50),
+    `PF Account No` VARCHAR(50),
+    `ESIC No` VARCHAR(50),
+    `Row Status` VARCHAR(20),
+    `Remark` TEXT,
+    `Grade` VARCHAR(50),
+    `Weighter Name` VARCHAR(100),
+    `Password` VARCHAR(100),
+    `Password Expired` BOOLEAN DEFAULT FALSE,
+    `Is Locked` BOOLEAN DEFAULT FALSE,
+    `No of Failed Attempts` INT DEFAULT 0,
+    `Password Expires on` DATE,
+    `Allow Access From Main URL` BOOLEAN DEFAULT FALSE,
+    `Emergency Contact Name` VARCHAR(100),
+    `Emergency Contact` VARCHAR(20),
+    `Salary Instr` VARCHAR(100),
+    `Account Name` VARCHAR(100),
+    `Last Login Date` DATETIME
+);
 
 
 
