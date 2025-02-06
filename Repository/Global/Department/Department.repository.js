@@ -3,10 +3,10 @@ import connection from '../../../db/connection.js';
 class DepartmentRepository {
     addDepartment = (data, callback) => {
         const query = `
-            INSERT INTO \`Department\` (\`Department Code\`, \`Department Name\`, \`Department Discription\`, \`Location Code\`)
+            INSERT INTO \`Department\` (\`Department Code\`, \`Department Name\`, \`Department Discription\`, \`Location Name\`)
             VALUES (?, ?, ?, ?)
         `;
-        const params = [data.departmentCode, data.departmentName, data.departmentDescription, data.locationCode];
+        const params = [data.departmentCode, data.departmentName, data.departmentDescription, data.locationName];
         connection.query(query, params, callback);
     };
 
@@ -25,13 +25,13 @@ class DepartmentRepository {
             UPDATE \`Department\`
             SET \`Department Name\` = COALESCE(?, \`Department Name\`),
                 \`Department Discription\` = COALESCE(?, \`Department Discription\`),
-                \`Location Code\` = COALESCE(?, \`Location Code\`)
+                \`Location Name\` = COALESCE(?, \`Location Name\`)
             WHERE \`Department Code\` = ?
         `;
         const params = [
             data.departmentName || null,
             data.departmentDescription || null,
-            data.locationCode || null,
+            data.locationName || null,
             departmentCode,
         ];
         connection.query(query, params, callback);

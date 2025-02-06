@@ -2,7 +2,7 @@ import DepartmentRepository from '../../../Repository/Global/Department/Departme
 
 class DepartmentService {
     addDepartment = (data, callback) => {
-        if (!data.departmentCode || !data.departmentName || !data.locationCode) {
+        if (!data.departmentCode || !data.departmentName || !data.locationName) {
             callback('Department Code, Department Name, and Location Code are required.');
             return;
         }

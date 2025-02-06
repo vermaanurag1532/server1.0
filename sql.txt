@@ -713,7 +713,7 @@ CREATE TABLE `Procurement Good Receipt Note` (
 
 CREATE TABLE `Location` (
     `Location Code` VARCHAR(255) UNIQUE,
-    `Location Name` VARCHAR(255),
+    `Location Name` VARCHAR(255) PRIMARY KEY,
     `Location Discription` VARCHAR(255)
 );
 
@@ -721,8 +721,8 @@ CREATE TABLE `Department` (
     `Department Code` VARCHAR(255) UNIQUE,
     `Department Name` VARCHAR(255),
     `Department Discription` VARCHAR(255),
-    `Location Code` VARCHAR(255),
-    FOREIGN KEY (`Location Code`) REFERENCES `Location`(`Location Code`)
+    `Location Name` VARCHAR(255),
+    FOREIGN KEY (`Location Name`) REFERENCES `Location`(`Location Name`)
 );
 
 
@@ -750,11 +750,6 @@ CREATE TABLE `Barcode History` (
     FOREIGN KEY (`Stock ID`) REFERENCES `Procurement Good Receipt Note`(`Stock ID`)
 );
 
-ALTER TABLE `Barcode History` 
-MODIFY COLUMN `Transaction Number` VARCHAR(255);
-
-ALTER TABLE `Barcode detail` 
-MODIFY COLUMN `Trans No` VARCHAR(255);
 
 CREATE TABLE `Barcode detail` (
     `Stock ID` VARCHAR(255),
