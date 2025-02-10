@@ -885,6 +885,3 @@ CREATE TABLE `Raw Material` (
     `Inward Doc` VARCHAR(255),
     `Last Trans` VARCHAR(255)  
 );
-
-
-
