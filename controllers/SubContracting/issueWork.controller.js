@@ -1,70 +1,59 @@
 import SubContractingIssueWorkService from '../../Service/SubContracting/issueWork.service.js';
 
 const SubContractingIssueWorkController = {
-  // Get all records
-  getAll: async (req, res) => {
-    try {
-      const records = await SubContractingIssueWorkService.getAll();
-      res.status(200).json(records);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
+    getAll: async (req, res) => {
+        try {
+            const data = await SubContractingIssueWorkService.getAll();
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Error fetching records', error });
+        }
+    },
 
-  // Get a record by stockId
-  getById: async (req, res) => {
-    try {
-      const stockId = req.params.stockId;
-      const record = await SubContractingIssueWorkService.getById(stockId);
-      if (!record) {
-        res.status(404).json({ message: 'Record not found' });
-      } else {
-        res.status(200).json(record);
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
+    getById: async (req, res) => {
+        try {
+            const { stockId } = req.params;
+            const data = await SubContractingIssueWorkService.getById(stockId);
+            if (data) {
+                res.status(200).json(data);
+            } else {
+                res.status(404).json({ success: false, message: 'Record not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Error fetching record', error });
+        }
+    },
 
-  // Create a new record
-  create: async (req, res) => {
-    try {
-      const newRecord = await SubContractingIssueWorkService.create(req.body);
-      res.status(201).json(newRecord);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
+    create: async (req, res) => {
+        try {
+            const data = req.body;
+            const newRecord = await SubContractingIssueWorkService.create(data);
+            res.status(201).json({ success: true, message: 'Record created successfully', data: newRecord });
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Error creating record', error });
+        }
+    },
 
-  // Modify a record by stockId
-  modify: async (req, res) => {
-    try {
-      const stockId = req.params.stockId;
-      const updatedRecord = await SubContractingIssueWorkService.modify(stockId, req.body);
-      if (updatedRecord.affectedRows === 0) {
-        res.status(404).json({ message: 'Record not found or no changes made' });
-      } else {
-        res.status(200).json({ message: 'Record updated successfully' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
+    update: async (req, res) => {
+        try {
+            const { stockId } = req.params;
+            const data = req.body;
+            const updatedRecord = await SubContractingIssueWorkService.update(stockId, data);
+            res.status(200).json({ success: true, message: 'Record updated successfully', data: updatedRecord });
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Error updating record', error });
+        }
+    },
 
-  // Delete a record by stockId
-  deleteById: async (req, res) => {
-    try {
-      const stockId = req.params.stockId;
-      const result = await SubContractingIssueWorkService.deleteById(stockId);
-      if (result.affectedRows === 0) {
-        res.status(404).json({ message: 'Record not found' });
-      } else {
-        res.status(200).json({ message: 'Record deleted successfully' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+    delete: async (req, res) => {
+        try {
+            const { stockId } = req.params;
+            await SubContractingIssueWorkService.delete(stockId);
+            res.status(200).json({ success: true, message: 'Record deleted successfully' });
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Error deleting record', error });
+        }
     }
-  },
 };
 
 export default SubContractingIssueWorkController;

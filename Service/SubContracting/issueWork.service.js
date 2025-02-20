@@ -1,25 +1,25 @@
 import SubContractingIssueWorkRepository from '../../Repository/SubContracting/issueWork.repository.js';
 
 const SubContractingIssueWorkService = {
-  getAll: async () => {
-    return await SubContractingIssueWorkRepository.getAll();
-  },
+    getAll: async () => {
+        return await SubContractingIssueWorkRepository.getAll();
+    },
 
-  getById: async (stockId) => {
-    return await SubContractingIssueWorkRepository.getById(stockId);
-  },
+    getById: async (stockId) => {
+        return await SubContractingIssueWorkRepository.getById(stockId);
+    },
 
-  create: async (data) => {
-    return await SubContractingIssueWorkRepository.create(data);
-  },
+    create: async (data) => {
+        return await SubContractingIssueWorkRepository.create(data);
+    },
 
-  modify: async (stockId, data) => {
-    return await SubContractingIssueWorkRepository.modify(stockId, data);
-  },
+    update: async (stockId, data) => {
+        return await SubContractingIssueWorkRepository.update(stockId, data);
+    },
 
-  deleteById: async (stockId) => {
-    return await SubContractingIssueWorkRepository.deleteById(stockId);
-  },
+    delete: async (stockId) => {
+        return await SubContractingIssueWorkRepository.delete(stockId);
+    }
 };
 
 export default SubContractingIssueWorkService;

@@ -7,7 +7,7 @@ const SubContractingRouter = express.Router();
 SubContractingRouter.get('/IssueWork', SubContractingIssueWorkController.getAll);
 SubContractingRouter.get('/IssueWork/:stockId', SubContractingIssueWorkController.getById);
 SubContractingRouter.post('/IssueWork', SubContractingIssueWorkController.create);
-SubContractingRouter.put('/IssueWork/:stockId', SubContractingIssueWorkController.modify);
-SubContractingRouter.delete('/IssueWork/:stockId', SubContractingIssueWorkController.deleteById);
+SubContractingRouter.put('/IssueWork/:stockId', SubContractingIssueWorkController.update);
+SubContractingRouter.delete('/IssueWork/:stockId', SubContractingIssueWorkController.delete);
 
 export default SubContractingRouter;
