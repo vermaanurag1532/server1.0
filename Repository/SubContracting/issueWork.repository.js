@@ -26,10 +26,10 @@ const SubContractingIssueWorkRepository = {
             const query = "INSERT INTO `Sub Contracting Issue Work` SET ?";
             const formattedData = {
                 ...data,
-                BOM: JSON.stringify(data.BOM),
-                Operation: JSON.stringify(data.Operation),
-                "Image Details": JSON.stringify(data["Image Details"]),
-                "Formula Details": JSON.stringify(data["Formula Details"]),
+                bom: JSON.stringify(data.bom),
+                operation: JSON.stringify(data.operation),
+                "imageDetails": JSON.stringify(data["imageDetails"]),
+                "formulaDetails": JSON.stringify(data["formulaDetails"]),
             };
             connection.query(query, formattedData, (err, results) => {
                 if (err) reject(err);
@@ -43,10 +43,10 @@ const SubContractingIssueWorkRepository = {
             const query = "UPDATE `Sub Contracting Issue Work` SET ? WHERE `stockId` = ?";
             const formattedData = {
                 ...data,
-                BOM: JSON.stringify(data.BOM),
-                Operation: JSON.stringify(data.Operation),
-                "Image Details": JSON.stringify(data["Image Details"]),
-                "Formula Details": JSON.stringify(data["Formula Details"]),
+                bom: JSON.stringify(data.bom),
+                operation: JSON.stringify(data.operation),
+                "imageDetails": JSON.stringify(data["imageDetails"]),
+                "formulaDetails": JSON.stringify(data["formulaDetails"]),
             };
             connection.query(query, [formattedData, stockId], (err, results) => {
                 if (err) reject(err);
