@@ -4,6 +4,7 @@ import EmployeeMasterController from '../controllers/EmployeeMaster/EmployeeMast
 const EmployeeMasterRouter = express.Router();
 
 EmployeeMasterRouter.post('/', EmployeeMasterController.createEmployee);
+EmployeeMasterRouter.post('/auth', EmployeeMasterController.authenticateEmployee);
 EmployeeMasterRouter.get('/', EmployeeMasterController.getAllEmployees);
 EmployeeMasterRouter.get('/:code', EmployeeMasterController.getEmployeeByCode);
 EmployeeMasterRouter.put('/:code', EmployeeMasterController.updateEmployee);

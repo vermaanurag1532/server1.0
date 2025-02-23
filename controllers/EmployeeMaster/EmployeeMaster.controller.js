@@ -73,7 +73,22 @@ const EmployeeMasterController = {
         } catch (err) {
             res.status(500).json({ error: 'Database error', details: err.message });
         }
+    },
+
+    authenticateEmployee: async (req, res) => {
+        try {
+            const { loginName, password } = req.body;
+            if (!loginName || !password) {
+                return res.status(400).json({ error: 'Login name and password are required' });
+            }
+
+            const employee = await EmployeeMasterService.authenticateEmployee(loginName, password);
+            res.json(employee);
+        } catch (err) {
+            res.status(401).json({ error: 'Authentication failed', details: err.message });
+        }
     }
+    
 };
 
 export default EmployeeMasterController;

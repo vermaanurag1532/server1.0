@@ -19,6 +19,14 @@ const EmployeeMasterService = {
 
     deleteEmployee: async (employeeCode) => {
         return await EmployeeMasterRepository.deleteEmployee(employeeCode);
+    },
+
+    authenticateEmployee: async (loginName, password) => {
+        const employee = await EmployeeMasterRepository.getEmployeeByLoginAndPassword(loginName, password);
+        if (!employee) {
+            throw new Error('Invalid login name or password');
+        }
+        return employee;
     }
 };
 

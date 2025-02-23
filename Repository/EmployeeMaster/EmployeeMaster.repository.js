@@ -1,6 +1,6 @@
 import connection from '../../db/connection.js';
 
-const EmployeeMasterService = {
+const EmployeeMasterRepository = {
     getAllEmployees: async () => {
         return new Promise((resolve, reject) => {
             connection.query('SELECT * FROM `Employee Master`', (err, results) => {
@@ -69,7 +69,20 @@ const EmployeeMasterService = {
                 else resolve(results);
             });
         });
+    },
+
+    getEmployeeByLoginAndPassword: async (loginName, password) => {
+        return new Promise((resolve, reject) => {
+            connection.query(
+                'SELECT * FROM `Employee Master` WHERE `Login Name` = ? AND `Password` = ?',
+                [loginName, password],
+                (err, results) => {
+                    if (err) reject(err);
+                    else resolve(results[0] || null);
+                }
+            );
+        });
     }
 };
 
-export default EmployeeMasterService;
+export default EmployeeMasterRepository;
