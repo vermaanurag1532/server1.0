@@ -33,7 +33,7 @@ const SubContractingIssueWorkRepository = {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
-            data.stockID, data.vendor, data.issueDate, data.operationName, data.style, data.varientName,
+            data.stockId, data.vendor, data.issueDate, data.operationName, data.style, data.varientName,
             data.oldVarient, data.customerVarient, data.baseVarient, data.vendorCode, data.location,
             data.department, data.remark1, data.vendorVarient, data.remark2, data.createdBy,
             data.stdBuyingRate, data.stoneMaxWt, data.remark, data.stoneMinWt, data.karatColor,
