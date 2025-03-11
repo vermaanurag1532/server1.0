@@ -8,7 +8,7 @@ const GoldVariantsController = {
             res.json(data);
         } catch (err) {
             console.error('Error retrieving data:', err.stack);
-            res.status(500).send('Database error');
+            res.status(500).send(err);
         }
     },
 
@@ -18,7 +18,7 @@ const GoldVariantsController = {
             res.status(201).send('Variant added successfully');
         } catch (err) {
             console.error('Error inserting data:', err.stack);
-            res.status(500).send('Database error');
+            res.status(500).send(err.stack);
         }
     },
 
@@ -28,6 +28,7 @@ const GoldVariantsController = {
 
             const columns = [
                 { header: 'Metal Name', key: 'Metal name', width: 20 },
+                { header: 'Metal Variant Name', key: 'Metal Variant Name', width: 20 },
                 { header: 'Variant Type', key: 'Variant type', width: 20 },
                 { header: 'Base Metal Variant', key: 'Base metal Variant', width: 20 },
                 { header: 'Std. Selling Rate', key: 'Std. selling rate', width: 20 },
