@@ -6,6 +6,9 @@ import CalcMethodValueController from '../controllers/Global/operartion/CalcMeth
 import DepdMethodController from '../controllers/Global/operartion/DepdMethod.controller.js'
 import LocationController from '../controllers/Global/Location/Location.controller.js'
 import DepartmentController from '../controllers/Global/Department/Department.controller.js';
+import GstRegistrationController from '../controllers/Global/GstRegistration/gstRegistration.controller.js'
+import CurrencyMasterController from '../controllers/Global/DefaultCurrency/currencyMaster.controller.js'
+import TermsMasterController from '../controllers/Global/DefaultTerms/TermsMaster.controller.js'
 
 const GlobalRouter = express.Router();
 
@@ -37,5 +40,23 @@ GlobalRouter.get('/Department/:departmentCode', DepartmentController.getDepartme
 GlobalRouter.post('/Department', DepartmentController.addDepartment);
 GlobalRouter.put("/Department/:departmentCode", DepartmentController.updateDepartmentByCode);
 GlobalRouter.delete("/Department/:departmentCode", DepartmentController.deleteDepartmentByCode);
+
+GlobalRouter.get("/GstRegistration", GstRegistrationController.getAll);
+GlobalRouter.get("/GstRegistration/:id", GstRegistrationController.getById);
+GlobalRouter.post("/GstRegistration", GstRegistrationController.create);
+GlobalRouter.put("/GstRegistration/:id", GstRegistrationController.update);
+GlobalRouter.delete("/GstRegistration/:id", GstRegistrationController.remove);
+
+GlobalRouter.get("/DefaultCurrency", CurrencyMasterController.getAll);
+GlobalRouter.get("/DefaultCurrency/:id", CurrencyMasterController.getById);
+GlobalRouter.post("/DefaultCurrency", CurrencyMasterController.create);
+GlobalRouter.put("/DefaultCurrency/:id", CurrencyMasterController.update);
+GlobalRouter.delete("/DefaultCurrency/:id", CurrencyMasterController.delete);
+
+GlobalRouter.get("/TermsMaster", TermsMasterController.getAllTerms);
+GlobalRouter.get("/TermsMaster/:id", TermsMasterController.getTermsById);
+GlobalRouter.post("/TermsMaster", TermsMasterController.createTerms);
+GlobalRouter.put("/TermsMaster/:id", TermsMasterController.updateTerms);
+GlobalRouter.delete("/TermsMaster/:id", TermsMasterController.deleteTerms);
 
 export default GlobalRouter;
