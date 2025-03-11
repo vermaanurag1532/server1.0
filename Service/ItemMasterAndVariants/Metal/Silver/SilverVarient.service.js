@@ -26,9 +26,12 @@ const SilverVariantService = {
             'Metal Color': MetalColor,
             'Karat': Karat
         } = variantData;
+
+        const MetalVariantName = `${MetalName}-${Karat}-${MetalColor}`;
     
         const params = [
             MetalName,
+            MetalVariantName,
             VariantType,
             BaseMetalVariant,
             StdSellingRate,

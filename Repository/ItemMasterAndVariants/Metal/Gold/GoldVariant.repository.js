@@ -19,6 +19,7 @@ const MetalGoldVariantsRepository = {
             const query = `
                 INSERT INTO \`Item master and variant Metal Gold Variants\` (
                     \`Metal name\`,
+                    \`Metal Variant Name\`,
                     \`Variant type\`,
                     \`Base metal Variant\`,
                     \`Std. selling rate\`,
@@ -32,7 +33,7 @@ const MetalGoldVariantsRepository = {
                     \`Metal Color\`,
                     \`Karat\`,
                     \`Metal Item Name\`
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,? ,?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,? ,? ,?)
             `;
 
             connection.query(query, params, (err, results) => {

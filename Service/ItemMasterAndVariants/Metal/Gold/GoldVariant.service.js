@@ -11,6 +11,7 @@ const MetalGoldVariantsService = {
     },
 
     createVariant: async (variantData) => {
+        // Destructure all required properties from variantData except "Metal Variant Name"
         const {
             'Metal name': MetalName,
             'Variant type': VariantType,
@@ -27,9 +28,13 @@ const MetalGoldVariantsService = {
             'Karat': Karat,
             'Metal Item Name': MetalItemName
         } = variantData;
+    
 
+        const MetalVariantName = `${MetalName}-${Karat}-${MetalColor}`;
+    
         const params = [
             MetalName,
+            MetalVariantName,
             VariantType,
             BaseMetalVariant,
             StdSellingRate,
@@ -44,7 +49,7 @@ const MetalGoldVariantsService = {
             Karat,
             MetalItemName
         ];
-
+    
         try {
             const result = await MetalGoldVariantsRepository.insert(params);
             return result;
