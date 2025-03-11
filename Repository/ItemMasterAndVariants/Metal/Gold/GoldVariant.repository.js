@@ -31,9 +31,8 @@ const MetalGoldVariantsRepository = {
                     \`Created Date\`,
                     \`Update Date\`,
                     \`Metal Color\`,
-                    \`Karat\`,
-                    \`Metal Item Name\`
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,? ,? ,?)
+                    \`Karat\`
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,? ,?)
             `;
 
             connection.query(query, params, (err, results) => {
