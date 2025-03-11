@@ -2,25 +2,14 @@ import connection from "../../../../db/connection.js";
 
 const DiamondVariantRepository = {
 
-  generateStoneVariantName: () => {
-    const query = `
-      SELECT COUNT(*) AS count 
-      FROM \`Item Master and Variant Stone Diamond Variant\`
-    `;
-    return new Promise((resolve, reject) => {
-      connection.query(query, (err, results) => {
-        if (err) {
-          reject(err);
-        } else {
-          const count = results[0]?.count || 0;
-          resolve(`New DIAMOND-${count + 1}`);
-        }
-      });
-    });
-  },
+  generateStoneVariantName: (data) => {
+    // Construct the variant name using the provided fields
+    const stoneVariantName = `${data.stoneName}-${data.shape}-${data.quality}-${data.stoneColor}-${data.range}`;
+    return Promise.resolve(stoneVariantName);
+    },
 
   insert: async (data) => {
-    const stoneVariantName = await DiamondVariantRepository.generateStoneVariantName();
+    const stoneVariantName = await DiamondVariantRepository.generateStoneVariantName(data);
 
     const query = `
       INSERT INTO \`Item Master and Variant Stone Diamond Variant\` (

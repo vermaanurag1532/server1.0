@@ -641,7 +641,7 @@ CREATE TABLE `Item Master and Variant Style Style Varient` (
 
 
 CREATE TABLE `Item Master and Variant Stone Diamond Variant` (
-    `Stone Variant Name` VARCHAR(255),
+    `Stone Variant Name` VARCHAR(255) UNIQUE,
     `Stone Name` VARCHAR(255),   
     `Manual Code Gen` VARCHAR(255),
     `Variant Type Name` VARCHAR(255),

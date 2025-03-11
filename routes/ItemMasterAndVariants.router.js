@@ -110,10 +110,10 @@ ItemMasterAndVariantsRouter.get('/Style/Style/Item/:name' , ItemStyleController.
 ItemMasterAndVariantsRouter.get('/Style/Style/Varient' , StyleVariantController.getAllItemVariants);
 ItemMasterAndVariantsRouter.post('/Style/Style/Varient' , StyleVariantController.createItemVariant);
 
-ItemMasterAndVariantsRouter.post("/Stone/Diamond/Varient", DiamondVariantController.create);
-ItemMasterAndVariantsRouter.get("/Stone/Diamond/Varient", DiamondVariantController.getAll);
-ItemMasterAndVariantsRouter.get("/Stone/Diamond/Varient:id", DiamondVariantController.getById);
-ItemMasterAndVariantsRouter.put("/Stone/Diamond/Varient:id", DiamondVariantController.update);
-ItemMasterAndVariantsRouter.delete("/Stone/Diamond/Varient:id", DiamondVariantController.delete);
+ItemMasterAndVariantsRouter.post("/Stone/Diamond/Variant", DiamondVariantController.create);
+ItemMasterAndVariantsRouter.get("/Stone/Diamond/Variant", DiamondVariantController.getAll);
+ItemMasterAndVariantsRouter.get("/Stone/Diamond/Variant:id", DiamondVariantController.getById);
+ItemMasterAndVariantsRouter.put("/Stone/Diamond/Variant:id", DiamondVariantController.update);
+ItemMasterAndVariantsRouter.delete("/Stone/Diamond/Variant:id", DiamondVariantController.delete);
 
 export default ItemMasterAndVariantsRouter;
