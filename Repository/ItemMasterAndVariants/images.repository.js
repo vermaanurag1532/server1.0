@@ -24,10 +24,9 @@ const S3ImageRepository = {
             const command = new PutObjectCommand(params);
             await s3Client.send(command);
     
-            // Get signed URL after upload
             const getUrlCommand = new GetObjectCommand({ Bucket: config.s3.bucketName, Key: fileName });
             const url = await getSignedUrl(s3Client, getUrlCommand, { expiresIn: 3600 });
-            return { url };  // Return an object containing the signed URL
+            return { url };
         } catch (error) {
             console.error("Error uploading image:", error);
             throw error;

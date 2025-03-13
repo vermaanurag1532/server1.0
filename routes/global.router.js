@@ -9,6 +9,7 @@ import DepartmentController from '../controllers/Global/Department/Department.co
 import GstRegistrationController from '../controllers/Global/GstRegistration/gstRegistration.controller.js'
 import CurrencyMasterController from '../controllers/Global/DefaultCurrency/currencyMaster.controller.js'
 import TermsMasterController from '../controllers/Global/DefaultTerms/TermsMaster.controller.js'
+import CustomerMasterController from '../controllers/Global/Customer/customerMaster.controller.js'
 
 const GlobalRouter = express.Router();
 
@@ -58,5 +59,11 @@ GlobalRouter.get("/TermsMaster/:id", TermsMasterController.getTermsById);
 GlobalRouter.post("/TermsMaster", TermsMasterController.createTerms);
 GlobalRouter.put("/TermsMaster/:id", TermsMasterController.updateTerms);
 GlobalRouter.delete("/TermsMaster/:id", TermsMasterController.deleteTerms);
+
+GlobalRouter.get("/CustomerMaster", CustomerMasterController.getAllCustomers);
+GlobalRouter.get("/CustomerMaster/:id", CustomerMasterController.getCustomerById);
+GlobalRouter.post("/CustomerMaster", CustomerMasterController.createCustomer);
+GlobalRouter.put("/CustomerMaster/:id", CustomerMasterController.updateCustomer);
+GlobalRouter.delete("/CustomerMaster/:id", CustomerMasterController.deleteCustomer);
 
 export default GlobalRouter;
