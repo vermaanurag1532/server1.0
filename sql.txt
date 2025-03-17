@@ -710,7 +710,8 @@ CREATE TABLE `Procurement Good Receipt Note` (
     `Style Metal Color` VARCHAR(255),
     `Inward Doc` VARCHAR(255),
     `Last Trans` VARCHAR(255),
-    `isRawMaterial` BOOLEAN 
+    `isRawMaterial` BOOLEAN,
+    `Variant type` VARCHAR(255)
 );
 
 
@@ -828,6 +829,7 @@ CREATE TABLE `Sub Contracting Issue Work` (
     `Inward Doc` VARCHAR(255),
     `Last Trans` VARCHAR(255),
     `isRawMaterial` BOOLEAN,
+    `Variant type` VARCHAR(255),
     FOREIGN KEY (`Stock ID`) REFERENCES `Procurement Good Receipt Note`(`Stock ID`)
 );
 

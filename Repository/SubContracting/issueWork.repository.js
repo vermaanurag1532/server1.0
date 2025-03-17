@@ -29,8 +29,8 @@ const SubContractingIssueWorkRepository = {
             \`HSN - SAC CODE\`, \`LINE OF BUSINESS\`, \`BOM\`, \`Operation\`, \`Image Details\`, 
             \`Formula Details\`, \`Pieces\`, \`Weight\`, \`Net Weight\`, \`Dia Weight\`, 
             \`Dia Pieces\`, \`Location Code\`, \`Item Group\`, \`Metal Color\`, \`Style Metal Color\`, 
-            \`Inward Doc\`, \`Last Trans\`, \`isRawMaterial\`)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            \`Inward Doc\`, \`Last Trans\`, \`isRawMaterial\`, \`Variant Type\`)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         const values = [
             data.stockId, data.vendor, data.issueDate, data.operationName, data.style, data.varientName,
@@ -43,7 +43,7 @@ const SubContractingIssueWorkRepository = {
             JSON.stringify(data.imageDetails), JSON.stringify(data.formulaDetails), data.pieces,
             data.weight, data.netWeight, data.diaWeight, data.diaPieces, data.locationCode,
             data.itemGroup, data.metalColor, data.styleMetalColor, data.inwardDoc, data.lastTrans,
-            data.isRawMaterial
+            data.isRawMaterial, data.variantType
         ];
         const [result] = await db.promise().query(query, values);
         return result.insertId;
