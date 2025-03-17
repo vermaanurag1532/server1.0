@@ -45,7 +45,7 @@ const ProcurementGoodReceiptRepository = {
           \`HSN - SAC CODE\`, \`LINE OF BUSINESS\`, \`BOM\`, \`Operation\`, 
           \`Image Details\`, \`Formula Details\`, \`Pieces\`, \`Weight\`, 
           \`Net Weight\`, \`Dia Weight\`, \`Dia Pieces\`, \`Location Code\`, 
-          \`Item Group\`, \`Metal Color\`, \`Style Metal Color\`, \`Inward Doc\`, \`Last Trans\`, \`isRawMaterial\, \`Variant Type\`
+          \`Item Group\`, \`Metal Color\`, \`Style Metal Color\`, \`Inward Doc\`, \`Last Trans\`, \`isRawMaterial\`, \`Variant Type\`
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `;
       

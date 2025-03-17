@@ -189,7 +189,7 @@ CREATE TABLE `Item master and variant Metal Gold Item` (
 CREATE TABLE `Item master and variant Metal Gold Variants` (
     `Metal Variant Name` VARCHAR(255) UNIQUE,
     `Metal name` VARCHAR(255),
-    `Variant type` VARCHAR(255),
+    `Variant Type` VARCHAR(255),
     `Base metal Variant` VARCHAR(255),
     `Std. selling rate` DECIMAL(10, 2),
     `Std. buying rate` DECIMAL(10, 2),
@@ -218,7 +218,7 @@ CREATE TABLE `Item master and variant Metal Silver Item` (
 CREATE TABLE `Item master and variant Metal Silver Variants` (
     `Metal Variant Name` VARCHAR(255) UNIQUE,
     `Metal name` VARCHAR(255),
-    `Variant type` VARCHAR(255),
+    `Variant Type` VARCHAR(255),
     `Base metal Variant` VARCHAR(255),
     `Std. selling rate` DECIMAL(10, 2),
     `Std. buying rate` DECIMAL(10, 2),
