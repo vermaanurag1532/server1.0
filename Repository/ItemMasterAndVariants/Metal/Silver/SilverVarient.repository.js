@@ -20,7 +20,7 @@ const SilverVariantRepository = {
                 INSERT INTO \`Item master and variant Metal Silver Variants\` (
                     \`Metal name\`,
                     \`Metal Variant Name\`,
-                    \`Variant type\`,
+                    \`Variant Type\`,
                     \`Base metal Variant\`,
                     \`Std. selling rate\`,
                     \`Std. buying rate\`,
