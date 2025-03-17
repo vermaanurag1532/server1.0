@@ -14,7 +14,7 @@ const DiamondVariantRepository = {
     const query = `
       INSERT INTO \`Item Master and Variant Stone Diamond Variant\` (
         \`Stone Variant Name\`, \`Stone Name\`, \`Manual Code Gen\`, 
-        \`Variant Type Name\`, \`Old Variant\`, \`Customer Variant Name\`,
+        \`Variant Type\`, \`Old Variant\`, \`Customer Variant Name\`,
         \`Vendor Name\`, \`Tag Remark\`, \`Std Selling Rate\`,
         \`Std Buying Rate\`, \`Average Weight\`, \`Used as BOM\`,
         \`Mix Variant\`, \`Row Status\`, \`Verified Status\`,
@@ -23,7 +23,7 @@ const DiamondVariantRepository = {
     `;
     const values = [
       stoneVariantName, data.stoneName, data.manualCodeGen,
-      data.variantTypeName, data.oldVariant, data.customerVariantName,
+      data.variantType, data.oldVariant, data.customerVariantName,
       data.vendorName, data.tagRemark, data.stdSellingRate,
       data.stdBuyingRate, data.averageWeight, data.usedAsBom,
       data.mixVariant, data.rowStatus, data.verifiedStatus,
@@ -69,7 +69,7 @@ const DiamondVariantRepository = {
   update: (id, data) => {
     const query = `
       UPDATE \`Item Master and Variant Stone Diamond Variant\`
-      SET \`Stone Variant Name\` = ?, \`Stone Name\` = ?, \`Variant Type Name\` = ?,
+      SET \`Stone Variant Name\` = ?, \`Stone Name\` = ?, \`Variant Type\` = ?,
           \`Old Variant\` = ?, \`Customer Variant Name\` = ?, \`Vendor Name\` = ?,
           \`Tag Remark\` = ?, \`Std Selling Rate\` = ?, \`Std Buying Rate\` = ?,
           \`Average Weight\` = ?, \`Used as BOM\` = ?, \`Mix Variant\` = ?,
@@ -78,7 +78,7 @@ const DiamondVariantRepository = {
       WHERE \`Manual Code Gen\` = ?
     `;
     const values = [
-      data.stoneVariantName, data.stoneName, data.variantTypeName,
+      data.stoneVariantName, data.stoneName, data.variantType,
       data.oldVariant, data.customerVariantName, data.vendorName,
       data.tagRemark, data.stdSellingRate, data.stdBuyingRate,
       data.averageWeight, data.usedAsBom, data.mixVariant,
