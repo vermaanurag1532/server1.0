@@ -14,7 +14,7 @@ const MetalGoldVariantsService = {
         // Destructure all required properties from variantData except "Metal Variant Name"
         const {
             'Metal name': MetalName,
-            'Variant type': VariantType,
+            'Variant Type': VariantType,
             'Base metal Variant': BaseMetalVariant,
             'Std. selling rate': StdSellingRate,
             'Std. buying rate': StdBuyingRate,
