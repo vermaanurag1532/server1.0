@@ -9,6 +9,7 @@ ProcurementRouter.get("/GRN/", ProcurementGoodReceiptController.getAll);
 ProcurementRouter.get("/GRN/:id", ProcurementGoodReceiptController.getById);
 ProcurementRouter.put("/GRN/:id", ProcurementGoodReceiptController.update);
 ProcurementRouter.delete("/GRN/:id", ProcurementGoodReceiptController.delete);
+ProcurementRouter.get('/GRN/download', ProcurementGoodReceiptController.downloadExcel);
 
 ProcurementRouter.post("/RawMaterial/", RawMaterialController.create);
 ProcurementRouter.get("/RawMaterial/", RawMaterialController.getAll);
