@@ -30,6 +30,15 @@ const TransactionHistoryController = {
             res.status(500).json({ message: 'Error creating transaction', error });
         }
     },
+    addTransaction: async (req, res) => {
+        const transactionData = req.body;
+        try {
+            const transId = await TransactionHistoryService.addTransaction(transactionData);
+            res.status(201).json({ transId });
+        } catch (error) {
+            res.status(500).json({ message: 'Error creating transaction', error });
+        }
+    },
     updateTransaction: async (req, res) => {
         const { transId } = req.params;
         const transactionData = req.body;

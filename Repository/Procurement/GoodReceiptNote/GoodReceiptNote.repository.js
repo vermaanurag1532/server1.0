@@ -30,11 +30,11 @@ const ProcurementGoodReceiptRepository = {
 },
 
 
-    insert: async (data) => {
-        const stockId = await ProcurementGoodReceiptRepository.generateStockId();
+insert: async (data) => {
+  const stockId = await ProcurementGoodReceiptRepository.generateStockId();
 
-        const query = `
-        INSERT INTO \`Procurement Good Receipt Note\` (
+  const query = `
+      INSERT INTO \`Procurement Good Receipt Note\` (
           \`Stock ID\`, \`Style\`, \`Varient Name\`, \`Old Varient\`, 
           \`Customer Varient\`, \`Base Varient\`, \`Vendor Code\`, \`Vendor\`, 
           \`Location\`, \`Department\`, \`Remark 1\`, \`Vendor Varient\`, \`Remark 2\`, 
@@ -45,34 +45,35 @@ const ProcurementGoodReceiptRepository = {
           \`HSN - SAC CODE\`, \`LINE OF BUSINESS\`, \`BOM\`, \`Operation\`, 
           \`Image Details\`, \`Formula Details\`, \`Pieces\`, \`Weight\`, 
           \`Net Weight\`, \`Dia Weight\`, \`Dia Pieces\`, \`Location Code\`, 
-          \`Item Group\`, \`Metal Color\`, \`Style Metal Color\`, \`Inward Doc\`, \`Last Trans\`, \`isRawMaterial\`, \`Variant Type\`
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `;
-      
-      const values = [
-        stockId, data.style, data.varientName, data.oldVarient,
-        data.customerVarient, data.baseVarient, data.vendorCode, data.vendor,
-        data.location, data.department, data.remark1, data.vendorVarient, data.remark2,
-        data.createdBy, data.stdBuyingRate, data.stoneMaxWt, data.remark, data.stoneMinWt,
-        data.karatColor, data.deliveryDays, data.forWeb, data.rowStatus, data.verifiedStatus,
-        data.length, data.codegenSrNo, data.category, data.subCategory, data.styleKarat,
-        data.varient, data.hsnSacCode, data.lineOfBusiness, JSON.stringify(data.bom),
-        JSON.stringify(data.operation), JSON.stringify(data.imageDetails),
-        JSON.stringify(data.formulaDetails), data.pieces, data.weight, data.netWeight,
-        data.diaWeight, data.diaPieces, data.locationCode, data.itemGroup, data.metalColor,
-        data.styleMetalColor ,data.inwardDoc , data.lastTrans, data.isRawMaterial, data.variantType
-      ];
-      
-        return new Promise((resolve, reject) => {
-            connection.query(query, values, (err, results) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(results);
-                }
-            });
-        });
-    },
+          \`Item Group\`, \`Metal Color\`, \`Style Metal Color\`, \`Inward Doc\`, 
+          \`Last Trans\`, \`isRawMaterial\`, \`Variant Type\`
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const values = [
+      stockId, data.style, data.varientName, data.oldVarient,
+      data.customerVarient, data.baseVarient, data.vendorCode, data.vendor,
+      data.location, data.department, data.remark1, data.vendorVarient, data.remark2,
+      data.createdBy, data.stdBuyingRate, data.stoneMaxWt, data.remark, data.stoneMinWt,
+      data.karatColor, data.deliveryDays, data.forWeb, data.rowStatus, data.verifiedStatus,
+      data.length, data.codegenSrNo, data.category, data.subCategory, data.styleKarat,
+      data.varient, data.hsnSacCode, data.lineOfBusiness, JSON.stringify(data.bom),
+      JSON.stringify(data.operation), JSON.stringify(data.imageDetails),
+      JSON.stringify(data.formulaDetails), data.pieces, data.weight, data.netWeight,
+      data.diaWeight, data.diaPieces, data.locationCode, data.itemGroup, data.metalColor,
+      data.styleMetalColor, data.inwardDoc, data.lastTrans, data.isRawMaterial, data.variantType
+  ];
+
+  return new Promise((resolve, reject) => {
+      connection.query(query, values, (err, results) => {
+          if (err) {
+              reject(err);
+          } else {
+              resolve(stockId); // Return only the stockId
+          }
+      });
+  });
+},
 
     findAll: () => {
         const query = "SELECT * FROM `Procurement Good Receipt Note`";
