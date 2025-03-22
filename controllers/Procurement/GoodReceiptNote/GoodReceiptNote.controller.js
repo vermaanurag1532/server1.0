@@ -59,7 +59,10 @@ const ProcurementGoodReceiptController = {
     try {
       // Fetch GRN data from the service
       const data = await ProcurementGoodReceiptService.getAll();
-
+  
+      // Log the data to verify its structure
+      console.log('Fetched Data:', data);
+  
       // Define columns for the Excel sheet
       const columns = [
         { header: 'Stock ID', key: 'Stock ID', width: 20 },
@@ -111,11 +114,11 @@ const ProcurementGoodReceiptController = {
         { header: 'isRawMaterial', key: 'isRawMaterial', width: 20 },
         { header: 'Variant type', key: 'Variant type', width: 20 }
       ];
-
+  
       // Use the imported function to generate and download the Excel file
       await generateAndDownloadExcel(res, 'GRNData', columns, data, 'GRNData.xlsx');
-    } catch (error) {
-      console.error('Error generating Excel file:', error.stack);
+    } catch (err) {
+      console.error('Error generating Excel file:', err.stack);
       res.status(500).json({ message: 'File generation error' });
     }
   }
