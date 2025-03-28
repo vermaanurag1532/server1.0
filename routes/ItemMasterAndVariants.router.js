@@ -107,8 +107,9 @@ ItemMasterAndVariantsRouter.get('/Style/Style/Item' , ItemStyleController.getAll
 ItemMasterAndVariantsRouter.post('/Style/Style/Item' , ItemStyleController.createStyleItem);
 ItemMasterAndVariantsRouter.get('/Style/Style/Item/:name' , ItemStyleController.getStyleItemByName);
 
-ItemMasterAndVariantsRouter.get('/Style/Style/Variant' , StyleVariantController.getAllItemVariants);
-ItemMasterAndVariantsRouter.post('/Style/Style/Variant' , StyleVariantController.createItemVariant);
+ItemMasterAndVariantsRouter.get('/Style/Style/Variant' , StyleVariantController.getAllItemMasterVariants);
+ItemMasterAndVariantsRouter.get('/Style/Style/Variant/:bomId' , StyleVariantController.getBomDetails);
+ItemMasterAndVariantsRouter.post('/Style/Style/Variant' , StyleVariantController.createItemMasterVariant);
 
 ItemMasterAndVariantsRouter.post("/Stone/Diamond/Variant", DiamondVariantController.create);
 ItemMasterAndVariantsRouter.get("/Stone/Diamond/Variant", DiamondVariantController.getAll);

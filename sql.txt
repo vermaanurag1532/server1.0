@@ -640,12 +640,27 @@ CREATE TABLE `Item Master and Variant Style Style Varient` (
     `STYLE COLOR` VARCHAR(255),
     `VENDOR SUB PRODUCT` VARCHAR(255),
     `SUB CLUSTER` VARCHAR(255),
-    `BOM` JSON,
+    `BOM Data` JSON,
+    `BOM Id` VARCHAR(255),
     `Operation` JSON,
     `Image Details` JSON
 );
 
-
+CREATE TABLE `BOM Details` (
+    `BOM Id` VARCHAR(255),
+    `Row No` INT,
+    `Variant Name` VARCHAR(255),
+    `Item Group` VARCHAR(255),
+    `Pieces` DECIMAL(19,4),
+    `Weight` DECIMAL(19,4),
+    `Rate` DECIMAL(19,4),
+    `Avg Weight` DECIMAL(19,4),
+    `Amount` DECIMAL(19,4),
+    `SpChar` VARCHAR(255),
+    `Operation` VARCHAR(255),
+    `Type` VARCHAR(255),
+    `Actions` JSON
+);
 
 
 CREATE TABLE `Item Master and Variant Stone Diamond Variant` (
