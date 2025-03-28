@@ -1,4 +1,3 @@
-// Updated ItemMasterVariant.repository.js
 import connection from "../../../../db/connection.js";
 
 const ItemMasterVariantRepository = {
@@ -50,46 +49,124 @@ const ItemMasterVariantRepository = {
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     
+    const processBOMData = (bom) => {
+      if (!bom || !bom.data) return bom;
+      
+      const processedBom = {...bom};
+      processedBom.data = bom.data.map(item => {
+        const processedItem = {...item};
+        
+        // Numeric fields to convert
+        const numericFields = [
+          'rate', 
+          'rowNo', 
+          'amount', 
+          'pieces', 
+          'weight', 
+          'avgWeight'
+        ];
+        
+        numericFields.forEach(field => {
+          // Explicit conversion strategy
+          if (item[field] !== undefined && item[field] !== null) {
+            // Convert to float, with special handling
+            let numValue;
+            if (typeof item[field] === 'number') {
+              // If already a number, use Number() to ensure float
+              numValue = Number(item[field].toFixed(1));
+            } else {
+              // Parse string to float
+              numValue = parseFloat(item[field]);
+            }
+            
+            // Ensure it's a valid number, default to 0.0 if not
+            processedItem[field] = isNaN(numValue) ? 0.0 : numValue;
+            
+            // Force decimal representation
+            processedItem[field] = processedItem[field] === parseInt(processedItem[field]) 
+              ? processedItem[field].toFixed(1) 
+              : processedItem[field];
+          } else {
+            processedItem[field] = 0.0;
+          }
+        });
+        
+        return processedItem;
+      });
+      
+      return processedBom;
+    };
+    
+    const processNumericValue = (value) => {
+      // Comprehensive numeric conversion
+      if (value === undefined || value === null) return 0.0;
+      
+      const numValue = parseFloat(value);
+      
+      // If it's a whole number, force decimal
+      return isNaN(numValue) 
+        ? 0.0 
+        : (Number.isInteger(numValue) ? numValue.toFixed(1) : numValue);
+    };
+
+    // Process Operation data to ensure numeric values
+    const processOperationData = (operation) => {
+      if (!operation) return operation;
+      
+      const processedOperation = {...operation};
+      const numericFields = [
+        'CalcCF', 'BomOperationLinkInd', 'CalcQty', 'DepdQty', 'RowStatus', 
+        'LabourRate', 'RateEditInd', 'LabourAmount', 'MaxRateValue', 
+        'MinRateValue', 'MaxRateRangeId', 'CalculateFormula', 'RateAsPerFormula'
+      ];
+      
+      numericFields.forEach(field => {
+        processedOperation[field] = processNumericValue(operation[field]);
+      });
+      
+      return processedOperation;
+    };
+    
     // Updated values array (38 values)
     const values = [
-      variantName, // 1
-      data.style || null, // 2
-      data.oldVariant || null, // 3
-      data.customerVariant || null, // 4
-      data.baseVariant || null, // 5
-      data.vendor || null, // 6
-      data.remark1 || null, // 7
-      data.vendorVariant || null, // 8
-      data.remark2 || null, // 9
-      data.createdBy || null, // 10
-      data.stdBuyingRate || null, // 11
-      data.stoneMaxWt || null, // 12
-      data.remark || null, // 13
-      data.stoneMinWt || null, // 14
-      data.karatColor || null, // 15
-      data.deliveryDays || null, // 16
-      data.forWeb || null, // 17
-      data.rowStatus || 'Active', // 18
-      data.verifiedStatus || 'Pending', // 19
-      data.length || null, // 20
-      data.codegenSrNo || null, // 21
-      data.category || null, // 22
-      data.subCategory || null, // 23
-      data.styleKarat || null, // 24
-      data.variety || null, // 25
-      data.hsnSacCode || null, // 26
-      data.lineOfBusiness || null, // 27
-      data.size || null, // 28
-      data.brand || null, // 29
-      data.ossasion || null, // 30
-      data.gender || null, // 31
-      data.sizingPossibility || null, // 32
-      data.styleColor || null, // 33
-      data.vendorSubProduct || null, // 34
-      data.subCluster || null, // 35
-      data.bom ? JSON.stringify(data.bom) : null, // 36
-      data.operation ? JSON.stringify(data.operation) : null, // 37
-      data.imageDetails ? JSON.stringify(data.imageDetails) : null // 38
+      variantName, 
+      data.style,
+      data.oldVariant || '',
+      data.customerVariant || '',
+      data.baseVariant || '',
+      data.vendor || '',
+      data.remark1 || '',
+      data.vendorVariant || '',
+      data.remark2 || '',
+      data.createdBy || '',
+      processNumericValue(data.stdBuyingRate), // Convert to number
+      processNumericValue(data.stoneMaxWt), // Convert to number
+      data.remark || '',
+      processNumericValue(data.stoneMinWt), // Convert to number
+      data.karatColor || '',
+      processNumericValue(data.deliveryDays), // Convert to number
+      data.forWeb || '',
+      data.rowStatus || 'Active',
+      data.verifiedStatus || '',
+      processNumericValue(data.length), // Convert to number
+      data.codegenSrNo || '',
+      data.category || '',
+      data.subCategory || '',
+      data.styleKarat || '',
+      data.variety || '',
+      data.hsnSacCode || '',
+      data.lineOfBusiness || '',
+      data.size || '',
+      data.brand || '',
+      data.ossasion || '',
+      data.gender || '',
+      data.sizingPossibility || '',
+      data.styleColor || '',
+      data.vendorSubProduct || '',
+      data.subCluster || '',
+      JSON.stringify(processBOMData(data.bom)), // Process BOM data
+      JSON.stringify(processOperationData(data.operation)), // Process Operation data
+      JSON.stringify(data.imageDetails || []) // Ensure array
     ];
     
     return new Promise((resolve, reject) => {
