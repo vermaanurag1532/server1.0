@@ -41,12 +41,15 @@ const FindExcelDetailController = {
             const excelDetailData = excelDetail.excelDetail;
             
             res.status(200).json({
+                success: true,
+                data: {
                     procedureName: excelDetail.procedureName,
                     excelDetail: excelDetailData,
                     // Include the raw type for debugging
                     _debug: {
                         excelDetailType: typeof excelDetailData
                     }
+                }
             });
         } catch (error) {
             console.error("Error finding Excel Detail:", error);
