@@ -438,8 +438,6 @@ CREATE TABLE `Rate Structure Excel` (
 AKIAS252V4C4OF7NQ5HA
 ZaFsOn47ew8oDVClNv0sdNjsq1irIbQ9JUla8fK5
 
-
-
 CREATE TABLE `Item master and variant Style Style Item` (
     `Style Name` VARCHAR(255),
     `Exclusive Indicator` BOOLEAN,

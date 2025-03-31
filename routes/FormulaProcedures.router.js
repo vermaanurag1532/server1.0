@@ -13,6 +13,7 @@ import FormulaTransactionController from '../controllers/FormulaProcedures/Formu
 import FormulaDocumentController from '../controllers/FormulaProcedures/FormulaMapping/DocumentType.controller.js'
 import FormulaTransCategoryController from '../controllers/FormulaProcedures/FormulaMapping/TransCategory.controller.js'
 import FormulaMappingController from '../controllers/FormulaProcedures/FormulaMapping/FormulaMapping.controller.js'
+import FindExcelDetailController from '../controllers/FormulaProcedures/FormulaProcedure/FindExcelDetail.controller.js'
 
 const FormulaProceduresRouter = express.Router();
 
@@ -45,6 +46,8 @@ FormulaProceduresRouter.post('/FormulaProcedureMasterDetails', FormulaProcedureM
 FormulaProceduresRouter.get('/FormulaProcedureMasterDetails', FormulaProcedureMasterDetailsController.getAllFormulaProcedureMasterDetails);
 FormulaProceduresRouter.get('/FormulaProcedureMasterDetails/:formulaProcedureName', FormulaProcedureMasterDetailsController.getDetailByName);
 FormulaProceduresRouter.get('/table', FormulaProcedureMasterDetailsController.getTableDetails);
+FormulaProceduresRouter.post("/FindExcelDetail", FindExcelDetailController.findExcelDetail);
+
 
 FormulaProceduresRouter.get("/FormulaMapping", FormulaMappingController.getAll);
 FormulaProceduresRouter.get("/FormulaMapping/:id", FormulaMappingController.getById);
