@@ -36,7 +36,20 @@ class FormulaDetailsService {
   async generateNextFormulaId() {
     try {
       const latestFormulaId = await FormulaDetailsRepository.getLatestFormulaId();
-      const currentNumber = parseInt(latestFormulaId.split('-')[1]);
+      // Extract the number part and convert to integer
+      const matches = latestFormulaId.match(/Formula-(\d+)/);
+      
+      if (!matches) {
+        return "Formula-1"; // Fallback if no match found
+      }
+      
+      const currentNumber = parseInt(matches[1], 10);
+      
+      // Check if currentNumber is a valid number
+      if (isNaN(currentNumber)) {
+        return "Formula-1"; // Fallback if not a valid number
+      }
+      
       return `Formula-${currentNumber + 1}`;
     } catch (error) {
       throw new Error(`Error generating formula ID: ${error.message}`);

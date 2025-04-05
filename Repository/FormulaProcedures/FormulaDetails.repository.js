@@ -36,11 +36,19 @@ class FormulaDetailsRepository {
    */
   async getLatestFormulaId() {
     return new Promise((resolve, reject) => {
-      const query = "SELECT `formulaId` FROM `Formula Details` ORDER BY `formulaId` DESC LIMIT 1";
+      // Modified query to handle numeric extraction and sorting
+      const query = `
+        SELECT formulaId 
+        FROM \`Formula Details\` 
+        WHERE formulaId LIKE 'Formula-%' 
+        ORDER BY CAST(SUBSTRING_INDEX(formulaId, '-', -1) AS UNSIGNED) DESC 
+        LIMIT 1
+      `;
+      
       connection.query(query, (err, results) => {
         if (err) reject(err);
         else {
-          // If no results, start with Formula-1
+          // If no results, start with Formula-0
           if (results.length === 0) {
             resolve("Formula-0");
           } else {

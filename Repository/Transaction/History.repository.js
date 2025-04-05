@@ -140,6 +140,7 @@ const TransactionHistoryRepository = {
                             hsnSacCode: variant.hsnSacCode,
                             lineOfBusiness: variant.lineOfBusiness,
                             bom: JSON.stringify(variant.bom),
+                            bomId: variant.bomId || null,
                             operation: JSON.stringify(variant.operation),
                             imageDetails: JSON.stringify(variant.imageDetails),
                             formulaDetails: JSON.stringify(variant.formulaDetails),
