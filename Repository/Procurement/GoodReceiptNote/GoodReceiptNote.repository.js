@@ -60,16 +60,16 @@ const ProcurementGoodReceiptRepository = {
         try {
           // Parse BOM data if it's a string
           let bomData = [];
-          if (data.bom) {
-            if (typeof data.bom === 'string') {
+          if (data.bomData) {
+            if (typeof data.bomData === 'string') {
               try {
-                bomData = JSON.parse(data.bom);
+                bomData = JSON.parse(data.bomData);
               } catch (e) {
                 console.error('Error parsing BOM data:', e);
                 bomData = [];
               }
-            } else if (Array.isArray(data.bom)) {
-              bomData = data.bom;
+            } else if (Array.isArray(data.bomData)) {
+              bomData = data.bomData;
             }
           }
           

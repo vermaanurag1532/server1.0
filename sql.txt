@@ -743,6 +743,7 @@ CREATE TABLE `Procurement Good Receipt Note` (
     `HSN - SAC CODE` VARCHAR(255),
     `LINE OF BUSINESS` VARCHAR(255),
     `BOM` JSON,
+    `Bom Id` VARCHAR(255),
     `Operation` JSON,
     `Image Details` JSON,
     `Formula Details` JSON,
