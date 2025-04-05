@@ -155,7 +155,8 @@ const TransactionHistoryRepository = {
                             inwardDoc: nextTransId,
                             lastTrans: "",
                             isRawMaterial: variant.isRawMaterial,
-                            variantType: variant.variantType || ''
+                            variantType: variant.variantType || '',
+                            variantForumalaID: variant.variantForumalaID
                         };
 
                                 // Insert GRN entry

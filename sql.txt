@@ -478,6 +478,31 @@ CREATE TABLE `Formula Procedure Formula Mapping` (
     `Trans Type` VARCHAR(255)
 );
 
+CREATE TABLE `Formula Details` (
+  `formulaId` VARCHAR(255),
+  `id` VARCHAR(255),
+  `rowNo` VARCHAR(255),
+  `mrpInd` DECIMAL(19, 4),
+  `rowType` VARCHAR(50),
+  `rangeDtl` VARCHAR(50),
+  `rowValue` DECIMAL(19, 4),
+  `rowStatus` VARCHAR(20),
+  `variantId` DECIMAL(19, 4),
+  `visibleInd` DECIMAL(19, 4),
+  `editableInd` DECIMAL(19, 4),
+  `maxRateValue` DECIMAL(19, 4),
+  `minRateValue` DECIMAL(19, 4),
+  `rowExpression` VARCHAR(255),
+  `rowDescription` VARCHAR(255),
+  `rowExpressionId` INT,
+  `rateAsPerFormula` DECIMAL(19, 4),
+  `rowExpressionValue` DECIMAL(19, 4),
+  `validateExpression` VARCHAR(255),
+  `hideDefaultValueInd` DECIMAL(19, 4),
+  `attribTypeAndAttribId` VARCHAR(50),
+  `dataType` VARCHAR(50)
+);
+
 
 CREATE TABLE `Formula Procedure Formula Mapping Procedure Type` (
     `Config Id` VARCHAR(255) UNIQUE,
@@ -657,7 +682,8 @@ CREATE TABLE `BOM Details` (
     `SpChar` VARCHAR(255),
     `Operation` VARCHAR(255),
     `Type` VARCHAR(255),
-    `Actions` JSON
+    `Actions` JSON,
+    `FormulaID` VARCHAR(255),
 );
 
 
@@ -732,7 +758,8 @@ CREATE TABLE `Procurement Good Receipt Note` (
     `Inward Doc` VARCHAR(255),
     `Last Trans` VARCHAR(255),
     `isRawMaterial` BOOLEAN,
-    `Variant type` VARCHAR(255)
+    `Variant type` VARCHAR(255),
+    `variantForumalaID` VARCHAR(255)
 );
 
 
@@ -835,6 +862,7 @@ CREATE TABLE `Sub Contracting Issue Work` (
     `HSN - SAC CODE` VARCHAR(255),
     `LINE OF BUSINESS` VARCHAR(255),
     `BOM` JSON,
+    `BOM Id` VARCHAR(255),
     `Operation` JSON,
     `Image Details` JSON,
     `Formula Details` JSON,
@@ -875,7 +903,8 @@ CREATE TABLE `Transaction History` (
     `remark` VARCHAR(255),
     `createdBy` VARCHAR(255),
     `postingDate` DATE,
-    `varients` JSON
+    `varients` JSON,
+    `transactionFromulaID` VARCHAR(255)
 );
 
 

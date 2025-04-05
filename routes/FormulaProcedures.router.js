@@ -14,6 +14,7 @@ import FormulaDocumentController from '../controllers/FormulaProcedures/FormulaM
 import FormulaTransCategoryController from '../controllers/FormulaProcedures/FormulaMapping/TransCategory.controller.js'
 import FormulaMappingController from '../controllers/FormulaProcedures/FormulaMapping/FormulaMapping.controller.js'
 import FindExcelDetailController from '../controllers/FormulaProcedures/FormulaProcedure/FindExcelDetail.controller.js'
+import FormulaDetailsController from '../controllers/FormulaProcedures/FormulaDetails.controller.js'
 
 const FormulaProceduresRouter = express.Router();
 
@@ -68,5 +69,12 @@ FormulaProceduresRouter.post("/DocumentType/FormulaMapping", FormulaDocumentCont
 FormulaProceduresRouter.get("/TransCategory/FormulaMapping", FormulaTransCategoryController.getAll);
 FormulaProceduresRouter.get("/TransCategory/FormulaMapping/:id", FormulaTransCategoryController.getById);
 FormulaProceduresRouter.post("/TransCategory/FormulaMapping", FormulaTransCategoryController.create);
+
+FormulaProceduresRouter.get("/FormulaDetails", FormulaDetailsController.getAllFormulaDetails);
+FormulaProceduresRouter.get("/FormulaDetails/:formulaId", FormulaDetailsController.getFormulaDetailsByFormulaId);
+FormulaProceduresRouter.post("/FormulaDetails", FormulaDetailsController.createFormulaDetails);
+FormulaProceduresRouter.put("/FormulaDetails/:formulaId/:id", FormulaDetailsController.updateFormulaDetail);
+FormulaProceduresRouter.delete("/FormulaDetails/:formulaId", FormulaDetailsController.deleteFormulaDetailsByFormulaId);
+FormulaProceduresRouter.delete("/FormulaDetails/:formulaId/:id", FormulaDetailsController.deleteFormulaDetail);
 
 export default FormulaProceduresRouter;
