@@ -1080,3 +1080,29 @@ CREATE TABLE `Customer Master` (
     `Party Anniversary` DATE,
     `NRI Customer` BOOLEAN
 );
+
+
+CREATE TABLE `Operations` (
+    OperationId VARCHAR(100),
+    VariantName VARCHAR(100) NOT NULL,
+    CalcBOM VARCHAR(100),
+    CalcCF DECIMAL(10, 2),
+    CalcMethod VARCHAR(50),
+    CalcMethodVal VARCHAR(100),
+    CalcQty DECIMAL(10, 2),
+    CalculateFormula VARCHAR(50),
+    DepdBOM VARCHAR(100) NULL,
+    DepdMethod VARCHAR(50) NULL,
+    DepdMethodVal DECIMAL(10, 2),
+    DepdQty DECIMAL(10, 2),
+    LabourAmount DECIMAL(10, 2),
+    LabourAmountLocal DECIMAL(10, 2),
+    LabourRate DECIMAL(10, 2),
+    MaxRateValue DECIMAL(10, 2),
+    MinRateValue DECIMAL(10, 2),
+    Operation VARCHAR(100),
+    OperationType VARCHAR(50) NULL,
+    RateAsPerFormula DECIMAL(10, 2),
+    RowStatus INT,
+    Rate_Edit_Ind INT
+);

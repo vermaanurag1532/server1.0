@@ -1,4 +1,5 @@
 import connection from "../../../db/connection.js";
+import OperationRepository from '../../operationDetail.repository.js'
 
 const ProcurementGoodReceiptRepository = {
   generateStockId: () => {
@@ -41,6 +42,79 @@ const ProcurementGoodReceiptRepository = {
     } catch (error) {
         console.error('Error generating BOM ID:', error.message);
         return 'BOM-1';
+    }
+  },
+
+  saveOperationData: async (operationData, existingOperationId = null) => {
+    try {
+      // If operationData is a string, parse it to an object
+      let operations = operationData;
+      if (typeof operationData === 'string') {
+        try {
+          operations = JSON.parse(operationData);
+        } catch (e) {
+          console.error('Error parsing operation data:', e);
+          operations = [];
+        }
+      }
+
+      // If operations is not an array, convert it to an array
+      if (!Array.isArray(operations)) {
+        operations = [operations];
+      }
+
+      // If no operations, return null
+      if (!operations.length) {
+        return null;
+      }
+
+      // If there's an existing operation ID, use that, otherwise generate a new one
+      let operationId = existingOperationId;
+      if (!operationId) {
+        // Get max operation number and generate a new Operation ID
+        const currentMax = await OperationRepository.getMaxOperationNumber();
+        operationId = `Operation-${currentMax + 1}`;
+      } else {
+        // If using existing operation ID, delete old operation data first
+        await OperationRepository.delete(operationId);
+      }
+
+      // Save each operation with the same operation ID
+      for (const operation of operations) {
+        // Create operation object with necessary fields
+        const operationObj = {
+          OperationId: operationId,
+          VariantName: operation.VariantName || '',
+          CalcBOM: operation.CalcBOM || '',
+          CalcCF: operation.CalcCF || 0.0,
+          CalcMethod: operation.CalcMethod || '',
+          CalcMethodVal: operation.CalcMethodVal || '',
+          CalcQty: operation.CalcQty || 0.0,
+          CalculateFormula: operation.CalculateFormula || '',
+          DepdBOM: operation.DepdBOM || null,
+          DepdMethod: operation.DepdMethod || null,
+          DepdMethodVal: operation.DepdMethodVal || 0.0,
+          DepdQty: operation.DepdQty || 0.0,
+          LabourAmount: operation.LabourAmount || 0.0,
+          LabourAmountLocal: operation.LabourAmountLocal || 0.0,
+          LabourRate: operation.LabourRate || 0.0,
+          MaxRateValue: operation.MaxRateValue || 0.0,
+          MinRateValue: operation.MinRateValue || 0.0,
+          Operation: operation.Operation || '',
+          OperationType: operation.OperationType || null,
+          RateAsPerFormula: operation.RateAsPerFormula || 0.0,
+          RowStatus: operation.RowStatus || 1,
+          Rate_Edit_Ind: operation.Rate_Edit_Ind || 0
+        };
+
+        // Insert the operation data
+        await OperationRepository.create(operationObj);
+      }
+
+      return operationId;
+    } catch (error) {
+      console.error('Error saving operation data:', error);
+      throw error;
     }
   },
 
@@ -102,7 +176,13 @@ const ProcurementGoodReceiptRepository = {
             await connection.promise().query(bomQuery, [bomParams]);
           }
           
-          // Insert GRN record with bomId and BOM JSON
+          // Process operation data and get operation ID
+          let operationId = null;
+          if (data.operation) {
+            operationId = await ProcurementGoodReceiptRepository.saveOperationData(data.operation);
+          }
+          
+          // Insert GRN record with bomId, BOM JSON, and operation ID
           const query = `
               INSERT INTO \`Procurement Good Receipt Note\` (
                   \`Stock ID\`, \`Style\`, \`Varient Name\`, \`Old Varient\`, 
@@ -116,8 +196,9 @@ const ProcurementGoodReceiptRepository = {
                   \`Image Details\`, \`Formula Details\`, \`Pieces\`, \`Weight\`, 
                   \`Net Weight\`, \`Dia Weight\`, \`Dia Pieces\`, \`Location Code\`, 
                   \`Item Group\`, \`Metal Color\`, \`Style Metal Color\`, \`Inward Doc\`, 
-                  \`Last Trans\`, \`isRawMaterial\`, \`Variant type\`, \`variantForumalaID\`
-              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                  \`Last Trans\`, \`isRawMaterial\`, \`Variant type\`, \`variantForumalaID\`,
+                  \`OperationId\`
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
           `;
 
           const values = [
@@ -136,14 +217,15 @@ const ProcurementGoodReceiptRepository = {
               data.pieces, data.weight, data.netWeight,
               data.diaWeight, data.diaPieces, data.locationCode, data.itemGroup, data.metalColor,
               data.styleMetalColor, data.inwardDoc, data.lastTrans, data.isRawMaterial, data.variantType, 
-              data.variantForumalaID
+              data.variantForumalaID,
+              operationId
           ];
           
           await connection.promise().query(query, values);
           
           // Commit transaction
           await connection.promise().commit();
-          resolve(stockId);
+          resolve({ stockId, operationId });
         } catch (error) {
           // Rollback transaction if any error occurs
           await connection.promise().rollback();
