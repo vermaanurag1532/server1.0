@@ -1,5 +1,7 @@
 import connection from '../../../../db/connection.js';
 import { v4 as uuidv4 } from 'uuid';
+import OperationRepository from '../../../operationDetail.repository.js';
+import OperationService from '../../../../Service/operationDetail.service.js';
 
 const generateBomId = async () => {
   try {
@@ -15,7 +17,7 @@ const generateBomId = async () => {
   }
 };
 
- const generateVariantName = async (data) => {
+const generateVariantName = async (data) => {
   const countQuery = `
     SELECT COUNT(*) as count 
     FROM \`Item Master and Variant Style Style Varient\`
@@ -56,14 +58,58 @@ const getBomDetailsById = async (bomId) => {
   }
 };
 
+// Function to create operations in Operations table
+const createOperationsForVariant = async (operations, variantName) => {
+  if (!operations || !Array.isArray(operations) || operations.length === 0) {
+    return null;
+  }
 
-const createItemMasterVariant = async (itemData, bomData, operation, imageDetails) => {
+  try {
+    // Create operations with the same OperationId
+    // Don't modify the operations data - use it as is
+    const result = await OperationService.create(operations);
+    
+    return result.OperationId;
+  } catch (error) {
+    console.error('Error creating operations:', error);
+    throw new Error(`Failed to create operations: ${error.message}`);
+  }
+};
+
+// Function to update operations in Operations table
+const updateOperationsForVariant = async (operationId, operations, variantName) => {
+  if (!operations || !Array.isArray(operations) || operations.length === 0) {
+    return operationId;
+  }
+
+  try {
+    if (operationId) {
+      // Update existing operations without modifying the operations data
+      await OperationService.update(operationId, operations);
+      return operationId;
+    } else {
+      // Create new operations
+      const result = await createOperationsForVariant(operations, variantName);
+      return result;
+    }
+  } catch (error) {
+    console.error('Error updating operations:', error);
+    throw new Error(`Failed to update operations: ${error.message}`);
+  }
+};
+
+const createItemMasterVariant = async (itemData, bomData, operations, imageDetails) => {
   const variantName = await generateVariantName(itemData);
   const bomId = await generateBomId();
 
+  // Create operations in Operations table and get the OperationId
+  const operationId = await createOperationsForVariant(operations, variantName);
+  
+  // Store the JSON representation of operations for reference
+  const operationsJson = JSON.stringify(operations || []);
+  
   // Properly escape JSON data
   const bomDataJson = JSON.stringify(bomData || []);
-  const operationJson = JSON.stringify(operation || {});
   const imageDetailsJson = JSON.stringify(imageDetails || []);
 
   const itemQuery = `
@@ -107,6 +153,7 @@ const createItemMasterVariant = async (itemData, bomData, operation, imageDetail
       \`BOM Data\` = ?,
       \`BOM Id\` = ?,
       \`Operation\` = ?,
+      \`OperationId\` = ?,
       \`Image Details\` = ?
   `;
   
@@ -148,7 +195,8 @@ const createItemMasterVariant = async (itemData, bomData, operation, imageDetail
     itemData.subCluster,
     bomDataJson,
     bomId,
-    operationJson,
+    operationsJson,
+    operationId,  // Store the operationId reference
     imageDetailsJson
   ]);
 
@@ -179,8 +227,9 @@ const createItemMasterVariant = async (itemData, bomData, operation, imageDetail
     await connection.promise().query(bomQuery, [bomParams]);
   }
 
-  return { variantName, bomId };
+  return { variantName, bomId, operationId };
 };
+
 const getAllItemMasterVariants = async () => {
     const query = `SELECT * FROM \`Item Master and Variant Style Style Varient\``;
     const [rows] = await connection.promise().query(query);
@@ -188,30 +237,78 @@ const getAllItemMasterVariants = async () => {
 };
 
 const getItemMasterVariantByVariantName = async (variantName) => {
-    const query = `SELECT * FROM \`Item Master and Variant Style Style Varient\` WHERE Variant_Name = ?`;
-    const [rows] = await connection.query(query, [variantName]);
+    const query = `SELECT * FROM \`Item Master and Variant Style Style Varient\` WHERE \`Variant Name\` = ?`;
+    const [rows] = await connection.promise().query(query, [variantName]);
     return rows[0] || null;
 };
 
 const getBomDetailsByBomId = async (bomId) => {
-    const query = `SELECT * FROM \`BOM Details\` WHERE BOM_Id = ?`;
+    const query = `SELECT * FROM \`BOM Details\` WHERE \`BOM Id\` = ?`;
     const [rows] = await connection.promise().query(query, [bomId]);
     return rows;
 };
 
-const updateItemMasterVariant = async (variantName, itemData, bomData, operation, imageDetails, transactionConn) => {
+const updateItemMasterVariant = async (variantName, itemData, bomData, operations, imageDetails, transactionConn) => {
+    // Get the existing variant to retrieve the current OperationId
+    const [existingItemResult] = await transactionConn.promise().query(
+        'SELECT \`BOM Id\`, \`OperationId\` FROM \`Item Master and Variant Style Style Varient\` WHERE \`Variant Name\` = ?',
+        [variantName]
+    );
+    
+    if (!existingItemResult.length) {
+        throw new Error(`Variant ${variantName} not found`);
+    }
+    
+    const existingItem = existingItemResult[0];
+    const bomId = existingItem['BOM Id'];
+    const existingOperationId = existingItem.OperationId;
+    
+    // Update operations in Operations table
+    const operationId = await updateOperationsForVariant(existingOperationId, operations, variantName);
+    
     // First update the main item
     const updateQuery = `
         UPDATE \`Item Master and Variant Style Style Varient\`
-        SET Style = ?, Old_Variant = ?, Customer_Variant = ?, Base_Variant = ?, Vendor = ?, 
-            Remark_1 = ?, Vendor_Variant = ?, Remark_2 = ?, Created_By = ?, Std_Buying_Rate = ?, 
-            Stone_Max_Wt = ?, Remark = ?, Stone_Min_Wt = ?, Karat_Color = ?, Delivery_Days = ?, 
-            For_Web = ?, Row_Status = ?, Verified_Status = ?, Length = ?, Codegen_Sr_No = ?, 
-            CATEGORY = ?, SUB-CATEGORY = ?, STYLE_KARAT = ?, VARIETY = ?, HSN - SAC_CODE = ?, 
-            LINE_OF_BUSINESS = ?, SIZE = ?, BRAND = ?, OSSASION = ?, GENDER = ?, 
-            SIZING_POSSIBILITY = ?, STYLE_COLOR = ?, VENDOR_SUB_PRODUCT = ?, SUB_CLUSTER = ?, 
-            BOM_Data = ?, Operation = ?, Image_Details = ?
-        WHERE Variant_Name = ?
+        SET 
+            \`Style\` = ?, 
+            \`Old Variant\` = ?, 
+            \`Customer Variant\` = ?, 
+            \`Base Variant\` = ?, 
+            \`Vendor\` = ?, 
+            \`Remark 1\` = ?, 
+            \`Vendor Variant\` = ?, 
+            \`Remark 2\` = ?, 
+            \`Created By\` = ?, 
+            \`Std Buying Rate\` = ?, 
+            \`Stone Max Wt\` = ?, 
+            \`Remark\` = ?, 
+            \`Stone Min Wt\` = ?, 
+            \`Karat Color\` = ?, 
+            \`Delivery Days\` = ?, 
+            \`For Web\` = ?, 
+            \`Row Status\` = ?, 
+            \`Verified Status\` = ?, 
+            \`Length\` = ?, 
+            \`Codegen Sr No\` = ?, 
+            \`CATEGORY\` = ?, 
+            \`SUB-CATEGORY\` = ?, 
+            \`STYLE KARAT\` = ?, 
+            \`VARIETY\` = ?, 
+            \`HSN - SAC CODE\` = ?, 
+            \`LINE OF BUSINESS\` = ?, 
+            \`SIZE\` = ?, 
+            \`BRAND\` = ?, 
+            \`OSSASION\` = ?, 
+            \`GENDER\` = ?, 
+            \`SIZING POSSIBILITY\` = ?, 
+            \`STYLE COLOR\` = ?, 
+            \`VENDOR SUB PRODUCT\` = ?, 
+            \`SUB CLUSTER\` = ?, 
+            \`BOM Data\` = ?, 
+            \`Operation\` = ?, 
+            \`OperationId\` = ?, 
+            \`Image Details\` = ?
+        WHERE \`Variant Name\` = ?
     `;
     
     const updateParams = [
@@ -250,29 +347,23 @@ const updateItemMasterVariant = async (variantName, itemData, bomData, operation
         itemData.vendorSubProduct || null,
         itemData.subCluster || null,
         JSON.stringify(bomData) || null,
-        JSON.stringify(operation) || null,
+        JSON.stringify(operations) || null,
+        operationId, // Update with new or existing operationId
         JSON.stringify(imageDetails) || null,
         variantName
     ];
 
     await transactionConn.promise().query(updateQuery, updateParams);
 
-    // Get the existing BOM ID
-    const [existingItem] = await transactionConn.query(
-        'SELECT BOM_Id FROM `Item Master and Variant Style Style Varient` WHERE Variant_Name = ?',
-        [variantName]
-    );
-    const bomId = existingItem[0].BOM_Id;
-
     // Delete existing BOM details
-    await transactionConn.promise().query('DELETE FROM `BOM Details` WHERE BOM_Id = ?', [bomId]);
+    await transactionConn.promise().query('DELETE FROM \`BOM Details\` WHERE \`BOM Id\` = ?', [bomId]);
 
     // Insert new BOM details if provided
     if (bomData && bomData.length > 0) {
         const bomQuery = `
             INSERT INTO \`BOM Details\` 
-            (Row_No, BOM_Id, Variant_Name, Item_Group, Pieces, Weight, Rate, Avg_Weight, 
-             Amount, SpChar, Operation, Type, Actions)
+            (\`Row No\`, \`BOM Id\`, \`Variant Name\`, \`Item Group\`, \`Pieces\`, \`Weight\`, \`Rate\`, 
+             \`Avg Weight\`, \`Amount\`, \`SpChar\`, \`Operation\`, \`Type\`, \`Actions\`)
             VALUES ?
         `;
         
@@ -295,24 +386,31 @@ const updateItemMasterVariant = async (variantName, itemData, bomData, operation
         await transactionConn.promise().query(bomQuery, [bomParams]);
     }
 
-    return bomId;
+    return { bomId, operationId };
 };
 
 const deleteItemMasterVariant = async (variantName, transactionConn) => {
-    // First get the BOM ID to delete related BOM details
-    const [existingItem] = await transactionConn.query(
-        'SELECT BOM_Id FROM `Item Master and Variant Style Style Varient` WHERE Variant_Name = ?',
+    // First get the BOM ID and OperationId to delete related records
+    const [existingItem] = await transactionConn.promise().query(
+        'SELECT \`BOM Id\`, \`OperationId\` FROM \`Item Master and Variant Style Style Varient\` WHERE \`Variant Name\` = ?',
         [variantName]
     );
     
     if (existingItem.length > 0) {
-        const bomId = existingItem[0].BOM_Id;
-        // Delete BOM details first
-        await transactionConn.promise().query('DELETE FROM `BOM Details` WHERE BOM_Id = ?', [bomId]);
+        const bomId = existingItem[0]['BOM Id'];
+        const operationId = existingItem[0].OperationId;
+        
+        // Delete BOM details
+        await transactionConn.promise().query('DELETE FROM \`BOM Details\` WHERE \`BOM Id\` = ?', [bomId]);
+        
+        // Delete Operations if they exist
+        if (operationId) {
+            await OperationService.delete(operationId);
+        }
     }
     
     // Then delete the main item
-    const deleteQuery = 'DELETE FROM `Item Master and Variant Style Style Varient` WHERE Variant_Name = ?';
+    const deleteQuery = 'DELETE FROM \`Item Master and Variant Style Style Varient\` WHERE \`Variant Name\` = ?';
     await transactionConn.promise().query(deleteQuery, [variantName]);
 };
 

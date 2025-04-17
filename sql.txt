@@ -760,7 +760,8 @@ CREATE TABLE `Procurement Good Receipt Note` (
     `Last Trans` VARCHAR(255),
     `isRawMaterial` BOOLEAN,
     `Variant type` VARCHAR(255),
-    `variantForumalaID` VARCHAR(255)
+    `variantForumalaID` VARCHAR(255),
+    `OperationId` VARCHAR(50)
 );
 
 
