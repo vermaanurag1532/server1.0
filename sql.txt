@@ -666,6 +666,7 @@ CREATE TABLE `Item Master and Variant Style Style Varient` (
     `BOM Data` JSON,
     `BOM Id` VARCHAR(255),
     `Operation` JSON,
+    `Operation Id` VARCHAR(100) NULL,
     `Image Details` JSON
 );
 
@@ -1106,4 +1107,11 @@ CREATE TABLE `Operations` (
     RateAsPerFormula DECIMAL(10, 2),
     RowStatus INT,
     Rate_Edit_Ind INT
+);
+
+
+CREATE TABLE `Demo Variant` (
+    `variantName` VARCHAR(100),
+    `weight` DECIMAL(10, 2),
+    `image` JSON
 );
