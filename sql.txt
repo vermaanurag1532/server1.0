@@ -762,7 +762,8 @@ CREATE TABLE `Procurement Good Receipt Note` (
     `isRawMaterial` BOOLEAN,
     `Variant type` VARCHAR(255),
     `variantForumalaID` VARCHAR(255),
-    `OperationId` VARCHAR(50)
+    `OperationId` VARCHAR(50),
+    `variables` JSON
 );
 
 

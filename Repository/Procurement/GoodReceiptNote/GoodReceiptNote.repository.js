@@ -197,8 +197,8 @@ const ProcurementGoodReceiptRepository = {
                   \`Net Weight\`, \`Dia Weight\`, \`Dia Pieces\`, \`Location Code\`, 
                   \`Item Group\`, \`Metal Color\`, \`Style Metal Color\`, \`Inward Doc\`, 
                   \`Last Trans\`, \`isRawMaterial\`, \`Variant type\`, \`variantForumalaID\`,
-                  \`OperationId\`
-              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                  \`OperationId\`, \`variables\`
+              ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
           `;
 
           const values = [
@@ -218,7 +218,7 @@ const ProcurementGoodReceiptRepository = {
               data.diaWeight, data.diaPieces, data.locationCode, data.itemGroup, data.metalColor,
               data.styleMetalColor, data.inwardDoc, data.lastTrans, data.isRawMaterial, data.variantType, 
               data.variantForumalaID,
-              operationId
+              operationId, JSON.stringify(data.variables),
           ];
           
           await connection.promise().query(query, values);
