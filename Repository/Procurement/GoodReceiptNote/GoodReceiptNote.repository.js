@@ -329,7 +329,7 @@ const ProcurementGoodReceiptRepository = {
                           const bomParams = bomData.map((bom, index) => [
                               bom.rowNo || index + 1,
                               bomId,
-                              data.varientName,
+                              data.variantName,
                               bom.itemGroup || '',
                               bom.pieces || 0,
                               bom.weight || 0,
