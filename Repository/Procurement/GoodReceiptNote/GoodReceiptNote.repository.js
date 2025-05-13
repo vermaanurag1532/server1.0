@@ -33,17 +33,18 @@ const ProcurementGoodReceiptRepository = {
   // Generate a BOM ID
   generateBomId: async () => {
     try {
-        const [result] = await connection.promise().query(
-            'SELECT MAX(CAST(SUBSTRING(`BOM Id`, 5) AS UNSIGNED)) AS max_num FROM `BOM Details`'
-        );
-        
-        const nextNumber = (result[0]?.max_num || 0) + 1;
-        return `BOM-${nextNumber}`;
+      const [result] = await connection.promise().query(
+        'SELECT MAX(CAST(SUBSTRING_INDEX(`BOM Id`, "-", -1) AS UNSIGNED)) AS maxBomId FROM `BOM Details`'
+      );
+  
+      const nextBomId = `BOM-${(result[0].maxBomId || 0) + 1}`;
+      return nextBomId;
     } catch (error) {
-        console.error('Error generating BOM ID:', error.message);
-        return 'BOM-1';
+      console.error('Error generating BOM ID:', error.message);
+      return 'BOM-1';
     }
   },
+  
 
   saveOperationData: async (operationData, existingOperationId = null) => {
     try {
@@ -134,16 +135,16 @@ const ProcurementGoodReceiptRepository = {
         try {
           // Parse BOM data if it's a string
           let bomData = [];
-          if (data.bomData) {
-            if (typeof data.bomData === 'string') {
+          if (data.BOM) {
+            if (typeof data.BOM === 'string') {
               try {
-                bomData = JSON.parse(data.bomData);
+                bomData = JSON.parse(data.BOM);
               } catch (e) {
                 console.error('Error parsing BOM data:', e);
                 bomData = [];
               }
-            } else if (Array.isArray(data.bomData)) {
-              bomData = data.bomData;
+            } else if (Array.isArray(data.BOM)) {
+              bomData = data.BOM;
             }
           }
           
