@@ -153,7 +153,7 @@ const createItemMasterVariant = async (itemData, bomData, operations, imageDetai
       \`BOM Data\` = ?,
       \`BOM Id\` = ?,
       \`Operation\` = ?,
-      \`OperationId\` = ?,
+      \`Operation Id\` = ?,
       \`Image Details\` = ?
   `;
   
