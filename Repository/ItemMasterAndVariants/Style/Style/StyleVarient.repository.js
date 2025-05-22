@@ -45,10 +45,12 @@ const StyleVariantRepository = {
     return `${data.lineOfBusiness}-${data.category}-${data.subCategory}-${data.variety}-${data.styleKarat}-${count}`;
   },
 
-  // Save operation data with improved logic matching GRN repository
-  saveOperationData: async (operationData, operationId) => {
+  // Save operation data with improved logic
+  saveOperationData: async (operationData, operationId = null) => {
     try {
-      console.log('saveOperationData called with:', { operationData, operationId });
+      console.log('=== SAVE OPERATION DATA START ===');
+      console.log('Input operationId:', operationId);
+      console.log('Input operationData:', operationData);
       
       // If operationData is a string, parse it to an object
       let operations = operationData;
@@ -75,16 +77,18 @@ const StyleVariantRepository = {
         return null;
       }
 
-      // First delete any existing operations with this ID to avoid duplicates
-      if (operationId) {
-        console.log('Deleting existing operations with ID:', operationId);
-        await OperationRepository.delete(operationId);
-      } else {
-        // Generate a new operation ID if none provided
+      // Generate operation ID if not provided
+      if (!operationId) {
         const currentMax = await OperationRepository.getMaxOperationNumber();
         operationId = `Operation-${currentMax + 1}`;
         console.log('Generated new operation ID:', operationId);
+      } else {
+        console.log('Using provided operation ID:', operationId);
       }
+
+      // First delete any existing operations with this ID to avoid duplicates
+      console.log('Deleting existing operations with ID:', operationId);
+      await OperationRepository.delete(operationId);
 
       // Save each operation with the same operation ID
       for (const [index, operation] of operations.entries()) {
@@ -95,25 +99,25 @@ const StyleVariantRepository = {
           OperationId: operationId,
           VariantName: operation.VariantName || '',
           CalcBOM: operation.CalcBOM || '',
-          CalcCF: operation.CalcCF || 0.0,
+          CalcCF: parseFloat(operation.CalcCF || 0),
           CalcMethod: operation.CalcMethod || '',
           CalcMethodVal: operation.CalcMethodVal || '',
-          CalcQty: operation.CalcQty || 0.0,
+          CalcQty: parseFloat(operation.CalcQty || 0),
           CalculateFormula: operation.CalculateFormula || '',
           DepdBOM: operation.DepdBOM || null,
           DepdMethod: operation.DepdMethod || null,
-          DepdMethodVal: operation.DepdMethodVal || 0.0,
-          DepdQty: operation.DepdQty || 0.0,
-          LabourAmount: operation.LabourAmount || 0.0,
-          LabourAmountLocal: operation.LabourAmountLocal || 0.0,
-          LabourRate: operation.LabourRate || 0.0,
-          MaxRateValue: operation.MaxRateValue || 0.0,
-          MinRateValue: operation.MinRateValue || 0.0,
+          DepdMethodVal: parseFloat(operation.DepdMethodVal || 0),
+          DepdQty: parseFloat(operation.DepdQty || 0),
+          LabourAmount: parseFloat(operation.LabourAmount || 0),
+          LabourAmountLocal: parseFloat(operation.LabourAmountLocal || 0),
+          LabourRate: parseFloat(operation.LabourRate || 0),
+          MaxRateValue: parseFloat(operation.MaxRateValue || 0),
+          MinRateValue: parseFloat(operation.MinRateValue || 0),
           Operation: operation.Operation || '',
           OperationType: operation.OperationType || null,
-          RateAsPerFormula: operation.RateAsPerFormula || 0.0,
-          RowStatus: operation.RowStatus || 1,
-          Rate_Edit_Ind: operation.Rate_Edit_Ind || 0
+          RateAsPerFormula: parseFloat(operation.RateAsPerFormula || 0),
+          RowStatus: parseInt(operation.RowStatus || 1),
+          Rate_Edit_Ind: parseInt(operation.Rate_Edit_Ind || 0)
         };
 
         console.log('Inserting operation object:', operationObj);
@@ -124,6 +128,7 @@ const StyleVariantRepository = {
       }
 
       console.log('All operations saved successfully with ID:', operationId);
+      console.log('=== SAVE OPERATION DATA END ===');
       return operationId;
     } catch (error) {
       console.error('Error saving operation data:', error);
@@ -149,11 +154,8 @@ const StyleVariantRepository = {
       const operationData = testData || defaultTestData;
       console.log('Test operation data:', operationData);
       
-      const currentMax = await OperationRepository.getMaxOperationNumber();
-      const testOperationId = `Operation-${currentMax + 1}`;
-      console.log('Test operation ID:', testOperationId);
-      
-      const result = await StyleVariantRepository.saveOperationData(operationData, testOperationId);
+      // Don't pass operationId, let it generate automatically
+      const result = await StyleVariantRepository.saveOperationData(operationData);
       console.log('Test result:', result);
       
       // Verify the operation was created
@@ -255,14 +257,9 @@ const StyleVariantRepository = {
             console.log('Is valid operation?', isValidOperation);
             
             if (isValidOperation) {
-              // Generate operation ID first
-              const currentMax = await OperationRepository.getMaxOperationNumber();
-              const newOperationId = `Operation-${currentMax + 1}`;
-              console.log('Generated operation ID:', newOperationId);
-              
               try {
-                // Save operation data with the generated ID
-                const savedOperationId = await StyleVariantRepository.saveOperationData(operationData, newOperationId);
+                // Save operation data without pre-generating ID - let saveOperationData handle it
+                const savedOperationId = await StyleVariantRepository.saveOperationData(operationData);
                 console.log('Saved operation ID:', savedOperationId);
                 
                 operationId = savedOperationId;
@@ -394,7 +391,7 @@ const StyleVariantRepository = {
       }
       
       // Get operation details if Operation ID exists
-      if (variant['Operation Id']) { // Fixed: Use 'Operation Id' instead of 'OperationId'
+      if (variant['Operation Id']) {
         // Use the OperationService to get operation details
         const operationDetails = await OperationService.getById(variant['Operation Id']);
         variant.operationDetails = operationDetails;
@@ -416,6 +413,10 @@ const StyleVariantRepository = {
         }
         
         try {
+          console.log('=== STYLE VARIANT UPDATE DEBUG ===');
+          console.log('Updating variant:', variantName);
+          console.log('Update data:', JSON.stringify(data, null, 2));
+          
           // Get current record to find BOM ID and Operation ID
           const [currentRecord] = await connection.promise().query(
             "SELECT `BOM Id`, `Operation Id` FROM `Item Master and Variant Style Style Varient` WHERE `Variant Name` = ?",
@@ -431,20 +432,31 @@ const StyleVariantRepository = {
             currentRecord[0]['BOM Id'] || 
             await StyleVariantRepository.generateBomId();
           
-          // Use existing Operation ID or process new operation data
+          // Handle operations update
           let operationId = currentRecord[0]['Operation Id'];
           
-          // Handle operations update
-          if (data.operation) {
+          // Check for operation data in various field names
+          const possibleOperationFields = ['operation', 'operations', 'Operation', 'Operations'];
+          let operationData = null;
+          
+          for (const field of possibleOperationFields) {
+            if (data[field]) {
+              console.log(`Found operation data in field '${field}' for update:`, data[field]);
+              operationData = data[field];
+              break;
+            }
+          }
+          
+          if (operationData) {
+            console.log('Updating operation data...');
             if (operationId) {
               // Update existing operations with the same ID
-              operationId = await StyleVariantRepository.saveOperationData(data.operation, operationId);
+              operationId = await StyleVariantRepository.saveOperationData(operationData, operationId);
             } else {
               // Create new operations
-              const currentMax = await OperationRepository.getMaxOperationNumber();
-              operationId = `Operation-${currentMax + 1}`;
-              operationId = await StyleVariantRepository.saveOperationData(data.operation, operationId);
+              operationId = await StyleVariantRepository.saveOperationData(operationData);
             }
+            console.log('Operation updated with ID:', operationId);
           }
           
           // Parse BOM data
@@ -543,6 +555,7 @@ const StyleVariantRepository = {
           
           // Commit transaction
           await connection.promise().commit();
+          console.log('=== STYLE VARIANT UPDATE COMPLETE ===');
           resolve({ variantName, bomId, operationId });
         } catch (error) {
           // Rollback transaction if any error occurs
@@ -558,6 +571,9 @@ const StyleVariantRepository = {
   delete: async (variantName) => {
     return new Promise(async (resolve, reject) => {
       try {
+        console.log('=== STYLE VARIANT DELETE DEBUG ===');
+        console.log('Deleting variant:', variantName);
+        
         // Start a transaction to ensure data consistency
         await connection.promise().beginTransaction();
         
@@ -571,6 +587,7 @@ const StyleVariantRepository = {
           // Delete associated BOM details if BOM ID exists
           if (styleVariant[0]['BOM Id']) {
             const bomId = styleVariant[0]['BOM Id'];
+            console.log('Deleting BOM details for BOM ID:', bomId);
             
             await connection.promise().query(
               "DELETE FROM `BOM Details` WHERE `BOM Id` = ?",
@@ -581,6 +598,7 @@ const StyleVariantRepository = {
           // Delete associated operations if Operation ID exists
           if (styleVariant[0]['Operation Id']) {
             const operationId = styleVariant[0]['Operation Id'];
+            console.log('Deleting operations for Operation ID:', operationId);
             
             await OperationRepository.delete(operationId);
           }
@@ -594,11 +612,13 @@ const StyleVariantRepository = {
         
         // Commit the transaction
         await connection.promise().commit();
+        console.log('=== STYLE VARIANT DELETE COMPLETE ===');
         
         resolve(result);
       } catch (error) {
         // Rollback in case of error
         await connection.promise().rollback();
+        console.error('Error in Style Variant delete:', error);
         reject(error);
       }
     });

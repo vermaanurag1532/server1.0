@@ -18,6 +18,8 @@ const OperationService = {
       const currentMax = await OperationRepository.getMaxOperationNumber();
       const newId = `Operation-${currentMax + 1}`;
       
+      console.log('Creating multiple operations with ID:', newId);
+      
       // Set the same operation ID for all items in the array
       for (const item of data) {
         item.OperationId = newId;
@@ -31,6 +33,9 @@ const OperationService = {
       // If it's a single operation, proceed as before
       const currentMax = await OperationRepository.getMaxOperationNumber();
       const newId = `Operation-${currentMax + 1}`;
+      
+      console.log('Creating single operation with ID:', newId);
+      
       data.OperationId = newId;
       await OperationRepository.create(data);
       return { message: 'Operation created', OperationId: newId };
@@ -38,6 +43,8 @@ const OperationService = {
   },
 
   update: async (operationId, data) => {
+    console.log('Updating operation with ID:', operationId);
+    
     // If updating multiple operations with the same ID
     if (Array.isArray(data)) {
       // First delete all existing operations with this ID
@@ -57,6 +64,7 @@ const OperationService = {
   },
 
   delete: async (operationId) => {
+    console.log('Deleting operation with ID:', operationId);
     await OperationRepository.delete(operationId);
     return { message: 'Operation deleted' };
   }
