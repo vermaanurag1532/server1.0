@@ -576,7 +576,8 @@ CREATE TABLE `Vendor Master` (
 	`Returns Term` VARCHAR(255),
 	`Udyog Adhar No` VARCHAR(255),
 	`Exchange Terms` VARCHAR(255),
-	`TDS194Q` VARCHAR(255)
+	`TDS194Q` VARCHAR(255),
+    `billingAddress` VARCHAR(255)
 );
 
 

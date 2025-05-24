@@ -22,7 +22,7 @@ const VendorRepository = {
              \`Sales TAX No\`, \`PAN No\`, \`Aadhar No\`, \`MSME Certificate No\`, \`Vendor Type\`, \`TAN No\`, 
              \`VAN No\`, \`GST No\`, \`MSME Registered\`, \`Allow Wastage\`, \`Allow Labour\`, 
              \`Corresponding Location\`, \`Nominated Agency\`, \`Exchange %\`, \`Returns Term\`, 
-             \`Udyog Adhar No\`, \`Exchange Terms\`, \`TDS194Q\`)
+             \`Udyog Adhar No\`, \`Exchange Terms\`, \`TDS194Q\` , \`billingAddress\`)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         `;
         const values = [
@@ -33,7 +33,7 @@ const VendorRepository = {
             vendorData.VANNo, vendorData.GSTNo, vendorData.MSMERegistered, vendorData.AllowWastage,
             vendorData.AllowLabour, vendorData.CorrespondingLocation, vendorData.NominatedAgency,
             vendorData.ExchangePercent, vendorData.ReturnsTerm, vendorData.UdyogAdharNo, vendorData.ExchangeTerms,
-            vendorData.TDS194Q
+            vendorData.TDS194Q ,vendorData.billingAddress
         ];
         const [result] = await db.promise().query(query, values);
         return result.insertId;
