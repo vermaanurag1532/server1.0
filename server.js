@@ -17,6 +17,7 @@ import SubContractingRouter from './routes/SubContracting.router.js';
 import TransactionRouter from './routes/Transaction.router.js'
 import OperationDetailRouter from './routes/OperationDetail.router.js'
 import demoVariantRouter from './routes/demoVariant.router.js'
+import POSRouter from './routes/PointOfSale.router.js'
 
 const app = express();
 app.use(cors());
@@ -42,6 +43,7 @@ app.use('/SubContracting', SubContractingRouter);
 app.use('/Transaction', TransactionRouter);
 app.use('/Operations', OperationDetailRouter);
 app.use('/Demo', demoVariantRouter);
+app.use('/POS', POSRouter);
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server running at http://hp.localhost:${port}/`);

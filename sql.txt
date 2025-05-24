@@ -1116,3 +1116,36 @@ CREATE TABLE `Demo Variant` (
     `weight` DECIMAL(10, 2),
     `image` JSON
 );
+
+CREATE TABLE `POS ledger` (
+    posId VARCHAR(100),
+    id INT,
+    faRecPayHdrId INT NOT NULL,
+    locationId INT NOT NULL,
+    location VARCHAR(10) NOT NULL,
+    yearId INT NOT NULL,
+    payMode VARCHAR(20) NOT NULL,
+    transAmount DECIMAL(15,2) NOT NULL,
+    localAmount DECIMAL(15,2) NOT NULL,
+    particulars VARCHAR(100) NOT NULL,
+    drAmount DECIMAL(15,2),
+    crAmount DECIMAL(15,2),
+    runningBal DECIMAL(15,2),
+    payerAccountNo BIGINT,
+    voucherNo VARCHAR(50) NOT NULL,
+    transDate DATE NOT NULL,
+    issuingParty VARCHAR(50),
+    partyID INT,
+    partyName VARCHAR(100),
+    remarks TEXT,
+    rowStatus INT DEFAULT 1,
+    rldTransAmount DECIMAL(15,2),
+    refTransID INT DEFAULT 0,
+    currencyID INT DEFAULT 0,
+    currencyCode VARCHAR(20) DEFAULT 'INDIAN RUPEES',
+    ifscCode VARCHAR(20),
+    cardNumber VARCHAR(20),
+    expiryMonth INT,
+    expiryYear INT,
+    panNo VARCHAR(20)
+);
