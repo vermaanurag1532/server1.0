@@ -106,98 +106,172 @@ const TransactionHistoryRepository = {
                     // Insert the transaction into the database
                     await connection.promise().query('INSERT INTO `Transaction History` SET ?', transactionToInsert);
 
-                    // Process each variant and create GRN entries
+                    // Process each variant
                     for (const variant of varients) {
-                        const grnData = {
-                            style: variant.style,
-                            varientName: variant.varientName,
-                            oldVarient: variant.oldVarient,
-                            customerVarient: variant.customerVarient,
-                            baseVarient: variant.baseVarient,
-                            vendorCode: variant.vendorCode,
-                            vendor: variant.vendor,
-                            location: transaction.source,
-                            department: transaction.sourceDept,
-                            remark1: variant.remark1,
-                            vendorVarient: variant.vendorVarient,
-                            remark2: variant.remark2,
-                            createdBy: transaction.createdBy,
-                            stdBuyingRate: variant.stdBuyingRate,
-                            stoneMaxWt: variant.stoneMaxWt,
-                            remark: variant.remark,
-                            stoneMinWt: variant.stoneMinWt,
-                            karatColor: variant.karatColor,
-                            deliveryDays: variant.deliveryDays,
-                            forWeb: variant.forWeb,
-                            rowStatus: variant.rowStatus,
-                            verifiedStatus: variant.verifiedStatus,
-                            length: variant.length,
-                            codegenSrNo: variant.codegenSrNo,
-                            category: variant.category,
-                            subCategory: variant.subCategory,
-                            styleKarat: variant.styleKarat,
-                            varient: variant.varient,
-                            hsnSacCode: variant.hsnSacCode,
-                            lineOfBusiness: variant.lineOfBusiness,
-                            bomData: JSON.stringify(variant.bomData),
-                            operation: JSON.stringify(variant.operation),
-                            imageDetails: JSON.stringify(variant.imageDetails),
-                            formulaDetails: JSON.stringify(variant.formulaDetails),
-                            pieces: variant.pieces,
-                            weight: variant.weight,
-                            netWeight: variant.netWeight,
-                            diaWeight: variant.diaWeight,
-                            diaPieces: variant.diaPieces,
-                            locationCode: variant.locationCode,
-                            itemGroup: variant.itemGroup,
-                            metalColor: variant.metalColor,
-                            styleMetalColor: variant.styleMetalColor,
-                            inwardDoc: nextTransId,
-                            lastTrans: "",
-                            isRawMaterial: variant.isRawMaterial,
-                            variantType: variant.variantType || '',
-                            variantForumalaID: variant.variantForumalaID
-                        };
+                        let stockId;
+                        let isUpdate = false;
 
-                                // Insert GRN entry
-                                const stockId = await ProcurementGoodReceiptRepository.insert(grnData);
-
-                                // Create Barcode Detail
-                                const barcodeDetail = {
-                                    stockId: stockId,
-                                    date: formatDateForMySQL(new Date().toISOString()),
-                                    transNo: nextTransId,
-                                    transType: "GRN",
-                                    source: transaction.source,
-                                    destination: transaction.destination,
-                                    customer: transaction.customer,
-                                    vendor: grnData.vendor,
-                                    sourceDept: transaction.sourceDept,
-                                    destinationDept: transaction.destinationDept,
-                                    exchangeRate: parseFloat(transaction.exchangeRate),
-                                    currency: transaction.currency,
-                                    salesPerson: transaction.salesPerson,
-                                    term: transaction.term,
-                                    remark: transaction.remark,
-                                    createdBy: transaction.createdBy,
-                                    varient: grnData.varientName,
-                                    postingDate: formatDateForMySQL(transaction.postingDate),
-                                };
-                                await BarcodeDetailRepository.create(barcodeDetail);
-
-                                // Create Barcode History
-                                const barcodeHistory = {
-                                    stockId: stockId,
-                                    attribute: "",
-                                    varient: grnData.varientName,
-                                    transactionNumber: nextTransId,
-                                    date: formatDateForMySQL(new Date().toISOString()),
-                                    bom: grnData.bom,
-                                    operation: grnData.operation,
-                                    formula: grnData.formulaDetails,
-                                };
-                                await BarcodeHistoryRepository.insert(barcodeHistory);
+                        // Check if stockId is provided and not empty
+                        if (variant.stockId && variant.stockId.trim() !== '') {
+                            // Update existing GRN
+                            stockId = variant.stockId.trim();
+                            isUpdate = true;
                             
+                            // Verify that the stockId exists in GRN table
+                            const existingGRN = await ProcurementGoodReceiptRepository.findById(stockId);
+                            if (!existingGRN) {
+                                throw new Error(`Stock ID ${stockId} not found in GRN records`);
+                            }
+
+                            // Prepare GRN update data
+                            const grnUpdateData = {
+                                style: variant.style,
+                                varientName: variant.varientName,
+                                oldVarient: variant.oldVarient,
+                                customerVarient: variant.customerVarient,
+                                baseVarient: variant.baseVarient,
+                                vendorCode: variant.vendorCode,
+                                vendor: variant.vendor,
+                                location: transaction.source,
+                                department: transaction.sourceDept,
+                                remark1: variant.remark1,
+                                vendorVarient: variant.vendorVarient,
+                                remark2: variant.remark2,
+                                createdBy: transaction.createdBy,
+                                stdBuyingRate: variant.stdBuyingRate,
+                                stoneMaxWt: variant.stoneMaxWt,
+                                remark: variant.remark,
+                                stoneMinWt: variant.stoneMinWt,
+                                karatColor: variant.karatColor,
+                                deliveryDays: variant.deliveryDays,
+                                forWeb: variant.forWeb,
+                                rowStatus: variant.rowStatus,
+                                verifiedStatus: variant.verifiedStatus,
+                                length: variant.length,
+                                codegenSrNo: variant.codegenSrNo,
+                                category: variant.category,
+                                subCategory: variant.subCategory,
+                                styleKarat: variant.styleKarat,
+                                varient: variant.varient,
+                                hsnSacCode: variant.hsnSacCode,
+                                lineOfBusiness: variant.lineOfBusiness,
+                                bomData: variant.bomData,
+                                operation: variant.operation,
+                                imageDetails: variant.imageDetails,
+                                formulaDetails: variant.formulaDetails,
+                                pieces: variant.pieces,
+                                weight: variant.weight,
+                                netWeight: variant.netWeight,
+                                diaWeight: variant.diaWeight,
+                                diaPieces: variant.diaPieces,
+                                locationCode: variant.locationCode,
+                                itemGroup: variant.itemGroup,
+                                metalColor: variant.metalColor,
+                                styleMetalColor: variant.styleMetalColor,
+                                inwardDoc: nextTransId, // Update with new transaction ID
+                                lastTrans: nextTransId, // Update last transaction
+                                isRawMaterial: variant.isRawMaterial,
+                                variantType: variant.variantType || '',
+                                variantForumalaID: variant.variantForumalaID,
+                                bom: variant.bomData // For BOM update
+                            };
+
+                            // Update the existing GRN record with new BOM and Operation
+                            await ProcurementGoodReceiptRepository.update(stockId, grnUpdateData);
+
+                        } else {
+                            // Create new GRN entry (existing logic)
+                            const grnData = {
+                                style: variant.style,
+                                varientName: variant.varientName,
+                                oldVarient: variant.oldVarient,
+                                customerVarient: variant.customerVarient,
+                                baseVarient: variant.baseVarient,
+                                vendorCode: variant.vendorCode,
+                                vendor: variant.vendor,
+                                location: transaction.source,
+                                department: transaction.sourceDept,
+                                remark1: variant.remark1,
+                                vendorVarient: variant.vendorVarient,
+                                remark2: variant.remark2,
+                                createdBy: transaction.createdBy,
+                                stdBuyingRate: variant.stdBuyingRate,
+                                stoneMaxWt: variant.stoneMaxWt,
+                                remark: variant.remark,
+                                stoneMinWt: variant.stoneMinWt,
+                                karatColor: variant.karatColor,
+                                deliveryDays: variant.deliveryDays,
+                                forWeb: variant.forWeb,
+                                rowStatus: variant.rowStatus,
+                                verifiedStatus: variant.verifiedStatus,
+                                length: variant.length,
+                                codegenSrNo: variant.codegenSrNo,
+                                category: variant.category,
+                                subCategory: variant.subCategory,
+                                styleKarat: variant.styleKarat,
+                                varient: variant.varient,
+                                hsnSacCode: variant.hsnSacCode,
+                                lineOfBusiness: variant.lineOfBusiness,
+                                bomData: JSON.stringify(variant.bomData),
+                                operation: JSON.stringify(variant.operation),
+                                imageDetails: JSON.stringify(variant.imageDetails),
+                                formulaDetails: JSON.stringify(variant.formulaDetails),
+                                pieces: variant.pieces,
+                                weight: variant.weight,
+                                netWeight: variant.netWeight,
+                                diaWeight: variant.diaWeight,
+                                diaPieces: variant.diaPieces,
+                                locationCode: variant.locationCode,
+                                itemGroup: variant.itemGroup,
+                                metalColor: variant.metalColor,
+                                styleMetalColor: variant.styleMetalColor,
+                                inwardDoc: nextTransId,
+                                lastTrans: "",
+                                isRawMaterial: variant.isRawMaterial,
+                                variantType: variant.variantType || '',
+                                variantForumalaID: variant.variantForumalaID
+                            };
+
+                            // Insert new GRN entry
+                            const insertResult = await ProcurementGoodReceiptRepository.insert(grnData);
+                            stockId = insertResult.stockId;
+                        }
+
+                        // Create Barcode Detail (for both new and updated records)
+                        const barcodeDetail = {
+                            stockId: stockId,
+                            date: formatDateForMySQL(new Date().toISOString()),
+                            transNo: nextTransId,
+                            transType: isUpdate ? "GRN_UPDATE" : "GRN",
+                            source: transaction.source,
+                            destination: transaction.destination,
+                            customer: transaction.customer,
+                            vendor: variant.vendor,
+                            sourceDept: transaction.sourceDept,
+                            destinationDept: transaction.destinationDept,
+                            exchangeRate: parseFloat(transaction.exchangeRate),
+                            currency: transaction.currency,
+                            salesPerson: transaction.salesPerson,
+                            term: transaction.term,
+                            remark: transaction.remark,
+                            createdBy: transaction.createdBy,
+                            varient: variant.varientName,
+                            postingDate: formatDateForMySQL(transaction.postingDate),
+                        };
+                        await BarcodeDetailRepository.create(barcodeDetail);
+
+                        // Create Barcode History (for both new and updated records)
+                        const barcodeHistory = {
+                            stockId: stockId,
+                            attribute: isUpdate ? "UPDATED" : "CREATED",
+                            varient: variant.varientName,
+                            transactionNumber: nextTransId,
+                            date: formatDateForMySQL(new Date().toISOString()),
+                            bom: JSON.stringify(variant.bomData),
+                            operation: JSON.stringify(variant.operation),
+                            formula: JSON.stringify(variant.formulaDetails),
+                        };
+                        await BarcodeHistoryRepository.insert(barcodeHistory);
                     }
 
                     // Commit the transaction

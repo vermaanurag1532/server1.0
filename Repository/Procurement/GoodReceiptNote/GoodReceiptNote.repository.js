@@ -148,6 +148,20 @@ const ProcurementGoodReceiptRepository = {
             }
           }
           
+          // If bomData is still empty, try parsing bomData field
+          if (!bomData.length && data.bomData) {
+            if (typeof data.bomData === 'string') {
+              try {
+                bomData = JSON.parse(data.bomData);
+              } catch (e) {
+                console.error('Error parsing bomData:', e);
+                bomData = [];
+              }
+            } else if (Array.isArray(data.bomData)) {
+              bomData = data.bomData;
+            }
+          }
+          
           // Insert BOM details into the BOM Details table if provided
           if (bomData?.length) {
             const bomQuery = `
@@ -160,7 +174,7 @@ const ProcurementGoodReceiptRepository = {
             const bomParams = bomData.map((bom, index) => [
               bom.rowNo || index + 1,
               bomId,
-              data.variantName,
+              data.varientName,
               bom.itemGroup || '',
               bom.pieces || 0,
               bom.weight || 0,
@@ -283,16 +297,14 @@ const ProcurementGoodReceiptRepository = {
               }
               
               try {
-                  // Get current record to find BOM ID
+                  // Get current record to find existing BOM ID and Operation ID
                   const [currentRecord] = await connection.promise().query(
-                      "SELECT `BOM Id` FROM `Procurement Good Receipt Note` WHERE `Stock ID` = ?",
+                      "SELECT `BOM Id`, `OperationId` FROM `Procurement Good Receipt Note` WHERE `Stock ID` = ?",
                       [id]
                   );
                   
-                  // Use existing BOM ID or generate a new one
-                  const bomId = data.bomId || 
-                      (currentRecord.length > 0 ? currentRecord[0]['BOM Id'] : null) || 
-                      await ProcurementGoodReceiptRepository.generateBomId();
+                  // Always generate new BOM ID for updates (as per requirement)
+                  const bomId = await ProcurementGoodReceiptRepository.generateBomId();
                   
                   // Parse BOM data
                   let bomData = [];
@@ -309,41 +321,53 @@ const ProcurementGoodReceiptRepository = {
                       }
                   }
                   
-                  // Update BOM details if present
-                  if (bomId) {
-                      // Delete existing BOM details
-                      await connection.promise().query(
-                          "DELETE FROM `BOM Details` WHERE `BOM Id` = ?",
-                          [bomId]
-                      );
-                      
-                      // Insert new BOM details if provided
-                      if (bomData?.length) {
-                          const bomQuery = `
-                              INSERT INTO \`BOM Details\` 
-                              (\`Row No\`, \`BOM Id\`, \`Variant Name\`, \`Item Group\`, \`Pieces\`, \`Weight\`, \`Rate\`,
-                              \`Avg Weight\`, \`Amount\`, \`SpChar\`, \`Operation\`, \`Type\`, \`Actions\`)
-                              VALUES ?
-                          `;
-                          
-                          const bomParams = bomData.map((bom, index) => [
-                              bom.rowNo || index + 1,
-                              bomId,
-                              data.variantName,
-                              bom.itemGroup || '',
-                              bom.pieces || 0,
-                              bom.weight || 0,
-                              bom.rate || 0,
-                              bom.avgWeight || 0,
-                              bom.amount || 0,
-                              bom.spChar || '',
-                              bom.operation || '',
-                              bom.type || '',
-                              JSON.stringify(bom.actions || [])
-                          ]);
-                          
-                          await connection.promise().query(bomQuery, [bomParams]);
+                  // If bomData is still empty, try parsing bomData field
+                  if (!bomData.length && data.bomData) {
+                      if (typeof data.bomData === 'string') {
+                          try {
+                              bomData = JSON.parse(data.bomData);
+                          } catch (e) {
+                              console.error('Error parsing bomData:', e);
+                              bomData = [];
+                          }
+                      } else if (Array.isArray(data.bomData)) {
+                          bomData = data.bomData;
                       }
+                  }
+                  
+                  // Insert new BOM details if provided
+                  if (bomData?.length) {
+                      const bomQuery = `
+                          INSERT INTO \`BOM Details\` 
+                          (\`Row No\`, \`BOM Id\`, \`Variant Name\`, \`Item Group\`, \`Pieces\`, \`Weight\`, \`Rate\`,
+                          \`Avg Weight\`, \`Amount\`, \`SpChar\`, \`Operation\`, \`Type\`, \`FormulaID\`, \`Actions\`)
+                          VALUES ?
+                      `;
+                      
+                      const bomParams = bomData.map((bom, index) => [
+                          bom.rowNo || index + 1,
+                          bomId,
+                          data.varientName || data.varientName,
+                          bom.itemGroup || '',
+                          bom.pieces || 0,
+                          bom.weight || 0,
+                          bom.rate || 0,
+                          bom.avgWeight || 0,
+                          bom.amount || 0,
+                          bom.spChar || '',
+                          bom.operation || '',
+                          bom.type || '',
+                          bom.formulaID || '',
+                          JSON.stringify(bom.actions || [])
+                      ]);
+                      
+                      await connection.promise().query(bomQuery, [bomParams]);
+                  }
+                  
+                  // Process operation data and get new operation ID
+                  let operationId = null;
+                  if (data.operation) {
+                      operationId = await ProcurementGoodReceiptRepository.saveOperationData(data.operation);
                   }
                   
                   // Update GRN record
@@ -363,7 +387,8 @@ const ProcurementGoodReceiptRepository = {
                           \`Formula Details\` = ?, \`Pieces\` = ?, \`Weight\` = ?, 
                           \`Net Weight\` = ?, \`Dia Weight\` = ?, \`Dia Pieces\` = ?, 
                           \`Location Code\` = ?, \`Item Group\` = ?, \`Metal Color\` = ?, 
-                          \`Style Metal Color\` = ?, \`variantForumalaID\` = ? 
+                          \`Style Metal Color\` = ?, \`Inward Doc\` = ?, \`Last Trans\` = ?,
+                          \`variantForumalaID\` = ?, \`OperationId\` = ?, \`variables\` = ?
                       WHERE \`Stock ID\` = ?
                   `;
                   
@@ -383,14 +408,17 @@ const ProcurementGoodReceiptRepository = {
                       typeof data.formulaDetails === 'string' ? data.formulaDetails : JSON.stringify(data.formulaDetails || {}),
                       data.pieces, data.weight, data.netWeight, data.diaWeight, 
                       data.diaPieces, data.locationCode, data.itemGroup, data.metalColor,
-                      data.styleMetalColor, data.variantForumalaID, id
+                      data.styleMetalColor, data.inwardDoc, data.lastTrans,
+                      data.variantForumalaID, operationId, 
+                      typeof data.variables === 'string' ? data.variables : JSON.stringify(data.variables || {}),
+                      id
                   ];
                   
                   await connection.promise().query(query, values);
                   
                   // Commit transaction
                   await connection.promise().commit();
-                  resolve({ stockId: id, bomId: bomId });
+                  resolve({ stockId: id, bomId: bomId, operationId: operationId });
               } catch (error) {
                   // Rollback transaction if any error occurs
                   await connection.promise().rollback();
