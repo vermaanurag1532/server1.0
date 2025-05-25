@@ -8,6 +8,7 @@ const POSRouter = express.Router();
 POSRouter.get('/health', posLedgerController.healthCheck);
 POSRouter.get('/', posLedgerController.getAllPosLedgers);
 POSRouter.get('/:posId', posLedgerController.getPosLedgerByPOSId);
+POSRouter.get('/PartyName/:name', posLedgerController.getPosLedgerByName);
 POSRouter.post('/', posLedgerController.createPosLedger);
 POSRouter.put('/:posId', posLedgerController.updatePosLedger);
 POSRouter.delete('/:posId', posLedgerController.deletePosLedger);

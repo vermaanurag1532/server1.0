@@ -55,6 +55,39 @@ class PosLedgerController {
         }
     }
 
+    async getPosLedgerByName(req, res) {
+        try {
+            const { name } = req.params;
+            
+            if (!name) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'Missing name parameter',
+                    message: 'Name is required'
+                });
+            }
+
+            const result = await posLedgerService.getPosLedgerByName(name);
+            
+            if (!result.success) {
+                return res.status(404).json({
+                    data: result.data
+                });
+            }
+
+            res.status(200).json({
+                data: result.data
+            });
+        } catch (error) {
+            console.error('Error in getPosLedgerByPOSId:', error);
+            res.status(500).json({
+                success: false,
+                error: error.error || 'Internal server error',
+                message: error.message || 'Failed to retrieve POS ledger'
+            });
+        }
+    }
+
     // POST /api/pos-ledgers
     async createPosLedger(req, res) {
         try {

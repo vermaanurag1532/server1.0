@@ -41,6 +41,24 @@ class PosLedgerRepository {
         });
     }
 
+    async getByName(name) {
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT * FROM \`POS ledger\` 
+                WHERE partyName = ? AND rowStatus = 1 
+                ORDER BY id
+            `;
+            
+            connection.query(query, [name], (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+    }
+
     // Generate next POSId
     async generatePOSId() {
         return new Promise((resolve, reject) => {

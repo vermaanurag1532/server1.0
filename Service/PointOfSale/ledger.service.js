@@ -55,6 +55,37 @@ class PosLedgerService {
         }
     }
 
+    async getPosLedgerByName(name) {
+        try {
+            if (!name) {
+                throw new Error('Name is required');
+            }
+
+            const results = await posLedgerRepository.getByName(name);
+            
+            if (results.length === 0) {
+                return {
+                    success: false,
+                    data: [],
+                    message: `No POS ledger found with Name: ${name}`
+                };
+            }
+
+            return {
+                success: true,
+                data: results,
+                count: results.length,
+                message: 'POS ledger retrieved successfully'
+            };
+        } catch (error) {
+            throw {
+                success: false,
+                error: error.message,
+                message: 'Failed to retrieve POS ledger'
+            };
+        }
+    }
+
     // Create new POS ledger transaction
     async createPosLedger(requestData) {
         try {
