@@ -155,7 +155,7 @@ const TransactionHistoryRepository = {
                                 varient: variant.varient,
                                 hsnSacCode: variant.hsnSacCode,
                                 lineOfBusiness: variant.lineOfBusiness,
-                                bomData: variant.bomData,
+                                BOM: variant.BOM,
                                 operation: variant.operation,
                                 imageDetails: variant.imageDetails,
                                 formulaDetails: variant.formulaDetails,
@@ -173,7 +173,6 @@ const TransactionHistoryRepository = {
                                 isRawMaterial: variant.isRawMaterial,
                                 variantType: variant.variantType || '',
                                 variantForumalaID: variant.variantForumalaID,
-                                bom: variant.bomData // For BOM update
                             };
 
                             // Update the existing GRN record with new BOM and Operation
@@ -212,7 +211,7 @@ const TransactionHistoryRepository = {
                                 varient: variant.varient,
                                 hsnSacCode: variant.hsnSacCode,
                                 lineOfBusiness: variant.lineOfBusiness,
-                                bomData: JSON.stringify(variant.bomData),
+                                BOM: JSON.stringify(variant.BOM),
                                 operation: JSON.stringify(variant.operation),
                                 imageDetails: JSON.stringify(variant.imageDetails),
                                 formulaDetails: JSON.stringify(variant.formulaDetails),
