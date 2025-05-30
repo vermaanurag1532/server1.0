@@ -308,24 +308,24 @@ const ProcurementGoodReceiptRepository = {
                   
                   // Parse BOM data
                   let bomData = [];
-                  if (data.bom) {
-                      if (typeof data.bom === 'string') {
+                  if (data.BOM) {
+                      if (typeof data.BOM === 'string') {
                           try {
-                              bomData = JSON.parse(data.bom);
+                              bomData = JSON.parse(data.BOM);
                           } catch (e) {
                               console.error('Error parsing BOM data:', e);
                               bomData = [];
                           }
-                      } else if (Array.isArray(data.bom)) {
-                          bomData = data.bom;
+                      } else if (Array.isArray(data.BOM)) {
+                          bomData = data.BOM;
                       }
                   }
                   
                   // If bomData is still empty, try parsing bomData field
-                  if (!bomData.length && data.bomData) {
-                      if (typeof data.bomData === 'string') {
+                  if (!bomData.length && data.BOM) {
+                      if (typeof data.BOM === 'string') {
                           try {
-                              bomData = JSON.parse(data.bomData);
+                              bomData = JSON.parse(data.BOM);
                           } catch (e) {
                               console.error('Error parsing bomData:', e);
                               bomData = [];
