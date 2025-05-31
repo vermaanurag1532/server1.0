@@ -266,7 +266,7 @@ const TransactionHistoryRepository = {
                             varient: variant.varientName,
                             transactionNumber: nextTransId,
                             date: formatDateForMySQL(new Date().toISOString()),
-                            bom: JSON.stringify(variant.bomData),
+                            bom: JSON.stringify(variant.BOM),
                             operation: JSON.stringify(variant.operation),
                             formula: JSON.stringify(variant.formulaDetails),
                         };
