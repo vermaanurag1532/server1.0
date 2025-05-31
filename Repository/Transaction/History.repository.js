@@ -241,7 +241,7 @@ const TransactionHistoryRepository = {
                             stockId: stockId,
                             date: formatDateForMySQL(new Date().toISOString()),
                             transNo: nextTransId,
-                            transType: isUpdate ? "GRN_UPDATE" : "GRN",
+                            transType: transaction.transType,
                             source: transaction.source,
                             destination: transaction.destination,
                             customer: transaction.customer,
