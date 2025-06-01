@@ -57,13 +57,13 @@ const TransactionHistoryRepository = {
                         error: err.message || err
                     });
                 }
-
+    
                 try {
                     // Validate input data
                     if (!transaction.transType || !transaction.subType || !transaction.transCategory) {
                         throw new Error("Missing required fields: transType, subType, or transCategory");
                     }
-
+    
                     // Ensure varients is a valid array
                     let varients;
                     if (typeof transaction.varients === 'string') {
@@ -77,15 +77,15 @@ const TransactionHistoryRepository = {
                     } else {
                         throw new Error("varients must be an array or a valid JSON string");
                     }
-
+    
                     // Get the latest transId
                     const [latestTransIdResult] = await connection.promise().query(
                         'SELECT MAX(CAST(SUBSTRING_INDEX(transId, "-", -1) AS UNSIGNED)) AS latestTransId FROM `Transaction History`'
                     );
-
+    
                     // Generate the next transId
                     const nextTransId = `trans-${(latestTransIdResult[0].latestTransId || 0) + 1}`;
-
+    
                     // Convert ISO 8601 date strings to MySQL-compatible format
                     const formatDateForMySQL = (isoDate) => {
                         const date = new Date(isoDate);
@@ -94,23 +94,14 @@ const TransactionHistoryRepository = {
                         }
                         return date.toISOString().split('T')[0]; // Extract YYYY-MM-DD
                     };
-
-                    const transactionToInsert = {
-                        ...transaction,
-                        transId: nextTransId,
-                        transDate: formatDateForMySQL(transaction.transDate), // Format transDate
-                        postingDate: formatDateForMySQL(transaction.postingDate), // Format postingDate
-                        varients: JSON.stringify(varients) // Serialize varients field
-                    };
-
-                    // Insert the transaction into the database
-                    await connection.promise().query('INSERT INTO `Transaction History` SET ?', transactionToInsert);
-
-                    // Process each variant
+    
+                    // Process variants and collect stockIds
+                    const processedVariants = [];
+    
                     for (const variant of varients) {
                         let stockId;
                         let isUpdate = false;
-
+    
                         // Check if stockId is provided and not empty
                         if (variant.stockId && variant.stockId.trim() !== '') {
                             // Update existing GRN
@@ -122,7 +113,7 @@ const TransactionHistoryRepository = {
                             if (!existingGRN) {
                                 throw new Error(`Stock ID ${stockId} not found in GRN records`);
                             }
-
+    
                             // Prepare GRN update data
                             const grnUpdateData = {
                                 style: variant.style,
@@ -168,18 +159,18 @@ const TransactionHistoryRepository = {
                                 itemGroup: variant.itemGroup,
                                 metalColor: variant.metalColor,
                                 styleMetalColor: variant.styleMetalColor,
-                                inwardDoc: nextTransId, // Update with new transaction ID
-                                lastTrans: nextTransId, // Update last transaction
+                                inwardDoc: nextTransId,
+                                lastTrans: nextTransId,
                                 isRawMaterial: variant.isRawMaterial,
                                 variantType: variant.variantType || '',
                                 variantForumalaID: variant.variantForumalaID,
                             };
-
-                            // Update the existing GRN record with new BOM and Operation
+    
+                            // Update the existing GRN record
                             await ProcurementGoodReceiptRepository.update(stockId, grnUpdateData);
-
+    
                         } else {
-                            // Create new GRN entry (existing logic)
+                            // Create new GRN entry
                             const grnData = {
                                 style: variant.style,
                                 varientName: variant.varientName,
@@ -230,12 +221,22 @@ const TransactionHistoryRepository = {
                                 variantType: variant.variantType || '',
                                 variantForumalaID: variant.variantForumalaID
                             };
-
-                            // Insert new GRN entry
+    
+                            // Insert new GRN entry and get the generated stockId
                             const insertResult = await ProcurementGoodReceiptRepository.insert(grnData);
                             stockId = insertResult.stockId;
                         }
-
+    
+                        // Store only the stockId and essential variant info for transaction history
+                        processedVariants.push({
+                            stockId: stockId,
+                            varientName: variant.varientName,
+                            vendor: variant.vendor,
+                            pieces: variant.pieces,
+                            weight: variant.weight,
+                            isUpdate: isUpdate
+                        });
+    
                         // Create Barcode Detail (for both new and updated records)
                         const barcodeDetail = {
                             stockId: stockId,
@@ -258,7 +259,7 @@ const TransactionHistoryRepository = {
                             postingDate: formatDateForMySQL(transaction.postingDate),
                         };
                         await BarcodeDetailRepository.create(barcodeDetail);
-
+    
                         // Create Barcode History (for both new and updated records)
                         const barcodeHistory = {
                             stockId: stockId,
@@ -272,10 +273,25 @@ const TransactionHistoryRepository = {
                         };
                         await BarcodeHistoryRepository.insert(barcodeHistory);
                     }
-
+    
+                    // Now create the transaction history with only stockIds instead of full variant data
+                    const transactionToInsert = {
+                        ...transaction,
+                        transId: nextTransId,
+                        transDate: formatDateForMySQL(transaction.transDate),
+                        postingDate: formatDateForMySQL(transaction.postingDate),
+                        varients: JSON.stringify(processedVariants) // Store only stockIds and minimal data
+                    };
+    
+                    // Insert the transaction into the database
+                    await connection.promise().query('INSERT INTO `Transaction History` SET ?', transactionToInsert);
+    
                     // Commit the transaction
                     await connection.promise().commit();
-                    resolve({ transId: nextTransId }); // Only return the generated transId
+                    resolve({ 
+                        transId: nextTransId,
+                        stockIds: processedVariants.map(v => v.stockId)
+                    });
                 } catch (error) {
                     // Rollback the transaction in case of error
                     await connection.promise().rollback();
